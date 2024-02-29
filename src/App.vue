@@ -6,8 +6,4 @@
   </main>
 </template>
 
-<style scoped>
-header {
-  width: 100%;
-}
-</style>
+<style scoped></style>

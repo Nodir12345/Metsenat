@@ -10,13 +10,16 @@
     </main>
   </div>
 </template>
+
 <script setup>
+import { ref } from 'vue'
+import VueApexCharts from 'vue3-apexcharts'
 import TheNav from '@/components/TheNav.vue'
 import TheHeader from '@/components/TheHeader.vue'
 </script>
 
 <style scoped>
-.container_table{
+.container_table {
   width: 1200px;
   margin: 0 auto;
 }

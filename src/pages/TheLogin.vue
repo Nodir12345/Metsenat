@@ -1,30 +1,44 @@
 <template>
   <div class="login_container">
     <img :src="loginLogo" alt="filter" />
-    <form method="submit" class="login_box">
+    <form @submit.prevent="onSubmit" class="login_box">
       <h2 class="login_start">Kirish</h2>
       <div class="login_form">
-        <p class="login_text" for="login">login</p>
-     <input :required="true" placeholder="adm8904" class="login_input" type="text" id="login" />
+        <label class="login_text" for="login">login</label>
+        <input
+          required
+          minlength="6"
+          placeholder="adm8904"
+          class="login_input"
+          type="text"
+          id="login"
+        />
       </div>
       <div class="login_form">
-        <p class="login_text" for="login">parol</p>
-        <input required placeholder="◉◉◉◉◉◉" class="login_input" type="pasword" id="login" />
+        <label class="login_text" for="password">parol</label>
+        <input
+          required
+          minlength="6"
+          placeholder="◉◉◉◉◉◉"
+          class="login_input"
+          type="password"
+          id="password"
+        />
       </div>
-      <button type="submit" @click="onSubmit" class="login_btn">Kirish</button>
+      <button type="submit" class="login_btn">Kirish</button>
     </form>
   </div>
 </template>
+
 <script setup>
 import loginLogo from '../assets/img/loginMainLogo.png'
-import {useRouter} from "vue-router"
+import { useRouter } from 'vue-router'
 const router = useRouter()
-const onSubmit =()=>{
-router.push({
-  path:"/home"
-})
+const onSubmit = () => {
+  router.push('/home')
 }
 </script>
+
 <style scoped>
 .login_box {
   border: 1px solid rgb(235, 238, 252);
