@@ -3,10 +3,10 @@
     <header>
       <TheHeader />
     </header>
-    <main class="container_home">
+    <main class="container_table">
       <TheNav />
       <h1>Table</h1>
-      <RouterLink to="/">Home</RouterLink>
+      <RouterLink to="/Home">Home</RouterLink>
     </main>
   </div>
 </template>
@@ -16,6 +16,10 @@ import TheHeader from '@/components/TheHeader.vue'
 </script>
 
 <style scoped>
+.container_table{
+  width: 1200px;
+  margin: 0 auto;
+}
 .nav_filter {
   display: flex;
   align-items: center;
