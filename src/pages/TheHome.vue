@@ -1,15 +1,11 @@
 <template>
   <div>
-    <header>
-      <TheHeader />
-    </header>
-    <main class="container_home">
-      <TheNav />
-      <h1>home</h1>
-      <RouterLink to="/table">Table</RouterLink>
-
-      <TheApex></TheApex>
-    </main>
+    <TheNav />
+    <div class="main">
+      <main class="container_home">
+        <RouterView />
+      </main>
+    </div>
   </div>
 </template>
 <script setup>
@@ -22,5 +18,8 @@ import TheApex from '@/components/TheApex.vue'
 .container_home {
   width: 1200px;
   margin: 0 auto;
+}
+.main {
+  background-color: #e3e3e3;
 }
 </style>

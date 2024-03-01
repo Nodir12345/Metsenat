@@ -1,8 +1,5 @@
 <template>
   <div>
-    <header>
-      <TheHeader />
-    </header>
     <main class="container_table">
       <TheNav />
       <h1>Table</h1>

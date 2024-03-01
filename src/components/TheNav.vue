@@ -1,31 +1,50 @@
 <template>
-  <nav>
-    <div class="Nav_box">
-      <label class="Nav_checked">
-        <input type="radio" checked="checked" name="radio" />
-        <span class="checkmark">Dashboard</span>
-      </label>
-      <label class="Nav_checked">
-        <input type="radio" name="radio" />
-        <span class="checkmark">Homiylar</span>
-      </label>
-      <label class="Nav_checked">
-        <input type="radio" name="radio" />
-        <span class="checkmark">Talabalar</span>
-      </label>
-    </div>
-    <div class="nav_filter">
-      <form class="nav_filter_form">
-        <img class="nav_filter_img" :src="seachIcon" alt="search icon" />
-        <input class="nav_filter_input" type="text" placeholder="Izlash" />
-      </form>
-      <button class="filter_btn"><img :src="filter" alt="filter" /> Filter</button>
-    </div>
-  </nav>
+  <div>
+    <nav>
+      <div class="Nav_box">
+        <button @click="onSubmitApex()">
+          <label class="Nav_checked">
+            <input type="radio" checked="checked" name="radio" />
+            <span class="checkmark">Dashboard</span>
+          </label>
+        </button>
+        <button @click="onSubmitSponsors()" to="/home/apex">
+          <label class="Nav_checked">
+            <input type="radio" name="radio" />
+            <span class="checkmark">Homiylar</span>
+          </label>
+        </button>
+        <button @click="onSubmitDemands()">
+          <label class="Nav_checked">
+            <input type="radio" name="radio" />
+            <span class="checkmark">Talabalar</span>
+          </label>
+        </button>
+      </div>
+      <div class="nav_filter">
+        <form class="nav_filter_form">
+          <img class="nav_filter_img" :src="seachIcon" alt="search icon" />
+          <input class="nav_filter_input" type="text" placeholder="Izlash" />
+        </form>
+        <button class="filter_btn"><img :src="filter" alt="filter" /> Filter</button>
+      </div>
+    </nav>
+  </div>
 </template>
 <script setup>
 import seachIcon from '../assets/img/searchIcon.png'
 import filter from '../assets/img/filter.png'
+import { useRouter } from 'vue-router'
+const router = useRouter()
+const onSubmitApex = () => {
+  router.push('/home/apex')
+}
+const onSubmitSponsors = () => {
+  router.push('/home/sponsors')
+}
+const onSubmitDemands = () => {
+  router.push('/home/demands')
+}
 </script>
 
 <style scoped>
@@ -122,5 +141,7 @@ nav {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 </style>

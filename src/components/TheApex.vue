@@ -1,6 +1,5 @@
 <template>
-  <div>
-    <h1>THeapex</h1>
+  <div class="apex">
     <div id="chart">
       <apexchart type="line" height="350" :options="chartOptions" :series="series"></apexchart>
     </div>
@@ -74,3 +73,13 @@ export default defineComponent({
   }
 })
 </script>
+
+<style scoped>
+.apex {
+  box-sizing: border-box;
+  border: 1px solid rgba(46, 91, 255, 0.08);
+  border-radius: 8px;
+  background-color: rgb(255, 255, 255);
+  padding: 24px;
+}
+</style>
