@@ -10,6 +10,7 @@ export default [
   {
     path: '/home',
     name: 'Home',
+    redirect: '/home/apex',
     meta: {
       layout: 'default'
     },

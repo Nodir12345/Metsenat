@@ -58,7 +58,7 @@ const chartOptions = {
     enabled: false
   },
   stroke: {
-    curve: 'straight'
+    curve: 'smooth'
   },
   title: {
     text: 'Homiylar va talabalar soni',
