@@ -8,7 +8,7 @@
         <input
           required
           minlength="6"
-          placeholder="adm8904"
+          placeholder="login"
           class="login_input"
           type="text"
           id="login"
@@ -19,7 +19,7 @@
         <input
           required
           minlength="6"
-          placeholder="◉◉◉◉◉◉"
+          placeholder="parol"
           class="login_input"
           type="password"
           id="password"

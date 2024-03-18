@@ -1,6 +1,7 @@
 <template>
   <div>
     <TheNav />
+
     <div class="main">
       <main class="container_home">
         <RouterView />

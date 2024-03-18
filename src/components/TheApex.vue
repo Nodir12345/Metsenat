@@ -9,14 +9,14 @@
           <p class="cost_text">1 684 325 000 <span class="cost_uzs">UZS</span></p>
         </div>
       </li>
-       <li class="cost_box">
+      <li class="cost_box">
         <img :src="allCost" alt="filter" />
         <div class="cost_title_box">
           <h3 class="cost_title">Jami to‘langan summa</h3>
           <p class="cost_text">1 684 325 000 <span class="cost_uzs">UZS</span></p>
         </div>
       </li>
-       <li class="cost_box">
+      <li class="cost_box">
         <img :src="allCost" alt="filter" />
         <div class="cost_title_box">
           <h3 class="cost_title">Jami to‘langan summa</h3>
@@ -107,9 +107,8 @@ export default defineComponent({
   border-radius: 8px;
   background-color: rgb(255, 255, 255);
   padding: 24px;
-  
 }
-.cost_box{
+.cost_box {
   box-sizing: border-box;
   border: 1px solid rgba(46, 91, 255, 0.08);
   border-radius: 8px;
@@ -123,8 +122,8 @@ export default defineComponent({
   cursor: pointer;
 }
 
-.cost_box:hover{
- transform: scale(1.08);
+.cost_box:hover {
+  transform: scale(1.08);
   transition: 0.5s linear;
 }
 ul,
@@ -132,34 +131,32 @@ li {
   list-style: none;
 }
 
-
-.cost_title{
-color: rgb(122, 122, 157);
-font-size: 12px;
-font-weight: 400;
-line-height: 12px;
-margin-bottom: 6px;
+.cost_title {
+  color: rgb(122, 122, 157);
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 12px;
+  margin-bottom: 6px;
 }
-.cost_text{
-color: rgb(46, 56, 77);
-font-size: 20px;
-font-weight: 700;
-line-height: 20px;
+.cost_text {
+  color: rgb(46, 56, 77);
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 20px;
 }
-.cost_uzs{
-color: rgb(178, 183, 193);
-font-size: 20px;
-font-weight: 600;
-line-height: 20px;
-
+.cost_uzs {
+  color: rgb(178, 183, 193);
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 20px;
 }
-.cost_wrapper{
+.cost_wrapper {
   display: flex;
   justify-content: space-between;
   margin-bottom: 28px;
 }
-.space{
+.space {
   margin-bottom: 48px;
- opacity: 0;
+  opacity: 0;
 }
 </style>

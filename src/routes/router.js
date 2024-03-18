@@ -1,13 +1,5 @@
 export default [
   {
-    path: '/table',
-    component: () => import('@/pages/TheTable.vue'),
-    meta: {
-      layout: 'default'
-    }
-  },
-
-  {
     path: '/home',
     name: 'Home',
     redirect: '/home/apex',
@@ -30,6 +22,11 @@ export default [
         path: 'demands',
         name: 'demands',
         component: () => import('@/components/TheDemands.vue')
+      },
+      {
+        path: 'filter',
+        name: 'filter',
+        component: () => import('@/components/TheFilterModal.vue')
       }
     ]
   },
