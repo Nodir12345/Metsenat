@@ -37,5 +37,13 @@ export default [
       layout: 'auth'
     },
     component: () => import('@/pages/TheLogin.vue')
+  },
+  {
+    path: '/test',
+    name: 'test',
+    meta: {
+      layout: 'auth'
+    },
+    component: () => import('@/pages/TheTest.vue')
   }
 ]

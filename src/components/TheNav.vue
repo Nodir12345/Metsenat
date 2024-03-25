@@ -47,8 +47,8 @@
             <option value="opel">Opel</option>
             <option value="audi">Audi</option>
           </select>
-               <img class="arrowDown" :src="arrowDown" alt="arrowDown" /> 
-              <img class="arrowTop" :src="arrowTop" alt="arrowTop" /> 
+          <img class="arrowDown" :src="arrowDown" alt="arrowDown" />
+          <img class="arrowTop" :src="arrowTop" alt="arrowTop" />
         </form>
       </div>
     </div>
@@ -84,8 +84,6 @@ const clearFilter = () => {
 </script>
 
 <style scoped lang="scss">
-
-
 .ariza {
   h3 {
     color: rgb(29, 29, 31);
@@ -95,9 +93,9 @@ const clearFilter = () => {
     letter-spacing: 1.13px;
     text-transform: uppercase;
   }
-  form{
+  form {
     position: relative;
-    img{
+    img {
       position: absolute;
       top: 5px;
       right: 5px;
@@ -110,36 +108,39 @@ const clearFilter = () => {
     background: rgba(224, 231, 255, 0.2);
     width: 100%;
     padding: 12px;
-
   }
 
   form > select option {
-    color: red;
-    padding: 10px 20px; 
-    
+    color: rgb(46, 56, 77);
+    font-family: Rubik;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 17px;
+    letter-spacing: 0px;
+    text-align: left;
+    padding: 10px 20px;
   }
 
-.arrowDown {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  display: block;
-}
+  .arrowDown {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    display: block;
+  }
 
-form:focus-within .arrowDown {
-  display: none; 
-  
-}
-.arrowTop {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  display: none; 
-}
+  form:focus-within .arrowDown {
+    display: none;
+  }
+  .arrowTop {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    display: none;
+  }
 
-form:focus-within .arrowTop {
-  display: block; 
-}
+  form:focus-within .arrowTop {
+    display: block;
+  }
 }
 .filter_title_box {
   display: flex;
@@ -300,5 +301,4 @@ nav {
 .templete_nav {
   background-color: #f8f8f8;
 }
-
 </style>

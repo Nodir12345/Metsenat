@@ -13,5 +13,8 @@ export default defineConfig({
       '@': fileURLToPath(new URL('./src', import.meta.url)),
       '&': fileURLToPath(new URL('./assets/img', import.meta.url))
     }
+  },
+  server:{
+    port:3000,
   }
 })
