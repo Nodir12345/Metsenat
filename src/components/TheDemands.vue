@@ -37,11 +37,33 @@
         </tr>
       </tbody>
     </table>
+
     <div class="demands_end">
-      <p>59 tadan 1-10 ko‘rsatilmoqda</p>
-      <div class="pagination">
-        <button @click="featchPrev"><img :src="prev" alt="prevent" /></button>
-        <button @click="featchNext"><img :src="next" alt="next" /></button>
+      <p>40 tadan 1-{{ params.limit }} ko‘rsatilmoqda</p>
+      <!-- Qolgan kodlar -->
+
+      <div class="wrap_pagination">
+        <div class="pagination_select">
+          <p>Ko‘rsatish</p>
+          <select @change="updateLimit($event.target.value)">
+            <option value="5">5</option>
+            <option selected value="10">10</option>
+            <option value="20">20</option>
+          </select>
+        </div>
+
+        <div class="pagination">
+          <button @click="featchPrev"><img :src="prev" alt="prevent" /></button>
+          <button
+            v-for="pageNumber in totalPages"
+            :key="pageNumber"
+            @click="goToPage(pageNumber)"
+            class="btn_pagination_num"
+          >
+            {{ pageNumber }}
+          </button>
+          <button @click="featchNext"><img :src="next" alt="next" /></button>
+        </div>
       </div>
     </div>
     <div class="spaceDemend">spaceDemend</div>
@@ -56,14 +78,60 @@ import eyeBlock from '../assets/img/eyeBlock.svg'
 import next from '../assets/img/next.png'
 import prev from '../assets/img/prev.png'
 
-const { list, featchPrev, featchNext } = TheTableFetch(
+const { list, featchPrev, featchNext, goToPage, totalPages, updateLimit, params } = TheTableFetch(
   'https://metsenatclub.xn--h28h.uz/api/v1/sponsor-list/'
 )
 const { getClass, toggleSensitiveData } = TheTableShow(list)
-console.log(list)
 </script>
 
 <style scoped>
+.pagination_select > select,
+.pagination_select > select > option {
+  color: rgb(29, 29, 31);
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 22px;
+  letter-spacing: 0px;
+  border: 1px solid rgb(223, 227, 232);
+  border-radius: 4px;
+  padding: 8px 2px;
+  background: rgb(255, 255, 255);
+  cursor: pointer;
+}
+.pagination_select > p {
+  color: rgb(29, 29, 31);
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 22px;
+  letter-spacing: 0px;
+  width: 68px;
+}
+.demands_end > p {
+  color: rgb(29, 29, 31);
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 22px;
+  letter-spacing: 0px;
+}
+
+.pagination_select {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.wrap_pagination {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.demands_end {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
 .content_table {
   width: 100%;
   border-collapse: separate;
@@ -121,6 +189,7 @@ console.log(list)
   border: 1px solid rgb(223, 227, 232);
   border-radius: 4px;
   background: rgb(255, 255, 255);
+  cursor: pointer;
 }
 .pagination {
   display: flex;
@@ -131,5 +200,8 @@ console.log(list)
 .spaceDemend {
   margin-top: 50px;
   opacity: 0;
+}
+.btn_pagination_num:focus {
+  border: 1px solid #3366ff;
 }
 </style>

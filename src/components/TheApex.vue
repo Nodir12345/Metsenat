@@ -38,11 +38,11 @@ import allCost from '../assets/img/allCost.png'
 const series = [
   {
     name: 'Desktops',
-    data: [10, 41, 35, 51, 34, 89, 119, 161, 178]
+    data: [100, 410, 350, 510, 340, 890, 1190, 1610, 1780]
   },
   {
     name: 'Laptops',
-    data: [20, 45, 55, 115, 80, 75, 60, 120, 130]
+    data: [200, 450, 550, 1150, 800, 705, 600, 1200, 1300]
   }
 ]
 

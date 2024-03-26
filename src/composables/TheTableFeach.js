@@ -1,4 +1,4 @@
-import { onBeforeMount, reactive, ref } from 'vue'
+import { onBeforeMount, reactive, ref, computed } from 'vue'
 
 const TheTableFetch = (url) => {
   const list = ref([])
@@ -27,10 +27,27 @@ const TheTableFetch = (url) => {
     params.skip -= params.limit
     fetchData()
   }
+
   const featchNext = () => {
     params.skip += params.limit
     fetchData()
   }
+
+  const updateLimit = (value) => {
+    params.limit = parseInt(value)
+    fetchData()
+  }
+
+  const goToPage = (pageNumber) => {
+    params.skip = (pageNumber - 1) * params.limit + 1
+    fetchData()
+  }
+
+  const totalPages = computed(() => {
+    if (list.value && list.value.count) {
+      return Math.ceil(40 / params.limit)
+    }
+  })
 
   onBeforeMount(() => {
     fetchData()
@@ -39,7 +56,11 @@ const TheTableFetch = (url) => {
   return {
     list,
     featchPrev,
-    featchNext
+    featchNext,
+    goToPage,
+    totalPages,
+    updateLimit,
+    params
   }
 }
 

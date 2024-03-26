@@ -37,23 +37,56 @@
         <h2 class="filter_title">Filter</h2>
         <button class="clear_btn" @click="clearFilter()"><img :src="clear" alt="clear" /></button>
       </div>
-      <span> </span>
-      <div class="ariza">
-        <h3>Ariza holati</h3>
+      <span class="filter_line"> </span>
+
+      <div class="all_filter_box">
         <form>
-          <select name="cars" id="cars">
-            <option class="options" value="volvo">Volvo</option>
-            <option value="saab">Saab</option>
-            <option value="opel">Opel</option>
-            <option value="audi">Audi</option>
-          </select>
-          <img class="arrowDown" :src="arrowDown" alt="arrowDown" />
-          <img class="arrowTop" :src="arrowTop" alt="arrowTop" />
+          <div class="ariza">
+            <h3>Ariza holati</h3>
+            <select v-model="arizaHolatiValue" name="holati" id="holati">
+              <option value="all">Barchasi</option>
+              <option value="new">yangi</option>
+              <option value="old">moderlangan</option>
+            </select>
+            <img class="arrowDown" :src="arrowDown" alt="arrowDown" />
+            <img class="arrowTop" :src="arrowTop" alt="arrowTop" />
+          </div>
+
+          <div class="middle_filter_box">
+            <h3>Homiylik summasi</h3>
+            <div class="filter_cheked_wrap">
+              <label
+                v-for="(value, index) in homiylikSummasiValues"
+                :key="index"
+                class="filter_checked"
+              >
+                <input
+                  type="radio"
+                  v-model="selectedHomiylikSummasi"
+                  :value="value"
+                  name="filter"
+                />
+                <div class="filter">
+                  {{ value }}
+                  <span class="filter_uzs">Uzs</span>
+                  <img :src="CheckedIcon" alt="CheckedIcon" />
+                </div>
+              </label>
+            </div>
+          </div>
+          <div class="end_filter_box">
+            <h3>SANA</h3>
+            <div><input type="date" id="appt" name="appt" v-model="sanaValue" /></div>
+          </div>
+          <span class="filter_line"> </span>
+          <button @click="logFilterValues" class="filter_btn">Btn</button>
+          <button @click="clearFilterValues" class="filter_btn">clear</button>
         </form>
       </div>
     </div>
   </div>
 </template>
+
 <script setup>
 import { ref } from 'vue'
 import seachIcon from '../assets/img/searchIcon.png'
@@ -61,10 +94,16 @@ import filter from '../assets/img/filter.png'
 import arrowDown from '../assets/img/arrowDown.png'
 import arrowTop from '../assets/img/arrowTop.png'
 import clear from '../assets/img/clear.png'
+import CheckedIcon from '../assets/img/CheckedIcon.png'
 import { useRouter } from 'vue-router'
+import TheTableFetch from '@/composables/TheTableFeach'
 const router = useRouter()
 
 const showModal = ref(false)
+let arizaHolatiValue = 'all' // default value
+let selectedHomiylikSummasi = '3000' // default value
+let sanaValue = '' // default value
+const homiylikSummasiValues = ['3000', '4000', '5000', '6000', '2000', '1000']
 
 const onSubmitApex = () => {
   router.push('/home/apex')
@@ -78,13 +117,75 @@ const onSubmitDemands = () => {
 const onSubmitFilter = () => {
   showModal.value = true
 }
+
 const clearFilter = () => {
   showModal.value = false
 }
+
+const logFilterValues = (event) => {
+  event.preventDefault()
+  // Get the selected values
+  const arizaHolati = document.getElementById('holati').value
+  const homiylikSummasi = document.querySelector('input[name="filter"]:checked').value
+  const sana = document.getElementById('appt').value
+
+  // Log the values
+  console.log('Ariza holati:', arizaHolati)
+  console.log('Homiylik summasi:', homiylikSummasi)
+  console.log('Sana:', sana)
+
+  // Save the values in local storage
+  localStorage.setItem('arizaHolati', arizaHolati)
+  localStorage.setItem('homiylikSummasi', homiylikSummasi)
+  localStorage.setItem('sana', sana)
+}
+
+const clearFilterValues = (e) => {
+  e.preventDefault()
+  // Clear the filter values
+  arizaHolatiValue = 'all'
+  selectedHomiylikSummasi = '3000'
+  sanaValue = ''
+
+  // Remove values from local storage
+  localStorage.removeItem('arizaHolati')
+  localStorage.removeItem('homiylikSummasi')
+  localStorage.removeItem('sana')
+}
+
+const { list } = TheTableFetch('https://metsenatclub.xn--h28h.uz/api/v1/sponsor-list/')
 </script>
 
 <style scoped lang="scss">
+.end_filter_box {
+  > h3 {
+    color: rgb(29, 29, 31);
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 14px;
+    letter-spacing: 1.13px;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+  > div > input {
+    box-sizing: border-box;
+    border: 1px solid rgb(224, 231, 255);
+    border-radius: 6px;
+    background: rgba(224, 231, 255, 0.2);
+    width: 253px;
+    height: 42px;
+    padding: 0 16px;
+  }
+}
+
+.filter_line {
+  border: 2px solid rgb(245, 245, 247);
+  display: block;
+  margin: 20px 0;
+}
+
 .ariza {
+  position: relative;
   h3 {
     color: rgb(29, 29, 31);
     font-size: 12px;
@@ -92,16 +193,16 @@ const clearFilter = () => {
     line-height: 14px;
     letter-spacing: 1.13px;
     text-transform: uppercase;
+    margin-bottom: 16px;
   }
-  form {
-    position: relative;
-    img {
-      position: absolute;
-      top: 5px;
-      right: 5px;
-    }
+
+  img {
+    position: absolute;
+    top: 5px;
+    right: 5px;
   }
-  form > select {
+
+  select {
     appearance: none;
     border: 1px solid rgb(224, 231, 255);
     border-radius: 6px;
@@ -110,25 +211,24 @@ const clearFilter = () => {
     padding: 12px;
   }
 
-  form > select option {
+  select option {
     color: rgb(46, 56, 77);
     font-family: Rubik;
     font-size: 14px;
     font-weight: 400;
     line-height: 17px;
     letter-spacing: 0px;
-    text-align: left;
     padding: 10px 20px;
   }
 
   .arrowDown {
     position: absolute;
-    top: 10px;
+    top: 38px;
     right: 10px;
     display: block;
   }
 
-  form:focus-within .arrowDown {
+  .ariza:focus-within .arrowDown {
     display: none;
   }
   .arrowTop {
@@ -138,7 +238,7 @@ const clearFilter = () => {
     display: none;
   }
 
-  form:focus-within .arrowTop {
+  .ariza:focus-within .arrowTop {
     display: block;
   }
 }
@@ -172,11 +272,20 @@ const clearFilter = () => {
   transform: translate(-50%, -50%);
   padding: 28px;
 
-  span {
+  .filter {
     border: 2px solid rgb(245, 245, 247);
     display: block;
-    margin: 27px 0;
   }
+}
+.filter_uzs {
+  color: rgb(46, 91, 255);
+  font-family: Rubik;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 20px;
+  letter-spacing: 0px;
+  text-align: left;
+  text-transform: uppercase;
 }
 
 .nav_filter {
@@ -228,15 +337,58 @@ const clearFilter = () => {
   left: 10px;
 }
 
-.Nav_checked {
+.filter_cheked_wrap {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.Nav_checked,
+.filter_checked {
   display: block;
   cursor: pointer;
 }
 
-.Nav_checked input {
+.Nav_checked input,
+.filter_checked input {
   display: none;
   cursor: pointer;
 }
+
+.middle_filter_box {
+  margin: 28px 0;
+  > h3 {
+    color: rgb(29, 29, 31);
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 14px;
+    letter-spacing: 1.13px;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+}
+.filter {
+  border: 1px solid rgb(224, 231, 255);
+  border-radius: 5px;
+  background: rgb(255, 255, 255);
+  color: rgb(46, 56, 77);
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 20px;
+  letter-spacing: 0px;
+  text-align: left;
+  padding: 15px;
+  position: relative;
+  width: 123px;
+  > img {
+    position: absolute;
+    top: -8px !important;
+    right: -5px !important;
+    display: none;
+  }
+}
+
 .checkmark,
 .checkmark2,
 .checkmark3 {
@@ -253,6 +405,7 @@ const clearFilter = () => {
   padding: 12px 54px;
   cursor: pointer;
 }
+
 .checkmark {
   border-top-right-radius: 0%;
   border-bottom-right-radius: 0%;
@@ -269,6 +422,7 @@ const clearFilter = () => {
   border-top-left-radius: 0%;
   border-bottom-left-radius: 0%;
 }
+
 .Nav_checked:hover input ~ .checkmark,
 .Nav_checked:hover input ~ .checkmark2,
 .Nav_checked:hover input ~ .checkmark3 {
@@ -282,6 +436,13 @@ const clearFilter = () => {
   color: rgb(255, 255, 255);
   background-color: var(--main-color);
   transition-duration: 500ms;
+}
+
+.filter_checked input:checked ~ .filter {
+  border: 2px solid rgb(46, 91, 255);
+}
+.filter_checked input:checked ~ .filter > img {
+  display: block;
 }
 
 .Nav_box {
