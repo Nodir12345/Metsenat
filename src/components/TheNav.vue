@@ -45,8 +45,8 @@
             <h3>Ariza holati</h3>
             <select v-model="arizaHolatiValue" name="holati" id="holati">
               <option value="all">Barchasi</option>
-              <option value="new">yangi</option>
-              <option value="old">moderlangan</option>
+              <option value="yangi">yangi</option>
+              <option value="moderlangan">moderlangan</option>
             </select>
             <img class="arrowDown" :src="arrowDown" alt="arrowDown" />
             <img class="arrowTop" :src="arrowTop" alt="arrowTop" />
@@ -54,6 +54,7 @@
 
           <div class="middle_filter_box">
             <h3>Homiylik summasi</h3>
+
             <div class="filter_cheked_wrap">
               <label
                 v-for="(value, index) in homiylikSummasiValues"

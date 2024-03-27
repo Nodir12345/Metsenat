@@ -5,7 +5,8 @@ const TheTableFetch = (url) => {
 
   const params = reactive({
     skip: 1,
-    limit: 10
+    limit: 10,
+    search:''
   })
 
   const fetchData = () => {
@@ -13,6 +14,7 @@ const TheTableFetch = (url) => {
     fetch(requestUrl, { params })
       .then((res) => res.json())
       .then((res) => {
+        // console.log(res.results);
         list.value = res
       })
       .catch((err) => {

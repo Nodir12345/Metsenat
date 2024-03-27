@@ -1,5 +1,9 @@
 <template>
   <div class="table_wrap">
+    <pre v-for="(item, index) in sposoreList.results" :key="index">
+      <div v-if="item.get_status_display == 'Moderatsiyada' ">{{ item}}</div>
+      
+    </pre>
     <table class="content_table">
       <thead>
         <tr>
@@ -78,7 +82,7 @@
 <script setup>
 import TheTableFetch from '@/composables/TheTableFeach'
 import TheTableShow from '@/composables/TheTableShow'
-import { ref, watch } from 'vue'
+import { computed, ref, watch } from 'vue'
 import eye from '../assets/img/eye.png'
 import eyeBlock from '../assets/img/eyeBlock.svg'
 import next from '../assets/img/next.png'
@@ -89,24 +93,36 @@ const { list, featchPrev, featchNext, goToPage, totalPages, updateLimit, params 
 )
 const { getClass, toggleSensitiveData } = TheTableShow(list)
 
-const sposoreList = ref(list)
+const sposoreList = computed(()=> list.value)
 const filteredSponsoreList = ref(list)
 
-watch(
-  localStorage.getItem('filterList'),
-  (_, newValue) => {
-    const data = JSON.parse(newValue)
+let filterChangeValue = ref({
+  arizaHolati: localStorage.getItem('arizaHolati'),
+  homiylikSummasi: localStorage.getItem('homiylikSummasi'),
+  sana: localStorage.getItem('sana')
+})
 
-    if (sposoreList && Array.isArray(sposoreList.value.results)) {
-      if (data.filter === 'all') return (filteredSponsoreList.value = sposoreList.value)
-
-      // filteredSponsoreList.value = sposoreList.value.results.filter(
-      //       (sponsore) => newValue === "new"?  sponsore
-      //     )
-    }
-  },
-  { deep: true }
+filteredSponsoreList.value = sposoreList.value.filter(
+  (item) => item.get_status_display === filterChangeValue.value.arizaHolati
 )
+
+
+
+// watch(
+//   localStorage.getItem('filterList'),
+//   (_, newValue) => {
+//     const data = JSON.parse(newValue)
+
+//     if (sposoreList && Array.isArray(sposoreList.value.results)) {
+//       if (data.filter === 'all') return (filteredSponsoreList.value = sposoreList.value)
+
+//       // filteredSponsoreList.value = sposoreList.value.results.filter(
+//       //       (sponsore) => newValue === "new"?  sponsore
+//       //     )
+//     }
+//   },
+//   { deep: true }
+// )
 </script>
 
 <style scoped>

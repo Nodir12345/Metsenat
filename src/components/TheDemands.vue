@@ -73,6 +73,7 @@
 <script setup>
 import TheTableFetch from '@/composables/TheTableFeach'
 import TheTableShow from '@/composables/TheTableShow'
+import { ref } from 'vue'
 import eye from '../assets/img/eye.png'
 import eyeBlock from '../assets/img/eyeBlock.svg'
 import next from '../assets/img/next.png'
@@ -81,6 +82,7 @@ import prev from '../assets/img/prev.png'
 const { list, featchPrev, featchNext, goToPage, totalPages, updateLimit, params } = TheTableFetch(
   'https://metsenatclub.xn--h28h.uz/api/v1/sponsor-list/'
 )
+
 const { getClass, toggleSensitiveData } = TheTableShow(list)
 </script>
 
