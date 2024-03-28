@@ -3,7 +3,6 @@
     <div v-if="!isUserRoute" class="templete_nav">
       <nav>
         <div class="Nav_box">
-  
           <button @click="onSubmitApex()">
             <label class="Nav_checked">
               <input type="radio" checked="checked" name="radio" />
@@ -26,21 +25,35 @@
         <div class="nav_filter">
           <form class="nav_filter_form">
             <img class="nav_filter_img" :src="seachIcon" alt="search icon" />
-            <input class="nav_filter_input" type="text" placeholder="Izlash" />
+            <input
+              class="nav_filter_input"
+              type="text"
+              placeholder="Izlash"
+              v-model="searchValue"
+            />
+
+            <div class="search_data">
+              <ul>
+                <li v-for="(item, index) of 20" :key="index">
+                  {{ item }}
+                </li>
+              </ul>
+            </div>
           </form>
+
           <button @click="onSubmitFilter()" class="filter_btn">
             <img :src="filter" alt="filter" /> Filter
           </button>
         </div>
       </nav>
-  
+
       <div class="filter_modal" v-if="showModal">
         <div class="filter_title_box">
           <h2 class="filter_title">Filter</h2>
           <button class="clear_btn" @click="clearFilter()"><img :src="clear" alt="clear" /></button>
         </div>
         <span class="filter_line"> </span>
-  
+
         <div class="all_filter_box">
           <form>
             <div class="ariza">
@@ -53,10 +66,10 @@
               <img class="arrowDown" :src="arrowDown" alt="arrowDown" />
               <img class="arrowTop" :src="arrowTop" alt="arrowTop" />
             </div>
-  
+
             <div class="middle_filter_box">
               <h3>Homiylik summasi</h3>
-  
+
               <div class="filter_cheked_wrap">
                 <label
                   v-for="(value, index) in homiylikSummasiValues"
@@ -89,12 +102,18 @@
       </div>
     </div>
 
-    <div v-if="isUserRoute" class="user">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Vero iste similique, debitis eos at recusandae officia voluptates in aliquid est minus esse harum laborum! Voluptatem consequatur id aliquid nam quam.111</div>
+    <div v-if="isUserRoute" class="user">
+      <p>
+        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Vero iste similique, debitis eos
+        at recusandae officia voluptates in aliquid est minus esse harum laborum! Voluptatem
+        consequatur id aliquid nam quam.111
+      </p>
+    </div>
   </div>
 </template>
 
 <script setup>
-import { computed, onBeforeMount, ref } from 'vue'
+import { computed, onBeforeMount, onMounted, ref, watch } from 'vue'
 import seachIcon from '../assets/img/searchIcon.png'
 import filter from '../assets/img/filter.png'
 import arrowDown from '../assets/img/arrowDown.png'
@@ -103,10 +122,10 @@ import clear from '../assets/img/clear.png'
 import CheckedIcon from '../assets/img/CheckedIcon.png'
 import { useRouter } from 'vue-router'
 import TheTableFetch from '@/composables/TheTableFeach'
-import { useRoute } from 'vue-router';
+import { useRoute } from 'vue-router'
+import axios from 'axios'
 
-
-const route = useRoute();
+const route = useRoute()
 const router = useRouter()
 
 const showModal = ref(false)
@@ -160,14 +179,38 @@ const clearFilterValues = () => {
   localStorage.removeItem('sana')
 }
 
-
 const isUserRoute = computed(() => {
   // Regular expression pattern to match '/home/user/' followed by any characters
-  const regex = /^\/home\/user\/.*$/;
-  return regex.test(route.path);
-});
+  const regex = /^\/home\/user\/.*$/
+  return regex.test(route.path)
+})
 
-const { list } = TheTableFetch('https://metsenatclub.xn--h28h.uz/api/v1/sponsor-list/')
+const searchValue = ref('')
+
+const getNavFilterInputValue = () => {
+  console.log('Nav filter input value:', searchValue.value)
+}
+
+onMounted(() => {
+  const navFilterInput = document.querySelector('.nav_filter_input')
+  navFilterInput.addEventListener('input', getNavFilterInputValue)
+})
+
+let searchData = ref({})
+function getSearchList(){
+  axios('https://metsenatclub.xn--h28h.uz/api/v1/sponsor-list/?page=1&page_size=40', {params: {
+    search: searchValue.value
+  }}).then(
+    (res) => (searchData.value = res.data)
+  )
+}
+
+getSearchList()
+
+watch(()=> searchValue.value, (newValue)=>{
+  // router.push({query: {search: newValue}})
+  getSearchList()
+})  
 </script>
 
 <style scoped lang="scss">
@@ -343,6 +386,30 @@ const { list } = TheTableFetch('https://metsenatclub.xn--h28h.uz/api/v1/sponsor-
 }
 .nav_filter_form {
   position: relative;
+}
+
+.search_data {
+  border-radius: 5px;
+  background: rgba(255, 255, 255, 0.915);
+  padding: 12px 0;
+  border: none;
+  width: 284px;
+  height: 300px; /* Set a maximum height for the container */
+  overflow-y: auto; /* Add this line to enable vertical scrolling */
+  position: absolute;
+  display: none;
+  > ul > li {
+    padding: 20px 8px;
+    list-style: none;
+    cursor: pointer;
+  }
+  > ul > li:hover {
+    background: rgb(239, 233, 233);
+  }
+}
+
+.nav_filter_input:focus + .search_data {
+  display: block;
 }
 
 .nav_filter_img {

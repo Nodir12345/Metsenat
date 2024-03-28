@@ -2,6 +2,8 @@
   <div>
 <h2>table</h2>
 <pre>{{ user?.data }}</pre>
+
+
   </div>
 </template>
 
