@@ -67,12 +67,18 @@
       </div>
     </div>
     <div class="spaceDemend">spaceDemend</div>
+
+
+
+
   </div>
 </template>
 
 <script setup>
 import TheTableFetch from '@/composables/TheTableFeach'
 import TheTableShow from '@/composables/TheTableShow'
+import TheTeleportDemands from './TheTeleportDemands.vue'
+import Nav from './TheNav.vue'
 import { ref } from 'vue'
 import eye from '../assets/img/eye.png'
 import eyeBlock from '../assets/img/eyeBlock.svg'

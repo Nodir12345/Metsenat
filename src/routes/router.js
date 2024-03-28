@@ -25,10 +25,10 @@ export default [
         component: () => import('@/components/TheDemands.vue')
       },
       {
-        path: 'filter',
-        name: 'filter',
-        component: () => import('@/components/TheFilterModal.vue')
-      }
+        path: 'user/:id',
+        name: 'User',
+        component: () => import('@/components/TheChildTable.vue')
+      },
     ]
   },
   {
@@ -36,7 +36,7 @@ export default [
     name: 'Login',
     meta: {
       layout: 'auth',
-      isAuth: false 
+      isAuth: true
     },
     component: () => import('@/pages/TheLogin.vue')
   },

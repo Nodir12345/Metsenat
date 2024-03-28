@@ -1,8 +1,7 @@
 <template>
   <div class="table_wrap">
-    <pre v-for="(item, index) in sposoreList.results" :key="index">
-      <div v-if="item.get_status_display == 'Moderatsiyada' ">{{ item}}</div>
-      
+    <pre v-for="(item, index) in filteredSposoreList" :key="index">
+      <div>{{ item }}</div>
     </pre>
     <table class="content_table">
       <thead>
@@ -24,7 +23,8 @@
           filteredSponsoreList.results.length > 0
         "
       >
-        <tr v-for="(item, index) in filteredSponsoreList.results" :key="index">
+
+        <tr v-for="(item, index) in filteredSponsoreList.results" :key="index" @click="TableItemId(item.id)">
           <td>{{ index + 1 }}</td>
           <td>{{ item?.full_name.slice(0, 19) }}</td>
           <td>{{ item?.phone }}</td>
@@ -87,43 +87,62 @@ import eye from '../assets/img/eye.png'
 import eyeBlock from '../assets/img/eyeBlock.svg'
 import next from '../assets/img/next.png'
 import prev from '../assets/img/prev.png'
+import { useRouter } from 'vue-router'
+import { useRoute } from 'vue-router';
 
+
+const route = useRoute();
+const router = useRouter();
 const { list, featchPrev, featchNext, goToPage, totalPages, updateLimit, params } = TheTableFetch(
   'https://metsenatclub.xn--h28h.uz/api/v1/sponsor-list/'
 )
 const { getClass, toggleSensitiveData } = TheTableShow(list)
 
+
+
+
+
 const sposoreList = computed(()=> list.value)
 const filteredSponsoreList = ref(list)
 
 let filterChangeValue = ref({
-  arizaHolati: localStorage.getItem('arizaHolati'),
-  homiylikSummasi: localStorage.getItem('homiylikSummasi'),
-  sana: localStorage.getItem('sana')
+  arizaHolati: route.query.holati ? route.query.holati : "all",
+  homiylikSummasi: route.query.filter ? route.query.filter : "Barchasi",
+  sana: route.query.appt ? route.query.appt : ""
 })
 
-filteredSponsoreList.value = sposoreList.value.filter(
-  (item) => item.get_status_display === filterChangeValue.value.arizaHolati
-)
+
+
+const filteredSposoreList = computed(() => {
+  if (!sposoreList || !sposoreList.value || !sposoreList.value.results) {
+    return [];
+  }
+
+  const arizaHolatiValue = filterChangeValue.value.arizaHolati;
+  const homiylikSummasiValue = filterChangeValue.value.homiylikSummasi;
+
+  if (arizaHolatiValue === "all" && homiylikSummasiValue === "Barchasi") {
+    return sposoreList.value.results;
+  }
+
+  return sposoreList.value.results.filter(item => {
+    const matchArizaHolati = item.get_status_display === arizaHolatiValue;
+    const matchHomiylikSummasi = homiylikSummasiValue === "Barchasi" || item.sum === homiylikSummasiValue;
+
+    return matchArizaHolati && matchHomiylikSummasi;
+  });
+});
+
+const TableItemId = (id) => {
+    router.push(`user/${id}`);
+  
+}
 
 
 
-// watch(
-//   localStorage.getItem('filterList'),
-//   (_, newValue) => {
-//     const data = JSON.parse(newValue)
 
-//     if (sposoreList && Array.isArray(sposoreList.value.results)) {
-//       if (data.filter === 'all') return (filteredSponsoreList.value = sposoreList.value)
-
-//       // filteredSponsoreList.value = sposoreList.value.results.filter(
-//       //       (sponsore) => newValue === "new"?  sponsore
-//       //     )
-//     }
-//   },
-//   { deep: true }
-// )
 </script>
+
 
 <style scoped>
 .pagination_select > select,
@@ -196,7 +215,13 @@ filteredSponsoreList.value = sposoreList.value.filter(
   border: 1px solid rgba(46, 91, 255, 0.08);
   border-radius: 8px;
   background: rgb(255, 255, 255);
+  cursor: pointer;
 }
+.content_table tbody tr:hover{
+  background: rgb(239, 235, 235);
+  transition-duration: 500ms;
+}
+
 .content_table tbody td img {
   width: 24px;
   height: 24px;

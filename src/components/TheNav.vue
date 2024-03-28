@@ -1,95 +1,100 @@
 <template>
-  <div class="templete_nav">
-    <nav>
-      <div class="Nav_box">
-        <button @click="onSubmitApex()">
-          <label class="Nav_checked">
-            <input type="radio" checked="checked" name="radio" />
-            <span class="checkmark">Dashboard</span>
-          </label>
-        </button>
-        <button @click="onSubmitSponsors()" to="/home/apex">
-          <label class="Nav_checked">
-            <input type="radio" name="radio" />
-            <span class="checkmark2">Homiylar</span>
-          </label>
-        </button>
-        <button @click="onSubmitDemands()">
-          <label class="Nav_checked">
-            <input type="radio" name="radio" />
-            <span class="checkmark3">Talabalar</span>
-          </label>
-        </button>
-      </div>
-      <div class="nav_filter">
-        <form class="nav_filter_form">
-          <img class="nav_filter_img" :src="seachIcon" alt="search icon" />
-          <input class="nav_filter_input" type="text" placeholder="Izlash" />
-        </form>
-        <button @click="onSubmitFilter()" class="filter_btn">
-          <img :src="filter" alt="filter" /> Filter
-        </button>
-      </div>
-    </nav>
-
-    <div class="filter_modal" v-if="showModal">
-      <div class="filter_title_box">
-        <h2 class="filter_title">Filter</h2>
-        <button class="clear_btn" @click="clearFilter()"><img :src="clear" alt="clear" /></button>
-      </div>
-      <span class="filter_line"> </span>
-
-      <div class="all_filter_box">
-        <form>
-          <div class="ariza">
-            <h3>Ariza holati</h3>
-            <select v-model="arizaHolatiValue" name="holati" id="holati">
-              <option value="all">Barchasi</option>
-              <option value="yangi">yangi</option>
-              <option value="moderlangan">moderlangan</option>
-            </select>
-            <img class="arrowDown" :src="arrowDown" alt="arrowDown" />
-            <img class="arrowTop" :src="arrowTop" alt="arrowTop" />
-          </div>
-
-          <div class="middle_filter_box">
-            <h3>Homiylik summasi</h3>
-
-            <div class="filter_cheked_wrap">
-              <label
-                v-for="(value, index) in homiylikSummasiValues"
-                :key="index"
-                class="filter_checked"
-              >
-                <input
-                  type="radio"
-                  v-model="selectedHomiylikSummasi"
-                  :value="value"
-                  name="filter"
-                />
-                <div class="filter">
-                  {{ value }}
-                  <span class="filter_uzs">Uzs</span>
-                  <img :src="CheckedIcon" alt="CheckedIcon" />
-                </div>
-              </label>
+  <div>
+    <div v-if="!isUserRoute" class="templete_nav">
+      <nav>
+        <div class="Nav_box">
+  
+          <button @click="onSubmitApex()">
+            <label class="Nav_checked">
+              <input type="radio" checked="checked" name="radio" />
+              <span class="checkmark">Dashboard</span>
+            </label>
+          </button>
+          <button @click="onSubmitSponsors()" to="/home/apex">
+            <label class="Nav_checked">
+              <input type="radio" name="radio" />
+              <span class="checkmark2">Homiylar</span>
+            </label>
+          </button>
+          <button @click="onSubmitDemands()">
+            <label class="Nav_checked">
+              <input type="radio" name="radio" />
+              <span class="checkmark3">Talabalar</span>
+            </label>
+          </button>
+        </div>
+        <div class="nav_filter">
+          <form class="nav_filter_form">
+            <img class="nav_filter_img" :src="seachIcon" alt="search icon" />
+            <input class="nav_filter_input" type="text" placeholder="Izlash" />
+          </form>
+          <button @click="onSubmitFilter()" class="filter_btn">
+            <img :src="filter" alt="filter" /> Filter
+          </button>
+        </div>
+      </nav>
+  
+      <div class="filter_modal" v-if="showModal">
+        <div class="filter_title_box">
+          <h2 class="filter_title">Filter</h2>
+          <button class="clear_btn" @click="clearFilter()"><img :src="clear" alt="clear" /></button>
+        </div>
+        <span class="filter_line"> </span>
+  
+        <div class="all_filter_box">
+          <form>
+            <div class="ariza">
+              <h3>Ariza holati</h3>
+              <select v-model="arizaHolatiValue" name="holati" id="holati">
+                <option value="all">Barchasi</option>
+                <option value="yangi">yangi</option>
+                <option value="Moderatsiyada">moderlangan</option>
+              </select>
+              <img class="arrowDown" :src="arrowDown" alt="arrowDown" />
+              <img class="arrowTop" :src="arrowTop" alt="arrowTop" />
             </div>
-          </div>
-          <div class="end_filter_box">
-            <h3>SANA</h3>
-            <div><input type="date" id="appt" name="appt" v-model="sanaValue" /></div>
-          </div>
-          <span class="filter_line"> </span>
-          <button @click="logFilterValues" class="filter_btn">Btn</button>
-          <button @click="clearFilterValues" class="filter_btn">clear</button>
-        </form>
+  
+            <div class="middle_filter_box">
+              <h3>Homiylik summasi</h3>
+  
+              <div class="filter_cheked_wrap">
+                <label
+                  v-for="(value, index) in homiylikSummasiValues"
+                  :key="index"
+                  class="filter_checked"
+                >
+                  <input
+                    type="radio"
+                    v-model="selectedHomiylikSummasi"
+                    :value="value"
+                    name="filter"
+                  />
+                  <div class="filter">
+                    {{ value }}
+                    <span class="filter_uzs">Uzs</span>
+                    <img :src="CheckedIcon" alt="CheckedIcon" />
+                  </div>
+                </label>
+              </div>
+            </div>
+            <div class="end_filter_box">
+              <h3>SANA</h3>
+              <div><input type="date" id="appt" name="appt" v-model="sanaValue" /></div>
+            </div>
+            <span class="filter_line"> </span>
+            <button @click="logFilterValues" class="filter_btn">Btn</button>
+            <button @click="clearFilterValues" class="filter_btn">clear</button>
+          </form>
+        </div>
       </div>
     </div>
+
+    <div v-if="isUserRoute" class="user">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Vero iste similique, debitis eos at recusandae officia voluptates in aliquid est minus esse harum laborum! Voluptatem consequatur id aliquid nam quam.111</div>
   </div>
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { computed, onBeforeMount, ref } from 'vue'
 import seachIcon from '../assets/img/searchIcon.png'
 import filter from '../assets/img/filter.png'
 import arrowDown from '../assets/img/arrowDown.png'
@@ -98,13 +103,15 @@ import clear from '../assets/img/clear.png'
 import CheckedIcon from '../assets/img/CheckedIcon.png'
 import { useRouter } from 'vue-router'
 import TheTableFetch from '@/composables/TheTableFeach'
+import { useRoute } from 'vue-router';
+
+
+const route = useRoute();
 const router = useRouter()
 
 const showModal = ref(false)
-let arizaHolatiValue = 'all' // default value
-let selectedHomiylikSummasi = '3000' // default value
-let sanaValue = '' // default value
-const homiylikSummasiValues = ['3000', '4000', '5000', '6000', '2000', '1000']
+
+const homiylikSummasiValues = ['Barchasi', '0', '50000', '15000', '220000', '300000']
 
 const onSubmitApex = () => {
   router.push('/home/apex')
@@ -123,36 +130,42 @@ const clearFilter = () => {
   showModal.value = false
 }
 
-const logFilterValues = (event) => {
-  event.preventDefault()
-  // Get the selected values
-  const arizaHolati = document.getElementById('holati').value
-  const homiylikSummasi = document.querySelector('input[name="filter"]:checked').value
-  const sana = document.getElementById('appt').value
+const arizaHolatiValue = ref('all') // default value
+const selectedHomiylikSummasi = ref('3000') // default value
+const sanaValue = ref('') // default value
 
-  // Log the values
-  console.log('Ariza holati:', arizaHolati)
-  console.log('Homiylik summasi:', homiylikSummasi)
-  console.log('Sana:', sana)
+// Define the function to log filter values
+const logFilterValues = () => {
+  // Log the selected values
+  console.log('Ariza holati:', arizaHolatiValue.value)
+  console.log('Homiylik summasi:', selectedHomiylikSummasi.value)
+  console.log('Sana:', sanaValue.value)
 
   // Save the values in local storage
-  localStorage.setItem('arizaHolati', arizaHolati)
-  localStorage.setItem('homiylikSummasi', homiylikSummasi)
-  localStorage.setItem('sana', sana)
+  localStorage.setItem('arizaHolati', arizaHolatiValue.value)
+  localStorage.setItem('homiylikSummasi', selectedHomiylikSummasi.value)
+  localStorage.setItem('sana', sanaValue.value)
 }
 
-const clearFilterValues = (e) => {
-  e.preventDefault()
+// Define the function to clear filter values
+const clearFilterValues = () => {
   // Clear the filter values
-  arizaHolatiValue = 'all'
-  selectedHomiylikSummasi = '3000'
-  sanaValue = ''
+  arizaHolatiValue.value = 'all'
+  selectedHomiylikSummasi.value = '3000'
+  sanaValue.value = ''
 
   // Remove values from local storage
   localStorage.removeItem('arizaHolati')
   localStorage.removeItem('homiylikSummasi')
   localStorage.removeItem('sana')
 }
+
+
+const isUserRoute = computed(() => {
+  // Regular expression pattern to match '/home/user/' followed by any characters
+  const regex = /^\/home\/user\/.*$/;
+  return regex.test(route.path);
+});
 
 const { list } = TheTableFetch('https://metsenatclub.xn--h28h.uz/api/v1/sponsor-list/')
 </script>
