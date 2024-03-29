@@ -5,29 +5,40 @@
         <tr>
           <th>#</th>
           <th>f.i.sh.</th>
-          <th>Tel.Raqami</th>
-          <th>Homiylik summasi</th>
-          <th>Sarflangan summa</th>
-          <th>Sana</th>
-          <th>Holati</th>
+          <th>Talabalik turi</th>
+          <th>OTM</th>
+          <th>Ajratilingan summa</th>
+          <th>Kontrakt miqdor</th>
           <th>Amallar</th>
         </tr>
       </thead>
-      <tbody v-if="list && list.results && list.results.length > 0">
-        <tr v-for="(item, index) in list.results" :key="index">
+      <tbody
+        v-if="
+          filteredSponsoreList &&
+          filteredSponsoreList.results &&
+          filteredSponsoreList.results.length > 0
+        "
+      >
+        <tr
+          v-for="(item, index) in filteredSponsoreList.results"
+          :key="index"
+          @click.passive="handleTableRowClick(item.id)"
+        >
           <td>{{ index + 1 }}</td>
-          <td>{{ item?.full_name.slice(0, 19) }}</td>
+          <td>{{ item?.full_name}}</td>
           <td>{{ item?.phone }}</td>
-          <td>{{ item?.sum }}</td>
-          <td>{{ item?.spent }}</td>
-          <td>{{ item?.created_at.slice(0, 10) }}</td>
-          <td :class="getClass(item)">{{ item?.get_status_display }}</td>
+          <td>{{ item?.institute?.name }}</td>
+          <td>{{ item?.given }}</td>
+          <td>{{ item?.contract }}</td>
           <td>
-            <img
-              :src="item.imgshow ? eyeBlock : eye"
-              alt="eye"
-              @click="toggleSensitiveData(item)"
-            />
+        
+
+           <img
+             :src="item.imgshow ? eyeBlock : eye"
+             alt="eye"
+             @click="toggleSensitiveData(item)"
+           />
+       
           </td>
         </tr>
       </tbody>
@@ -40,22 +51,21 @@
 
     <div class="demands_end">
       <p>40 tadan 1-{{ params.limit }} ko‘rsatilmoqda</p>
-      <!-- Qolgan kodlar -->
 
       <div class="wrap_pagination">
         <div class="pagination_select">
           <p>Ko‘rsatish</p>
           <select @change="updateLimit($event.target.value)">
-            <option value="5">5</option>
+            <option  value="5">5</option>
             <option selected value="10">10</option>
-            <option value="20">20</option>
+            <option value="15">15</option>
           </select>
         </div>
 
         <div class="pagination">
           <button @click="featchPrev"><img :src="prev" alt="prevent" /></button>
           <button
-            v-for="pageNumber in totalPages"
+            v-for="pageNumber in totalPagesDemands"
             :key="pageNumber"
             @click="goToPage(pageNumber)"
             class="btn_pagination_num"
@@ -73,18 +83,67 @@
 <script setup>
 import TheTableFetch from '@/composables/TheTableFeach'
 import TheTableShow from '@/composables/TheTableShow'
-import Nav from './TheNav.vue'
-import { ref } from 'vue'
+import { computed, ref, watch } from 'vue'
 import eye from '../assets/img/eye.png'
 import eyeBlock from '../assets/img/eyeBlock.svg'
 import next from '../assets/img/next.png'
 import prev from '../assets/img/prev.png'
+import { useRouter } from 'vue-router'
+import { useRoute } from 'vue-router'
 
-const { list, featchPrev, featchNext, goToPage, totalPages, updateLimit, params } = TheTableFetch(
-  'https://metsenatclub.xn--h28h.uz/api/v1/sponsor-list/'
+const route = useRoute()
+const router = useRouter()
+const { list, featchPrev, featchNext, goToPage, totalPagesDemands, updateLimit, params } = TheTableFetch(
+  'https://metsenatclub.xn--h28h.uz/api/v1/student-list/'
 )
+const {  toggleSensitiveData } = TheTableShow(list)
 
-const { getClass, toggleSensitiveData } = TheTableShow(list)
+const sposoreList = computed(() => list.value)
+const filteredSponsoreList = ref(list)
+
+let filterChangeValue = ref({
+  arizaHolati: route.query.holati ? route.query.holati : 'all',
+  homiylikSummasi: route.query.filter ? route.query.filter : 'Barchasi',
+  sana: route.query.appt ? route.query.appt : ''
+})
+
+const filteredSposoreList = computed(() => {
+  if (!sposoreList || !sposoreList.value || !sposoreList.value.results) {
+    return []
+  }
+
+  const arizaHolatiValue = filterChangeValue.value.arizaHolati
+  const homiylikSummasiValue = filterChangeValue.value.homiylikSummasi
+
+  if (arizaHolatiValue === 'all' && homiylikSummasiValue === 'Barchasi') {
+    return sposoreList.value.results
+  }
+
+  return sposoreList.value.results.filter((item) => {
+    const matchArizaHolati = item.get_status_display === arizaHolatiValue
+    const matchHomiylikSummasi =
+      homiylikSummasiValue === 'Barchasi' || item.sum === homiylikSummasiValue
+
+    return matchArizaHolati && matchHomiylikSummasi
+  })
+})
+
+
+
+
+const handleTableRowClick = (item) => {
+
+  if (event.target.tagName === 'IMG') return;
+
+  TableItemId(item);
+};
+
+
+
+const TableItemId = (id) => {
+  router.push(`user/${id}`)
+
+}
 </script>
 
 <style scoped>
@@ -158,12 +217,21 @@ const { getClass, toggleSensitiveData } = TheTableShow(list)
   border: 1px solid rgba(46, 91, 255, 0.08);
   border-radius: 8px;
   background: rgb(255, 255, 255);
+  cursor: pointer;
 }
+.content_table tbody tr:hover {
+  background: rgb(239, 235, 235);
+  transition-duration: 500ms;
+}
+
 .content_table tbody td img {
   width: 24px;
   height: 24px;
   cursor: pointer;
+
 }
+
+
 .content_table tbody td {
   color: rgb(29, 29, 31);
   font-family: Rubik;

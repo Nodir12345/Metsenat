@@ -8,7 +8,7 @@
       </div>
       <div class="user_title">
         <img :src="userLogo" alt="userLogo" />
-        <p>{{ user?.data.full_name }}</p>
+        <p>{{ user?.data.full_name.slice(0, 30) }}</p>
       </div>
       <div class="user_end">
         <div>
@@ -38,11 +38,17 @@ const FeachUser = () => {
   const UserId = route.params.id
   axios(`https://metsenatclub.xn--h28h.uz/api/v1/sponsor-detail/${UserId}`).then(
     (res) => (user.value = res)
-  )
-}
-onBeforeMount(() => {
-  FeachUser()
-})
+    )
+  }
+  onBeforeMount(() => {
+    FeachUser()
+ 
+  })
+
+
+
+
+  //  window.location.reload();
 </script>
 <style lang="scss" scoped>
 .user_box {
@@ -88,7 +94,6 @@ onBeforeMount(() => {
   margin: 24px 0;
   > p {
     color: rgb(33, 33, 33);
-    font-family: Rubik;
     font-size: 16px;
     font-weight: 500;
     line-height: 130%;
@@ -102,7 +107,7 @@ onBeforeMount(() => {
   align-items: center;
   gap: 220px;
   div {
-    max-width: 150px;
+    max-width: 170px;
     > p {
       color: rgb(181, 181, 195);
       font-family: Rubik;

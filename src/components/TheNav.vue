@@ -5,19 +5,19 @@
         <div class="Nav_box">
           <button @click="onSubmitApex()">
             <label class="Nav_checked">
-              <input type="radio" checked="checked" name="radio" />
+              <input   type="radio" checked="checked" name="radio" />
               <span class="checkmark">Dashboard</span>
             </label>
           </button>
           <button @click="onSubmitSponsors()" to="/home/apex">
             <label class="Nav_checked">
-              <input type="radio" name="radio" />
+              <input type="radio" name="radio" :checked="isSponsorsRoute"/>
               <span class="checkmark2">Homiylar</span>
             </label>
           </button>
           <button @click="onSubmitDemands()">
             <label class="Nav_checked">
-              <input type="radio" name="radio" />
+              <input type="radio" name="radio" :checked="isDemandsRoute" />
               <span class="checkmark3">Talabalar</span>
             </label>
           </button>
@@ -91,7 +91,7 @@
               </div>
             </div>
             <div class="end_filter_box">
-              <h3>SANA</h3>
+              <h3 class="hhh">SANA</h3>
               <div><input type="date" id="appt" name="appt" v-model="sanaValue" /></div>
             </div>
             <span class="filter_line"> </span>
@@ -106,7 +106,7 @@
       <div class="user_nav">
         <div>
           <button @click="onSubmitApex"><img :src="arrowLeft" alt="arrowLeft" /></button>
-          <h3>Ishmuhammedov Aziz Ishqobilovich</h3>
+          <h3   >{{ user?.data.full_name }}</h3>
           <span>Tasdiqlangan</span>
         </div>
       </div>
@@ -147,6 +147,14 @@ const onSubmitDemands = () => {
 const onSubmitFilter = () => {
   showModal.value = true
 }
+const isDemandsRoute = computed(() => {
+  return route.path === '/home/demands';
+});
+const isSponsorsRoute = computed(() => {
+  return route.path === '/home/sponsors';
+});
+
+
 
 const clearFilter = () => {
   showModal.value = false
@@ -155,6 +163,9 @@ const clearFilter = () => {
 const arizaHolatiValue = ref('all')
 const selectedHomiylikSummasi = ref('3000')
 const sanaValue = ref('')
+
+
+
 
 const logFilterValues = () => {
   console.log('Ariza holati:', arizaHolatiValue.value)
@@ -176,9 +187,35 @@ const clearFilterValues = () => {
   localStorage.removeItem('sana')
 }
 
+
+
+const user = ref()
+
+const FeachUser = (UserId) => {
+  axios(`https://metsenatclub.xn--h28h.uz/api/v1/sponsor-detail/${UserId}`).then(
+    (res) => (user.value = res)
+  )
+}
+
+onBeforeMount(() => {
+  FeachUser(route.params.id)
+  
+  watch(
+    () => route.params.id,
+    (newValue, oldValue) => {
+      FeachUser(newValue)
+    }
+  )
+})
+
+
+
+
+
 const isUserRoute = computed(() => {
   const regex = /^\/home\/user\/.*$/
   return regex.test(route.path)
+
 })
 
 const searchValue = ref('')
@@ -187,7 +224,8 @@ const getNavFilterInputValue = () => {
   console.log('Nav filter input value:', searchValue.value)
 }
 
-console.log(route.params.id);
+
+
 // onMounted(() => {
 //   const navFilterInput = document.querySelector('.nav_filter_input')
 //   navFilterInput.addEventListener('input', getNavFilterInputValue)
@@ -211,6 +249,11 @@ watch(
     getSearchList()
   }
 )
+
+
+
+
+
 </script>
 
 <style scoped lang="scss">
