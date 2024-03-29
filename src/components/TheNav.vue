@@ -104,11 +104,11 @@
 
     <div v-if="isUserRoute" class="user">
       <div class="user_nav">
-      <div>
-        <button @click="onSubmitApex"><img :src="arrowLeft" alt="arrowLeft" /></button>
-        <h3>Ishmuhammedov Aziz Ishqobilovich</h3>
-        <span>Tasdiqlangan</span>
-      </div>
+        <div>
+          <button @click="onSubmitApex"><img :src="arrowLeft" alt="arrowLeft" /></button>
+          <h3>Ishmuhammedov Aziz Ishqobilovich</h3>
+          <span>Tasdiqlangan</span>
+        </div>
       </div>
     </div>
   </div>
@@ -152,16 +152,14 @@ const clearFilter = () => {
   showModal.value = false
 }
 
-const arizaHolatiValue = ref('all') 
-const selectedHomiylikSummasi = ref('3000') 
-const sanaValue = ref('') 
-
+const arizaHolatiValue = ref('all')
+const selectedHomiylikSummasi = ref('3000')
+const sanaValue = ref('')
 
 const logFilterValues = () => {
   console.log('Ariza holati:', arizaHolatiValue.value)
   console.log('Homiylik summasi:', selectedHomiylikSummasi.value)
   console.log('Sana:', sanaValue.value)
-
 
   localStorage.setItem('arizaHolati', arizaHolatiValue.value)
   localStorage.setItem('homiylikSummasi', selectedHomiylikSummasi.value)
@@ -172,7 +170,6 @@ const clearFilterValues = () => {
   arizaHolatiValue.value = 'all'
   selectedHomiylikSummasi.value = '3000'
   sanaValue.value = ''
-
 
   localStorage.removeItem('arizaHolati')
   localStorage.removeItem('homiylikSummasi')
@@ -190,6 +187,7 @@ const getNavFilterInputValue = () => {
   console.log('Nav filter input value:', searchValue.value)
 }
 
+console.log(route.params.id);
 // onMounted(() => {
 //   const navFilterInput = document.querySelector('.nav_filter_input')
 //   navFilterInput.addEventListener('input', getNavFilterInputValue)
@@ -219,48 +217,45 @@ watch(
 .user_nav {
   background-color: #f8f8f8;
 
- 
+  > div {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 30px 0;
+  }
 
->div{
-  max-width: 1200px;
-  margin: 0 auto;
-  display: flex;
-  align-items: center;
-  gap: 15px;
-  padding: 30px 0;
-}
-
-
-  >div>button{
+  > div > button {
     background-color: inherit;
     cursor: pointer;
     width: 28px;
     height: 28px;
   }
 
-  >div>button:hover{
-    background-color: #E3E3E3;
+  > div > button:hover {
+    background-color: #e3e3e3;
     transition-duration: 300ms;
     border-radius: 3px;
   }
 
-  >div>span{
+  > div > span {
     border-radius: 5px;
-background-color: rgb(221, 255, 242);
-color: rgb(0, 207, 131);
-font-size: 12px;
-font-weight: 400;
-line-height: 14px;
-letter-spacing: 0px;
-text-align: center;
-padding: 8px;
+    background-color: rgb(221, 255, 242);
+    color: rgb(0, 207, 131);
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 14px;
+    letter-spacing: 0px;
+    text-align: center;
+    padding: 8px;
   }
-  >div>h3{
-color: rgb(40, 41, 61);
-font-size: 24px;
-font-weight: 700;
-line-height: 28px;
-letter-spacing: 0%;
+  > div > h3 {
+    color: rgb(40, 41, 61);
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 28px;
+    letter-spacing: 0%;
   }
 }
 
@@ -445,7 +440,7 @@ letter-spacing: 0%;
   border: none;
   width: 284px;
   height: 300px;
-  overflow-y: auto; 
+  overflow-y: auto;
   position: absolute;
   display: none;
   > ul > li {
