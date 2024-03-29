@@ -5,7 +5,7 @@ export default [
     redirect: '/home/apex',
     meta: {
       layout: 'default',
-      requireAuth: true 
+      requireAuth: true
     },
     component: () => import('@/pages/TheHome.vue'),
     children: [
@@ -28,7 +28,7 @@ export default [
         path: 'user/:id',
         name: 'User',
         component: () => import('@/components/TheChildTable.vue')
-      },
+      }
     ]
   },
   {
@@ -46,7 +46,7 @@ export default [
     meta: {
       layout: 'auth',
       isAuth: false,
-      requireAuth: false 
+      requireAuth: false
     },
     component: () => import('@/pages/TheTest.vue')
   }

@@ -13,7 +13,7 @@
           type="text"
           id="login"
           v-model="formData.username"
-          :class="{ error: isError }" 
+          :class="{ error: isError }"
         />
       </div>
       <div class="login_form">
@@ -26,14 +26,15 @@
           type="password"
           id="password"
           v-model="formData.password"
-          :class="{ error: isError  }"
+          :class="{ error: isError }"
         />
       </div>
 
-      <VueRecaptcha sitekey="6LdCXYYpAAAAAKvnKfVmsHspcPOfNMgtwxm7_S2j"
-      ref="recaptcha"
-      @verify="verifyMethod"
-      @expired="expireMethod"
+      <VueRecaptcha
+        sitekey="6LdCXYYpAAAAAKvnKfVmsHspcPOfNMgtwxm7_S2j"
+        ref="recaptcha"
+        @verify="verifyMethod"
+        @expired="expireMethod"
       ></VueRecaptcha>
 
       <button type="submit" class="login_btn">Kirish</button>
@@ -46,17 +47,17 @@ import loginLogo from '../assets/img/loginMainLogo.png'
 import { useRouter } from 'vue-router'
 import { ref } from 'vue'
 import axios from 'axios'
-import { VueRecaptcha } from "vue-recaptcha";
+import { VueRecaptcha } from 'vue-recaptcha'
 
 const recaptValid = ref(false)
 const isError = ref(false) // Add isError ref to track error state
 
-const verifyMethod = (token)=>{
-  console.log(token);
+const verifyMethod = (token) => {
+  console.log(token)
   recaptValid.value = !!token
 }
-const expireMethod = (e)=>{
-  console.log("method", e);
+const expireMethod = (e) => {
+  console.log('method', e)
 }
 
 const router = useRouter()
@@ -65,21 +66,20 @@ const formData = ref({
   password: ''
 })
 
-function fetchData(){
-  axios.post("https://club.metsenat.uz/api/v1/auth/login/", formData.value)
-    .then(res => {
-      console.log("Ishladi", res.data);
-      localStorage.setItem("refresh", res.data.refresh)
-      localStorage.setItem("access", res.data.access)
-      if(recaptValid.value){
+function fetchData() {
+  axios
+    .post('https://club.metsenat.uz/api/v1/auth/login/', formData.value)
+    .then((res) => {
+      console.log('Ishladi', res.data)
+      localStorage.setItem('refresh', res.data.refresh)
+      localStorage.setItem('access', res.data.access)
+      if (recaptValid.value) {
         router.push('/home')
-        
       }
-
     })
-    .catch(err => {
-      console.log('error', err);
-      isError.value = true; // Set isError to true when error occurs
+    .catch((err) => {
+      console.log('error', err)
+      isError.value = true // Set isError to true when error occurs
     })
 }
 </script>

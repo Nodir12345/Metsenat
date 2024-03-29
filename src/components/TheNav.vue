@@ -103,11 +103,13 @@
     </div>
 
     <div v-if="isUserRoute" class="user">
-      <p>
-        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Vero iste similique, debitis eos
-        at recusandae officia voluptates in aliquid est minus esse harum laborum! Voluptatem
-        consequatur id aliquid nam quam.111
-      </p>
+      <div class="user_nav">
+      <div>
+        <button @click="onSubmitApex"><img :src="arrowLeft" alt="arrowLeft" /></button>
+        <h3>Ishmuhammedov Aziz Ishqobilovich</h3>
+        <span>Tasdiqlangan</span>
+      </div>
+      </div>
     </div>
   </div>
 </template>
@@ -116,6 +118,7 @@
 import { computed, onBeforeMount, onMounted, ref, watch } from 'vue'
 import seachIcon from '../assets/img/searchIcon.png'
 import filter from '../assets/img/filter.png'
+import arrowLeft from '../assets/img/arrowLeft.png'
 import arrowDown from '../assets/img/arrowDown.png'
 import arrowTop from '../assets/img/arrowTop.png'
 import clear from '../assets/img/clear.png'
@@ -149,38 +152,34 @@ const clearFilter = () => {
   showModal.value = false
 }
 
-const arizaHolatiValue = ref('all') // default value
-const selectedHomiylikSummasi = ref('3000') // default value
-const sanaValue = ref('') // default value
+const arizaHolatiValue = ref('all') 
+const selectedHomiylikSummasi = ref('3000') 
+const sanaValue = ref('') 
 
-// Define the function to log filter values
+
 const logFilterValues = () => {
-  // Log the selected values
   console.log('Ariza holati:', arizaHolatiValue.value)
   console.log('Homiylik summasi:', selectedHomiylikSummasi.value)
   console.log('Sana:', sanaValue.value)
 
-  // Save the values in local storage
+
   localStorage.setItem('arizaHolati', arizaHolatiValue.value)
   localStorage.setItem('homiylikSummasi', selectedHomiylikSummasi.value)
   localStorage.setItem('sana', sanaValue.value)
 }
 
-// Define the function to clear filter values
 const clearFilterValues = () => {
-  // Clear the filter values
   arizaHolatiValue.value = 'all'
   selectedHomiylikSummasi.value = '3000'
   sanaValue.value = ''
 
-  // Remove values from local storage
+
   localStorage.removeItem('arizaHolati')
   localStorage.removeItem('homiylikSummasi')
   localStorage.removeItem('sana')
 }
 
 const isUserRoute = computed(() => {
-  // Regular expression pattern to match '/home/user/' followed by any characters
   const regex = /^\/home\/user\/.*$/
   return regex.test(route.path)
 })
@@ -191,29 +190,80 @@ const getNavFilterInputValue = () => {
   console.log('Nav filter input value:', searchValue.value)
 }
 
-onMounted(() => {
-  const navFilterInput = document.querySelector('.nav_filter_input')
-  navFilterInput.addEventListener('input', getNavFilterInputValue)
-})
+// onMounted(() => {
+//   const navFilterInput = document.querySelector('.nav_filter_input')
+//   navFilterInput.addEventListener('input', getNavFilterInputValue)
+// })
 
 let searchData = ref({})
-function getSearchList(){
-  axios('https://metsenatclub.xn--h28h.uz/api/v1/sponsor-list/?page=1&page_size=40', {params: {
-    search: searchValue.value
-  }}).then(
-    (res) => (searchData.value = res.data)
-  )
+function getSearchList() {
+  axios('https://metsenatclub.xn--h28h.uz/api/v1/sponsor-list/?page=1&page_size=40', {
+    params: {
+      search: searchValue.value
+    }
+  }).then((res) => (searchData.value = res.data))
 }
 
 getSearchList()
 
-watch(()=> searchValue.value, (newValue)=>{
-  // router.push({query: {search: newValue}})
-  getSearchList()
-})  
+watch(
+  () => searchValue.value,
+  (newValue) => {
+    router.push({ query: { search: newValue } })
+    getSearchList()
+  }
+)
 </script>
 
 <style scoped lang="scss">
+.user_nav {
+  background-color: #f8f8f8;
+
+ 
+
+>div{
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 30px 0;
+}
+
+
+  >div>button{
+    background-color: inherit;
+    cursor: pointer;
+    width: 28px;
+    height: 28px;
+  }
+
+  >div>button:hover{
+    background-color: #E3E3E3;
+    transition-duration: 300ms;
+    border-radius: 3px;
+  }
+
+  >div>span{
+    border-radius: 5px;
+background-color: rgb(221, 255, 242);
+color: rgb(0, 207, 131);
+font-size: 12px;
+font-weight: 400;
+line-height: 14px;
+letter-spacing: 0px;
+text-align: center;
+padding: 8px;
+  }
+  >div>h3{
+color: rgb(40, 41, 61);
+font-size: 24px;
+font-weight: 700;
+line-height: 28px;
+letter-spacing: 0%;
+  }
+}
+
 .end_filter_box {
   > h3 {
     color: rgb(29, 29, 31);
@@ -394,8 +444,8 @@ watch(()=> searchValue.value, (newValue)=>{
   padding: 12px 0;
   border: none;
   width: 284px;
-  height: 300px; /* Set a maximum height for the container */
-  overflow-y: auto; /* Add this line to enable vertical scrolling */
+  height: 300px;
+  overflow-y: auto; 
   position: absolute;
   display: none;
   > ul > li {

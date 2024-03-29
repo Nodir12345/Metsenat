@@ -6,7 +6,7 @@ const TheTableFetch = (url) => {
   const params = reactive({
     skip: 1,
     limit: 10,
-    search:''
+    search: ''
   })
 
   const fetchData = () => {
