@@ -25,20 +25,17 @@
           @click.passive="handleTableRowClick(item.id)"
         >
           <td>{{ index + 1 }}</td>
-          <td>{{ item?.full_name}}</td>
+          <td>{{ item?.full_name }}</td>
           <td>{{ item?.phone }}</td>
           <td>{{ item?.institute?.name }}</td>
           <td>{{ item?.given }}</td>
           <td>{{ item?.contract }}</td>
           <td>
-        
-
-           <img
-             :src="item.imgshow ? eyeBlock : eye"
-             alt="eye"
-             @click="toggleSensitiveData(item)"
-           />
-       
+            <img
+              :src="item.imgshow ? eyeBlock : eye"
+              alt="eye"
+              @click="toggleSensitiveData(item)"
+            />
           </td>
         </tr>
       </tbody>
@@ -56,7 +53,7 @@
         <div class="pagination_select">
           <p>Ko‘rsatish</p>
           <select @change="updateLimit($event.target.value)">
-            <option  value="5">5</option>
+            <option value="5">5</option>
             <option selected value="10">10</option>
             <option value="15">15</option>
           </select>
@@ -93,10 +90,9 @@ import { useRoute } from 'vue-router'
 
 const route = useRoute()
 const router = useRouter()
-const { list, featchPrev, featchNext, goToPage, totalPagesDemands, updateLimit, params } = TheTableFetch(
-  'https://metsenatclub.xn--h28h.uz/api/v1/student-list/'
-)
-const {  toggleSensitiveData } = TheTableShow(list)
+const { list, featchPrev, featchNext, goToPage, totalPagesDemands, updateLimit, params } =
+  TheTableFetch('https://metsenatclub.xn--h28h.uz/api/v1/student-list/')
+const { toggleSensitiveData } = TheTableShow(list)
 
 const sposoreList = computed(() => list.value)
 const filteredSponsoreList = ref(list)
@@ -128,21 +124,14 @@ const filteredSposoreList = computed(() => {
   })
 })
 
-
-
-
 const handleTableRowClick = (item) => {
+  if (event.target.tagName === 'IMG') return
 
-  if (event.target.tagName === 'IMG') return;
-
-  TableItemId(item);
-};
-
-
+  TableItemId(item)
+}
 
 const TableItemId = (id) => {
-  router.push(`user/${id}`)
-
+  router.push(`student/${id}`)
 }
 </script>
 
@@ -228,9 +217,7 @@ const TableItemId = (id) => {
   width: 24px;
   height: 24px;
   cursor: pointer;
-
 }
-
 
 .content_table tbody td {
   color: rgb(29, 29, 31);

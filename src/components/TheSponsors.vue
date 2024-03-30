@@ -36,14 +36,11 @@
           <td>{{ item?.created_at.slice(0, 10) }}</td>
           <td :class="getClass(item)">{{ item?.get_status_display }}</td>
           <td>
-        
-
-           <img
-             :src="item.imgshow ? eyeBlock : eye"
-             alt="eye"
-             @click="toggleSensitiveData(item)"
-           />
-       
+            <img
+              :src="item.imgshow ? eyeBlock : eye"
+              alt="eye"
+              @click="toggleSensitiveData(item)"
+            />
           </td>
         </tr>
       </tbody>
@@ -133,21 +130,14 @@ const filteredSposoreList = computed(() => {
   })
 })
 
-
-
-
 const handleTableRowClick = (item) => {
+  if (event.target.tagName === 'IMG') return
 
-  if (event.target.tagName === 'IMG') return;
-
-  TableItemId(item);
-};
-
-
+  TableItemId(item)
+}
 
 const TableItemId = (id) => {
   router.push(`user/${id}`)
-
 }
 </script>
 
@@ -233,9 +223,7 @@ const TableItemId = (id) => {
   width: 24px;
   height: 24px;
   cursor: pointer;
-
 }
-
 
 .content_table tbody td {
   color: rgb(29, 29, 31);

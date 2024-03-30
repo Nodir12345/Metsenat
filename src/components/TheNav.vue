@@ -1,17 +1,17 @@
 <template>
   <div>
-    <div v-if="!isUserRoute" class="templete_nav">
+    <div v-if="!isUserRoute && !isUserRouteDemands" class="templete_nav">
       <nav>
         <div class="Nav_box">
           <button @click="onSubmitApex()">
             <label class="Nav_checked">
-              <input   type="radio" checked="checked" name="radio" />
+              <input type="radio" checked="checked" name="radio" />
               <span class="checkmark">Dashboard</span>
             </label>
           </button>
           <button @click="onSubmitSponsors()" to="/home/apex">
             <label class="Nav_checked">
-              <input type="radio" name="radio" :checked="isSponsorsRoute"/>
+              <input type="radio" name="radio" :checked="isSponsorsRoute" />
               <span class="checkmark2">Homiylar</span>
             </label>
           </button>
@@ -106,7 +106,17 @@
       <div class="user_nav">
         <div>
           <button @click="onSubmitApex"><img :src="arrowLeft" alt="arrowLeft" /></button>
-          <h3   >{{ user?.data.full_name }}</h3>
+          <h3>{{ user?.data.full_name }}</h3>
+          <span>Tasdiqlangan</span>
+        </div>
+      </div>
+    </div>
+
+    <div v-if="isUserRouteDemands" class="user">
+      <div class="user_nav">
+        <div>
+          <button @click="onSubmitApex"><img :src="arrowLeft" alt="arrowLeft" /></button>
+          <h3>{{ stutent?.data.full_name }}</h3>
           <span>Tasdiqlangan</span>
         </div>
       </div>
@@ -148,13 +158,11 @@ const onSubmitFilter = () => {
   showModal.value = true
 }
 const isDemandsRoute = computed(() => {
-  return route.path === '/home/demands';
-});
+  return route.path === '/home/demands'
+})
 const isSponsorsRoute = computed(() => {
-  return route.path === '/home/sponsors';
-});
-
-
+  return route.path === '/home/sponsors'
+})
 
 const clearFilter = () => {
   showModal.value = false
@@ -163,9 +171,6 @@ const clearFilter = () => {
 const arizaHolatiValue = ref('all')
 const selectedHomiylikSummasi = ref('3000')
 const sanaValue = ref('')
-
-
-
 
 const logFilterValues = () => {
   console.log('Ariza holati:', arizaHolatiValue.value)
@@ -187,35 +192,50 @@ const clearFilterValues = () => {
   localStorage.removeItem('sana')
 }
 
-
-
 const user = ref()
 
 const FeachUser = (UserId) => {
-  axios(`https://metsenatclub.xn--h28h.uz/api/v1/sponsor-detail/${UserId}`).then(
-    (res) => (user.value = res)
-  )
+  if (UserId) {
+    axios(`https://metsenatclub.xn--h28h.uz/api/v1/sponsor-detail/${UserId} `).then(
+      (res) => (user.value = res)
+    )
+  }
+}
+
+const stutent = ref()
+const FeachSponsor = (UserId) => {
+  if (UserId) {
+    axios(`https://metsenatclub.xn--h28h.uz/api/v1/student-detail/${UserId} `).then(
+      (res) => (stutent.value = res)
+    )
+  }
 }
 
 onBeforeMount(() => {
-  FeachUser(route.params.id)
-  
+  if (route.params.id) {
+    FeachUser(route.params.id)
+    FeachSponsor(route.params.id)
+  }
+
   watch(
     () => route.params.id,
     (newValue, oldValue) => {
-      FeachUser(newValue)
+      if (newValue) {
+        FeachUser(newValue)
+        FeachSponsor(newValue)
+      }
     }
   )
 })
 
-
-
-
-
 const isUserRoute = computed(() => {
   const regex = /^\/home\/user\/.*$/
   return regex.test(route.path)
+})
 
+const isUserRouteDemands = computed(() => {
+  const regex = /^\/home\/student\/.*$/
+  return regex.test(route.path)
 })
 
 const searchValue = ref('')
@@ -223,8 +243,6 @@ const searchValue = ref('')
 const getNavFilterInputValue = () => {
   console.log('Nav filter input value:', searchValue.value)
 }
-
-
 
 // onMounted(() => {
 //   const navFilterInput = document.querySelector('.nav_filter_input')
@@ -249,11 +267,6 @@ watch(
     getSearchList()
   }
 )
-
-
-
-
-
 </script>
 
 <style scoped lang="scss">
@@ -596,7 +609,6 @@ watch(
 .Nav_checked:hover input ~ .checkmark2,
 .Nav_checked:hover input ~ .checkmark3 {
   background-color: #ecf0fc;
-  transition: 300ms;
 }
 
 .Nav_checked input:checked ~ .checkmark,

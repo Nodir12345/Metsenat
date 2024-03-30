@@ -24,10 +24,16 @@ export default [
         name: 'demands',
         component: () => import('@/components/TheDemands.vue')
       },
+
       {
         path: 'user/:id',
         name: 'User',
         component: () => import('@/components/TheChildTable.vue')
+      },
+      {
+        path: 'student/:id',
+        name: 'UserDemands',
+        component: () => import('@/components/TheChildDemands.vue')
       }
     ]
   },

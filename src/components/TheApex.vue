@@ -3,24 +3,24 @@
     <div class="space">space</div>
     <ul class="cost_wrapper">
       <li class="cost_box">
-        <img :src="allCost" alt="filter" />
+        <img :src="totalPaid" alt="totalPaid" />
         <div class="cost_title_box">
           <h3 class="cost_title">Jami to‘langan summa</h3>
-          <p class="cost_text">1 684 325 000 <span class="cost_uzs">UZS</span></p>
+          <p class="cost_text">{{ sum?.total_paid }} <span class="cost_uzs">UZS</span></p>
         </div>
       </li>
       <li class="cost_box">
-        <img :src="allCost" alt="filter" />
+        <img :src="resPaid" alt="resPaid" />
         <div class="cost_title_box">
-          <h3 class="cost_title">Jami to‘langan summa</h3>
-          <p class="cost_text">1 684 325 000 <span class="cost_uzs">UZS</span></p>
+          <h3 class="cost_title">Jami so‘ralgan summa</h3>
+          <p class="cost_text">{{ sum?.total_need }} <span class="cost_uzs">UZS</span></p>
         </div>
       </li>
       <li class="cost_box">
-        <img :src="allCost" alt="filter" />
+        <img :src="needCost" alt="needCost" />
         <div class="cost_title_box">
-          <h3 class="cost_title">Jami to‘langan summa</h3>
-          <p class="cost_text">1 684 325 000 <span class="cost_uzs">UZS</span></p>
+          <h3 class="cost_title">To‘lanishi kerak summa</h3>
+          <p class="cost_text">{{ sum?.total_must_pay }} <span class="cost_uzs">UZS</span></p>
         </div>
       </li>
     </ul>
@@ -29,12 +29,19 @@
         <apexchart type="line" height="350" :options="chartOptions" :series="series"></apexchart>
       </div>
     </div>
+    <div class="spaceButtun">spaceButtun</div>
   </div>
 </template>
 
 <script setup>
 import VueApexCharts from 'vue3-apexcharts'
-import allCost from '../assets/img/allCost.png'
+import { onBeforeMount, ref } from 'vue'
+import axios from 'axios'
+import { useRoute } from 'vue-router'
+import totalPaid from '../assets/img/totalPaid.png'
+import resPaid from '../assets/img/cost.png'
+import needCost from '../assets/img/needCost.png'
+
 const series = [
   {
     name: 'Desktops',
@@ -70,7 +77,6 @@ const chartOptions = {
       lineHeight: '28px'
     }
   },
-
   grid: {
     row: {
       colors: ['#f3f3f3', 'transparent'],
@@ -82,6 +88,25 @@ const chartOptions = {
   },
   colors: ['#FF92AE', '#4C6FFF']
 }
+
+const route = useRoute() // This line should be moved inside the setup() function
+
+const sum = ref()
+
+const fetchData = () => {
+  axios
+    .get('https://metsenatclub.xn--h28h.uz/api/v1/dashboard/')
+    .then((response) => {
+      sum.value = response.data
+    })
+    .catch((error) => {
+      console.error('Error fetching data:', error)
+    })
+}
+onBeforeMount(() => {
+  fetchData()
+})
+console.log(sum)
 </script>
 
 <script>
@@ -119,13 +144,8 @@ export default defineComponent({
   display: flex;
   align-items: center;
   gap: 16px;
-  cursor: pointer;
 }
 
-.cost_box:hover {
-  transform: scale(1.08);
-  transition: 0.5s linear;
-}
 ul,
 li {
   list-style: none;
@@ -158,5 +178,9 @@ li {
 .space {
   margin-bottom: 48px;
   opacity: 0;
+}
+.spaceButtun {
+  opacity: 0;
+  margin-top: 58px;
 }
 </style>

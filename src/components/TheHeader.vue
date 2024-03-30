@@ -4,12 +4,12 @@
       <img :src="logoMetsenat" alt="Logo Metsenat" />
       <div class="header_left">
         <button class="user_box">
-          Shoxrux
+          Metsenat
           <div class="user_icon_box">
             <img :src="userIcon" alt="Logo Metsenat" />
           </div>
         </button>
-        <button class="logout_btn">
+        <button @click="removeValue" class="logout_btn">
           <img :src="logOut" alt="Logout" />
         </button>
       </div>
@@ -20,6 +20,12 @@
 import logoMetsenat from '../assets/img/logoMetsenat.png'
 import userIcon from '../assets/img/userStaticIcon.svg'
 import logOut from '../assets/img/logOut.png'
+
+const removeValue = () => {
+  localStorage.removeItem('access')
+  localStorage.removeItem('refresh')
+  window.location.reload()
+}
 </script>
 
 <style scoped>
@@ -50,9 +56,9 @@ import logOut from '../assets/img/logOut.png'
 }
 
 .user_box:hover {
-  background-color: var(--main-color);
-  transition-duration: 500ms;
-  color: white;
+  transition-duration: 200ms;
+  color: rgb(51, 101, 252);
+  background: rgb(237, 241, 253);
 }
 
 .user_icon_box {

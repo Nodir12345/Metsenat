@@ -31,13 +31,13 @@ import axios from 'axios'
 import { onBeforeMount, ref } from 'vue'
 import userLogo from '../assets/img/userLogo.png'
 import custumUser from '../assets/img/custumUser.png'
-import TheUser from '@/composables/TheUser'
 
 const route = useRoute()
+
 const user = ref()
 const FeachUser = () => {
   const UserId = route.params.id
-  axios(`https://metsenatclub.xn--h28h.uz/api/v1/sponsor-detail/${UserId}`).then(
+  axios(`https://metsenatclub.xn--h28h.uz/api/v1/student-detail/${UserId}`).then(
     (res) => (user.value = res)
   )
 }
