@@ -1,5 +1,10 @@
 <template>
   <div class="table_wrap">
+    <div class="space">.</div>
+    <button @click="StudentAdd" class="add_student_btn">
+      <img :src="addBtn" alt="addBtn" />
+      Talaba qo‘shish
+    </button>
     <table class="content_table">
       <thead>
         <tr>
@@ -82,6 +87,7 @@ import TheTableFetch from '@/composables/TheTableFeach'
 import TheTableShow from '@/composables/TheTableShow'
 import { computed, ref, watch } from 'vue'
 import eye from '../assets/img/eye.png'
+import addBtn from '../assets/img/addBtn.png'
 import eyeBlock from '../assets/img/eyeBlock.svg'
 import next from '../assets/img/next.png'
 import prev from '../assets/img/prev.png'
@@ -133,6 +139,10 @@ const handleTableRowClick = (item) => {
 const TableItemId = (id) => {
   router.push(`student/${id}`)
 }
+
+const StudentAdd = () => {
+  router.push(`demands/add`)
+}
 </script>
 
 <style scoped>
@@ -183,12 +193,32 @@ const TableItemId = (id) => {
   justify-content: space-between;
 }
 
+.add_student_btn {
+  border-radius: 5px;
+  background: rgb(51, 102, 255);
+  padding: 9px 32px;
+  display: flex;
+  align-items: center;
+  color: rgb(255, 255, 255);
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 24px;
+  letter-spacing: -0.35px;
+  gap: 10px;
+  margin-left: auto;
+  margin-bottom: 20px;
+  margin-top: 20px;
+  cursor: pointer;
+}
+
 .content_table {
   width: 100%;
   border-collapse: separate;
   border-spacing: 0 1rem;
 }
-
+.space {
+  opacity: 0;
+}
 .content_table thead tr {
   color: rgb(177, 177, 184);
   font-size: 12px;

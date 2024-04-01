@@ -34,6 +34,11 @@ export default [
         path: 'student/:id',
         name: 'UserDemands',
         component: () => import('@/components/TheChildDemands.vue')
+      },
+      {
+        path: 'demands/add',
+        name: 'studentAdd',
+        component: () => import('@/components/TheAddStudent.vue')
       }
     ]
   },

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div v-if="!isUserRoute && !isUserRouteDemands" class="templete_nav">
+    <div v-if="!isUserRoute && !isUserRouteDemands && !isUserRouteDemandsAdd" class="templete_nav">
       <nav>
         <div class="Nav_box">
           <button @click="onSubmitApex()">
@@ -95,8 +95,17 @@
               <div><input type="date" id="appt" name="appt" v-model="sanaValue" /></div>
             </div>
             <span class="filter_line"> </span>
-            <button @click="logFilterValues" class="filter_btn">Btn</button>
-            <button @click="clearFilterValues" class="filter_btn">clear</button>
+            <div class="filter_btns_wrapper">
+              <button @click="clearFilterValues" class="filter_btn_clear">
+                <img :src="Tozalash" alt="clearFilter" />
+                Tozalash
+              </button>
+
+              <button @click="logFilterValues" class="filter_btn_see">
+                <img :src="See" alt="eyeFilter" />
+                Natijalarni ko‘rish
+              </button>
+            </div>
           </form>
         </div>
       </div>
@@ -105,7 +114,7 @@
     <div v-if="isUserRoute" class="user">
       <div class="user_nav">
         <div>
-          <button @click="onSubmitApex"><img :src="arrowLeft" alt="arrowLeft" /></button>
+          <button @click="onSubmitSponsors"><img :src="arrowLeft" alt="arrowLeft" /></button>
           <h3>{{ user?.data.full_name }}</h3>
           <span>Tasdiqlangan</span>
         </div>
@@ -115,9 +124,18 @@
     <div v-if="isUserRouteDemands" class="user">
       <div class="user_nav">
         <div>
-          <button @click="onSubmitApex"><img :src="arrowLeft" alt="arrowLeft" /></button>
+          <button @click="onSubmitDemands"><img :src="arrowLeft" alt="arrowLeft" /></button>
           <h3>{{ stutent?.data.full_name }}</h3>
           <span>Tasdiqlangan</span>
+        </div>
+      </div>
+    </div>
+
+    <div v-if="isUserRouteDemandsAdd" class="user">
+      <div class="user_nav">
+        <div>
+          <button @click="onSubmitDemands"><img :src="arrowLeft" alt="arrowLeft" /></button>
+          <h3>Talaba Qo'shish</h3>
         </div>
       </div>
     </div>
@@ -132,6 +150,8 @@ import arrowLeft from '../assets/img/arrowLeft.png'
 import arrowDown from '../assets/img/arrowDown.png'
 import arrowTop from '../assets/img/arrowTop.png'
 import clear from '../assets/img/clear.png'
+import Tozalash from '../assets/img/clearFilter.png'
+import See from '../assets/img/eyeFilter.png'
 import CheckedIcon from '../assets/img/CheckedIcon.png'
 import { useRouter } from 'vue-router'
 import TheTableFetch from '@/composables/TheTableFeach'
@@ -237,6 +257,10 @@ const isUserRouteDemands = computed(() => {
   const regex = /^\/home\/student\/.*$/
   return regex.test(route.path)
 })
+const isUserRouteDemandsAdd = computed(() => {
+  const regex = /^\/home\/demands\/add/
+  return regex.test(route.path)
+})
 
 const searchValue = ref('')
 
@@ -249,6 +273,7 @@ const getNavFilterInputValue = () => {
 //   navFilterInput.addEventListener('input', getNavFilterInputValue)
 // })
 
+// search
 let searchData = ref({})
 function getSearchList() {
   axios('https://metsenatclub.xn--h28h.uz/api/v1/sponsor-list/?page=1&page_size=40', {
@@ -487,6 +512,46 @@ watch(
 }
 .nav_filter_form {
   position: relative;
+}
+
+.filter_btn_see {
+  border-radius: 5px;
+  box-shadow:
+    0px 2px 4px 0px rgba(96, 97, 112, 0.16),
+    0px 0px 1px 0px rgba(40, 41, 61, 0.04);
+  background: rgb(51, 102, 255);
+  color: rgb(255, 255, 255);
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 24px;
+  letter-spacing: -0.35px;
+  display: flex;
+  align-items: center;
+  padding: 9px 32px;
+  gap: 8px;
+  cursor: pointer;
+}
+
+.filter_btn_clear {
+  border: 1px solid rgb(178, 183, 193);
+  border-radius: 5px;
+  color: rgb(178, 183, 193);
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 24px;
+  letter-spacing: -0.35px;
+  padding: 9px 32px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  cursor: pointer;
+}
+
+.filter_btns_wrapper {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  justify-content: end;
 }
 
 .search_data {
