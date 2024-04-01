@@ -188,6 +188,20 @@ const clearFilter = () => {
   showModal.value = false
 }
 
+const isUserRoute = computed(() => {
+  const regex = /^\/home\/user\/.*$/
+  return regex.test(route.path)
+})
+
+const isUserRouteDemands = computed(() => {
+  const regex = /^\/home\/student\/.*$/
+  return regex.test(route.path)
+})
+const isUserRouteDemandsAdd = computed(() => {
+  const regex = /^\/home\/demands\/add/
+  return regex.test(route.path)
+})
+
 const arizaHolatiValue = ref('all')
 const selectedHomiylikSummasi = ref('3000')
 const sanaValue = ref('')
@@ -246,20 +260,6 @@ onBeforeMount(() => {
       }
     }
   )
-})
-
-const isUserRoute = computed(() => {
-  const regex = /^\/home\/user\/.*$/
-  return regex.test(route.path)
-})
-
-const isUserRouteDemands = computed(() => {
-  const regex = /^\/home\/student\/.*$/
-  return regex.test(route.path)
-})
-const isUserRouteDemandsAdd = computed(() => {
-  const regex = /^\/home\/demands\/add/
-  return regex.test(route.path)
 })
 
 const searchValue = ref('')

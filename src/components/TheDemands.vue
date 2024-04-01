@@ -5,6 +5,8 @@
       <img :src="addBtn" alt="addBtn" />
       Talaba qo‘shish
     </button>
+    <div></div>
+
     <table class="content_table">
       <thead>
         <tr>
@@ -32,7 +34,7 @@
           <td>{{ index + 1 }}</td>
           <td>{{ item?.full_name }}</td>
           <td>{{ item?.phone }}</td>
-          <td>{{ item?.institute?.name }}</td>
+          <td>{{ item?.institute?.name.slice(0, 45) }}</td>
           <td>{{ item?.given }}</td>
           <td>{{ item?.contract }}</td>
           <td>

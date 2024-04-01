@@ -1,54 +1,63 @@
 <template>
   <div>
-    <div class="space">.</div>
-    <div class="student_add">
-      <div class="student_add_title">
-        <div>
-          <h3>F.I.Sh. (Familiya Ism Sharif)</h3>
-          <input placeholder="Full Name" type="text" v-model="fullName" />
+    <form @submit.prevent="handleSubmit">
+      <div class="space">.</div>
+      <div class="student_add">
+        <div class="student_add_title">
+          <div>
+            <h3>F.I.Sh. (Familiya Ism Sharif)</h3>
+            <input placeholder="Full Name" type="text" v-model="fullName" />
+          </div>
+          <div>
+            <h3>Telefon Raqam</h3>
+            <input placeholder="Phone" type="number" v-model="phoneNumber" />
+          </div>
         </div>
-        <div>
-          <h3>Telefon Raqam</h3>
-          <input placeholder="Phone" type="number" v-model="phoneNumber" />
-        </div>
-      </div>
 
-      <div class="student_OTM">
-        <h3>OTM</h3>
-        <select name="OTM" id="OTM" v-model="selectedOTM">
-          <option v-for="(institution, index) in OTM" :key="index" :value="institution?.name">
-            {{ institution?.name.slice(0, 110) }}
-          </option>
-        </select>
-      </div>
-
-      <div class="student_add_title">
-        <div>
-          <h3>Talabalik turi</h3>
-          <select name="studentType" id="studentType" v-model="studentType">
-            <option :value="1">Grand</option>
-            <option :value="2">Kantrakt</option>
+        <div class="student_OTM">
+          <h3>OTM</h3>
+          <select name="OTM" id="OTM" v-model="selectedOTM">
+            <option v-for="(institution, index) in OTM" :key="index" :value="institution?.name">
+              {{ institution?.name.slice(0, 110) }}
+            </option>
           </select>
         </div>
-        <div>
-          <h3>Kontarkt summa</h3>
-          <input placeholder="Summani kiriting" type="number" v-model="summa" />
-        </div>
-      </div>
-      <div class="line"></div>
 
-      <button class="add_student_btn" @click="logValues">
-        <img :src="addBtn" alt="addBtn" />Qo‘shish
-      </button>
-    </div>
+        <div class="student_add_title">
+          <div>
+            <h3>Talabalik turi</h3>
+            <select name="studentType" id="studentType" v-model="studentType">
+              <option :value="1">Grand</option>
+              <option :value="2">Kantrakt</option>
+            </select>
+          </div>
+          <div>
+            <h3>Kontarkt summa</h3>
+            <input placeholder="Summani kiriting" type="number" v-model="summa" />
+          </div>
+        </div>
+        <div class="line"></div>
+        <Toast />
+        <button class="add_student_btn" type="submit">
+          <img :src="addBtn" alt="addBtn" />Qo‘shish
+        </button>
+      </div>
+    </form>
     <div class="space">.</div>
   </div>
 </template>
 
 <script setup>
 import axios from 'axios'
-import { onBeforeMount, ref } from 'vue'
+import { onBeforeMount, ref, watch } from 'vue'
 import addBtn from '../assets/img/addBtn.png'
+import Toast from 'primevue/toast'
+import { useToast } from 'primevue/usetoast'
+const toast = useToast()
+
+const showSuccess = () => {
+  toast.add({ severity: 'success', summary: 'Success Message', detail: 'Student add', life: 3000 })
+}
 
 const OTM = ref([])
 const selectedOTM = ref(null)
@@ -56,7 +65,7 @@ const fullName = ref('')
 const phoneNumber = ref('')
 const studentType = ref('')
 const summa = ref('')
-
+const isError = ref(false)
 const fetchUser = () => {
   axios
     .get(`https://metsenatclub.xn--h28h.uz/api/v1/institute-list/`)
@@ -93,10 +102,27 @@ const logValues = () => {
     .post('https://metsenatclub.xn--h28h.uz/api/v1/student-create/', formData)
     .then((res) => {
       console.log('Ishladi', res.data)
+      isError.value = true
     })
     .catch((err) => {
       console.log('error', err)
+      isError.value = false
     })
+}
+
+const handleSubmit = () => {
+  watch(isError, (newValue, oldValue) => {
+    if (newValue === true) {
+      showSuccess()
+    }
+  })
+
+  logValues()
+  selectedOTM.value = null
+  fullName.value = ''
+  phoneNumber.value = ''
+  studentType.value = ''
+  summa.value = ''
 }
 </script>
 

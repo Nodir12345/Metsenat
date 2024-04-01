@@ -45,7 +45,8 @@
           </label>
         </button>
       </div>
-      <div v-if="isLegal" class="user_edit_information">
+
+      <for v-if="isLegal" class="user_edit_information">
         <div class="full_name">
           <h3>F.I.Sh. (Familiya Ism Sharifingiz)</h3>
           <input :value="user?.data.full_name" type="text" placeholder="FullName" />
@@ -63,11 +64,8 @@
           </select>
         </div>
         <div class="full_name">
-          <h3>Homiylik Summasi</h3>
-          <select name="holati" id="holati">
-            <option value="Moderlangan">30000</option>
-            <option value="yangi">2000</option>
-          </select>
+          <h3>Homiylik summsi</h3>
+          <input :value="user?.data.sum" type="text" placeholder="Phone" />
         </div>
         <div class="full_name">
           <h3>To'lov Turi</h3>
@@ -81,7 +79,7 @@
           <img :src="save" alt="save" />
           Saqlash
         </button>
-      </div>
+      </for>
       <div v-if="!isLegal">
         <div class="isNotLegal" v-if="!user?.data.is_legal">
           <h2>Yuridik shaxs emas</h2>
@@ -116,7 +114,7 @@ onBeforeMount(() => {
   FeachUser()
 })
 
-const showSponsorEditValue = ref(true)
+const showSponsorEditValue = ref(false)
 const showSponsorEdit = (Boolin) => {
   showSponsorEditValue.value = Boolin
 }
