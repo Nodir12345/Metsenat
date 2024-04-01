@@ -46,40 +46,41 @@
         </button>
       </div>
 
-      <for v-if="isLegal" class="user_edit_information">
+      <form @submit="logValues()" v-if="isLegal" class="user_edit_information">
         <div class="full_name">
-          <h3>F.I.Sh. (Familiya Ism Sharifingiz)</h3>
-          <input :value="user?.data.full_name" type="text" placeholder="FullName" />
-        </div>
-        <div class="full_name">
-          <h3>Telefon raqam</h3>
-          <input :value="user?.data.phone" type="text" placeholder="Phone" />
-        </div>
-
-        <div class="full_name">
-          <h3>Holati</h3>
-          <select name="holati" id="holati">
-            <option value="Moderlangan">Moderlangan</option>
-            <option value="yangi">Yangi</option>
-          </select>
-        </div>
-        <div class="full_name">
-          <h3>Homiylik summsi</h3>
-          <input :value="user?.data.sum" type="text" placeholder="Phone" />
-        </div>
-        <div class="full_name">
-          <h3>To'lov Turi</h3>
-          <select name="holati" id="holati">
-            <option value="Moderlangan">Pul o'tqazmasi</option>
-            <option value="yangi">Plastik</option>
-          </select>
-        </div>
+  <h3>F.I.Sh. (Familiya Ism Sharifingiz)</h3>
+  <input v-model="formData.full_name" type="text" placeholder="FullName" />
+</div>
+<div class="full_name">
+  <h3>Telefon raqam</h3>
+  <input v-model="formData.phone" type="text" placeholder="Phone" />
+</div>
+<div class="full_name">
+  <h3>Holati</h3>
+  <select v-model="formData.get_status_display" name="holati" id="holati">
+    <option value="Moderlangan">Moderlangan</option>
+    <option value="yangi">Yangi</option>
+  </select>
+</div>
+<div class="full_name">
+  <h3>Homiylik summsi</h3>
+  <input v-model="formData.sum" type="text" placeholder="Sum" />
+</div>
+<div class="full_name">
+  <h3>To'lov Turi</h3>
+  <select v-model="formData.comment" name="payment_method" id="payment_method">
+    <option value="Pul o'tqazmasi">Pul o'tqazmasi</option>
+    <option value="Plastik">Plastik</option>
+  </select>
+</div>
 
         <button class="editBtn">
           <img :src="save" alt="save" />
           Saqlash
         </button>
-      </for>
+      </form>
+
+
       <div v-if="!isLegal">
         <div class="isNotLegal" v-if="!user?.data.is_legal">
           <h2>Yuridik shaxs emas</h2>
@@ -104,8 +105,12 @@ import clear from '../assets/img/clear.png'
 import save from '../assets/img/save.png'
 const route = useRoute()
 const user = ref()
+const UserId = route.params.id
+
+
+
+
 const FeachUser = () => {
-  const UserId = route.params.id
   axios(`https://metsenatclub.xn--h28h.uz/api/v1/sponsor-detail/${UserId}`).then(
     (res) => (user.value = res)
   )
@@ -124,6 +129,32 @@ const isLegal = ref(true)
 const Legal = (Boolin) => {
   isLegal.value = Boolin
 }
+
+
+
+
+
+const formData = ref({
+  full_name: "",
+  phone: "",
+  sum: "",
+  isLegal: true,
+  firm: "cddee",
+  comment: "",
+  get_status_display:"",
+});
+
+const logValues = () => {
+  axios
+    .put(`https://metsenatclub.xn--h28h.uz/api/v1/sponsor-update/${UserId}/`, formData.value)
+    .then((res) => {
+      console.log('Ishladi', res.data)
+    })
+    .catch((err) => {
+      console.log('error', err)
+    })
+}
+
 </script>
 
 <style lang="scss" scoped>
