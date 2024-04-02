@@ -188,11 +188,7 @@ const clearFilter = () => {
   showModal.value = false
 }
 
-
-
 ////nav
-
-
 
 const isUserRoute = computed(() => {
   const regex = /^\/home\/user\/.*$/
@@ -207,10 +203,6 @@ const isUserRouteDemandsAdd = computed(() => {
   const regex = /^\/home\/demands\/add/
   return regex.test(route.path)
 })
-
-
-
-
 
 const user = ref()
 
@@ -248,12 +240,6 @@ onBeforeMount(() => {
   )
 })
 
-
-
-
-
-
-
 // search
 
 const searchValue = ref('')
@@ -285,9 +271,6 @@ watch(
 //   navFilterInput.addEventListener('input', getNavFilterInputValue)
 // })
 
-
-
-
 //filter
 
 const arizaHolatiValue = ref('all')
@@ -313,8 +296,6 @@ const clearFilterValues = () => {
   localStorage.removeItem('homiylikSummasi')
   localStorage.removeItem('sana')
 }
-
-
 </script>
 
 <style scoped lang="scss">

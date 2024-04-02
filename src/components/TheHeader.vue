@@ -3,8 +3,10 @@
     <div class="container_header">
       <img :src="logoMetsenat" alt="Logo Metsenat" />
       <div class="header_left">
+        <Language></Language>
+
         <button class="user_box">
-          Metsenat
+          {{ $t("msg") }}
           <div class="user_icon_box">
             <img :src="userIcon" alt="Logo Metsenat" />
           </div>
@@ -20,7 +22,7 @@
 import logoMetsenat from '../assets/img/logoMetsenat.png'
 import userIcon from '../assets/img/userStaticIcon.svg'
 import logOut from '../assets/img/logOut.png'
-
+import Language from './TheLanguage.vue'
 const removeValue = () => {
   localStorage.removeItem('access')
   localStorage.removeItem('refresh')

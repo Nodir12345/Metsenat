@@ -14,53 +14,46 @@
   </div>
 </template>
 
-<script>
-export default {
-  data() {
-    return {
-      locales: [
-        {
-          value: 'en-GB',
-          label: 'English (UK)',
-          flagSrc:
-            'https://www.slidebackground.com/uploads/american-flag-ppt-background/american-flag-powerpoint-patriotic-images-4.jpg'
-        },
-        {
-          value: 'uz',
-          label: 'Uzb',
-          flagSrc:
-            'https://abrakadabra.fun/uploads/posts/2021-12/1640657144_3-abrakadabra-fun-p-uzb-flag-3.jpg'
-        }
-      ],
-      isOpen: false,
-      selectedLocale: {
-        value: 'uz',
-        label: 'Uzb',
-        flagSrc:
-          'https://abrakadabra.fun/uploads/posts/2021-12/1640657144_3-abrakadabra-fun-p-uzb-flag-3.jpg'
-      }
-    }
-  },
-  methods: {
-    toggleDropdown() {
-      this.isOpen = !this.isOpen
-    },
-    setSelectedLocale(locale) {
-      this.selectedLocale = locale
-      this.isOpen = false
-    },
-    getFlagSrc(countryCode) {
-      return /^[A-Z]{2}$/.test(countryCode)
-        ? `https://flagsapi.com/${countryCode.toUpperCase()}/shiny/64.png`
-        : ''
-    }
-  }
+<script setup>
+import { ref } from 'vue'
+import Eng from '../assets/img/eng.jpg'
+import Uzb from '../assets/img/uzb.jpg'
+import Rus from '../assets/img/rus.jpg'
+import {useI18n} from "vue-i18n"
+
+const {locale} = useI18n()
+
+const locales = ref([
+  { value: 'uz', label: 'Uzb', flagSrc: Uzb },
+  { value: 'en', label: 'Eng', flagSrc: Eng },
+  { value: 'ru', label: 'Rus', flagSrc: Rus }
+])
+
+const isOpen = ref(false)
+const selectedLocale = ref({ value: 'uz', label: 'Uzb', flagSrc: Uzb })
+
+const toggleDropdown = () => {
+  isOpen.value = !isOpen.value
+}
+
+const setSelectedLocale = (locales) => {
+  selectedLocale.value = locales
+  isOpen.value = false
+  locale.value = locales.value
+}
+
+
+
+const getFlagSrc = (countryCode) => {
+  return /^[A-Z]{2}$/.test(countryCode)
+    ? `https://flagsapi.com/${countryCode.toUpperCase()}/shiny/64.png`
+    : ''
 }
 </script>
 
 <style>
 .dropdown button {
-  background-color: #253849;
+  background-color: #3366ff;
   min-width: 130px;
   width: max-content;
   height: 40px;
@@ -72,6 +65,7 @@ export default {
   cursor: pointer;
   display: flex;
   align-items: center;
+  gap: 10px;
 }
 
 .dropdown button img {

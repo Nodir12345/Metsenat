@@ -106,7 +106,6 @@ const fetchData = () => {
 onBeforeMount(() => {
   fetchData()
 })
-console.log(sum)
 </script>
 
 <script>
