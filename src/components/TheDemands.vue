@@ -16,6 +16,7 @@
           <th>OTM</th>
           <th>Ajratilingan summa</th>
           <th>Kontrakt miqdor</th>
+          <th>delete</th>
           <th>Amallar</th>
         </tr>
       </thead>
@@ -38,6 +39,13 @@
           <td>{{ item?.given }}</td>
           <td>{{ item?.contract }}</td>
           <td>
+            <div class="tbl" @click="handleTblClick($event, item.id)">
+              <div class="cell">
+                <a href="" class="trash"></a>
+              </div>
+            </div>
+          </td>
+          <td>
             <img
               :src="item.imgshow ? eyeBlock : eye"
               alt="eye"
@@ -46,6 +54,7 @@
           </td>
         </tr>
       </tbody>
+
       <tbody v-else>
         <tr>
           <td colspan="8">No data available</td>
@@ -80,14 +89,13 @@
         </div>
       </div>
     </div>
-    <div class="spaceDemend">spaceDemend</div>
   </div>
 </template>
 
 <script setup>
 import TheTableFetch from '@/composables/TheTableFeach'
 import TheTableShow from '@/composables/TheTableShow'
-import { computed, ref, watch } from 'vue'
+import { computed, onMounted, ref, watch } from 'vue'
 import eye from '../assets/img/eye.png'
 import addBtn from '../assets/img/addBtn.png'
 import eyeBlock from '../assets/img/eyeBlock.svg'
@@ -95,6 +103,7 @@ import next from '../assets/img/next.png'
 import prev from '../assets/img/prev.png'
 import { useRouter } from 'vue-router'
 import { useRoute } from 'vue-router'
+import axios from 'axios'
 
 const route = useRoute()
 const router = useRouter()
@@ -133,7 +142,7 @@ const filteredSposoreList = computed(() => {
 })
 
 const handleTableRowClick = (item) => {
-  if (event.target.tagName === 'IMG') return
+  if (event.target.tagName === 'IMG' || event.target.tagName === 'A') return
 
   TableItemId(item)
 }
@@ -144,6 +153,21 @@ const TableItemId = (id) => {
 
 const StudentAdd = () => {
   router.push(`demands/add`)
+}
+
+const handleTblClick = (event, id) => {
+  event.preventDefault()
+  console.log(id)
+
+  axios
+    .delete(`https://metsenatclub.xn--h28h.uz/api/v1/student-delete/${id}/`)
+    .then((res) => {
+      console.log('Ishladi', res.data)
+      window.location.reload()
+    })
+    .catch((err) => {
+      console.log('error', err)
+    })
 }
 </script>
 
@@ -293,5 +317,106 @@ const StudentAdd = () => {
 }
 .btn_pagination_num:focus {
   border: 1px solid #3366ff;
+}
+
+.trash {
+  position: relative;
+  display: inline-block;
+  width: 12px;
+  height: 15px;
+  border: 2px solid #000;
+  border-top: 0;
+  border-radius: 0 0 2px 2px;
+  background: none;
+  box-shadow: none;
+  transition: all 0.3s ease;
+}
+.trash:before {
+  content: '';
+  position: absolute;
+  top: -3px;
+  left: -3px;
+  height: 3px;
+  width: 15px;
+  background: #000;
+  border-radius: 2px;
+  transform: rotate(0);
+}
+.trash:after {
+  content: '';
+  position: absolute;
+  top: -4px;
+  left: 1px;
+  width: 7px;
+  height: 2px;
+  background: #000;
+  transform: rotate(0);
+}
+.trash:hover {
+  box-shadow: inset 0 -7px 0 #000;
+}
+.trash:hover:before,
+.trash:hover:after {
+  animation: shake 0.2s linear infinite;
+}
+.trash:active {
+  box-shadow: none;
+  transform: scale(0.75);
+}
+.trash:active:before,
+.trash:active:after {
+  animation: none;
+}
+.tbl {
+  display: table;
+  width: 100%;
+  height: 100%;
+}
+.cell {
+  display: table-cell;
+  vertical-align: middle;
+  text-align: center;
+}
+@-moz-keyframes shake {
+  from {
+    transform: rotate(5deg);
+  }
+  to {
+    transform: rotate(-5deg);
+  }
+}
+@-webkit-keyframes shake {
+  from {
+    transform: rotate(5deg);
+  }
+  to {
+    transform: rotate(-5deg);
+  }
+}
+@-o-keyframes shake {
+  from {
+    transform: rotate(5deg);
+  }
+  to {
+    transform: rotate(-5deg);
+  }
+}
+@keyframes shake {
+  from {
+    transform: rotate(5deg);
+  }
+  to {
+    transform: rotate(-5deg);
+  }
+}
+.bage {
+  position: absolute;
+  top: 30%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 12px;
+  width: 286px;
+  height: 268px;
+  background: rgb(255, 255, 255);
 }
 </style>

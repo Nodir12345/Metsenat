@@ -34,52 +34,58 @@
       <div class="user_edit_box">
         <button @click="Legal(true)">
           <label class="user_edit_checked">
-            <input :checked="!user?.data.is_legal" type="radio" name="user" />
+            <input checked type="radio" name="user" />
             <span class="user_edit_checkmark">Jismoniy shaxs</span>
           </label>
         </button>
         <button @click="Legal(false)">
           <label class="user_edit_checked">
-            <input :checked="user?.data.is_legal" type="radio" name="user" />
+            <input type="radio" name="user" />
             <span class="user_edit_checkmark2">Yuridik shaxs</span>
           </label>
         </button>
       </div>
 
-      <form @submit="logValues()" v-if="isLegal" class="user_edit_information">
-        <div class="full_name">
-  <h3>F.I.Sh. (Familiya Ism Sharifingiz)</h3>
-  <input v-model="formData.full_name" type="text" placeholder="FullName" />
-</div>
-<div class="full_name">
-  <h3>Telefon raqam</h3>
-  <input v-model="formData.phone" type="text" placeholder="Phone" />
-</div>
-<div class="full_name">
-  <h3>Holati</h3>
-  <select v-model="formData.get_status_display" name="holati" id="holati">
-    <option value="Moderlangan">Moderlangan</option>
-    <option value="yangi">Yangi</option>
-  </select>
-</div>
-<div class="full_name">
-  <h3>Homiylik summsi</h3>
-  <input v-model="formData.sum" type="text" placeholder="Sum" />
-</div>
-<div class="full_name">
-  <h3>To'lov Turi</h3>
-  <select v-model="formData.comment" name="payment_method" id="payment_method">
-    <option value="Pul o'tqazmasi">Pul o'tqazmasi</option>
-    <option value="Plastik">Plastik</option>
-  </select>
-</div>
+      <div v-if="isLegal" class="user_edit_information">
+        <div class="isNotLegal" v-if="user?.data.is_legal">
+          <h2>Jismoniy shaxs emas</h2>
+        </div>
 
-        <button class="editBtn">
-          <img :src="save" alt="save" />
-          Saqlash
-        </button>
-      </form>
+        <div v-if="!user?.data.is_legal">
+          <div class="full_name">
+            <h3>F.I.Sh. (Familiya Ism Sharifingiz)</h3>
+            <input v-model="formData.full_name" type="text" placeholder="FullName" />
+          </div>
+          <div class="full_name">
+            <h3>Telefon raqam</h3>
+            <input v-model="formData.phone" type="text" placeholder="Phone" />
+          </div>
+          <div class="full_name">
+            <h3>Holati</h3>
+            <select v-model="formData.get_status_display" name="holati" id="holati">
+              <option value="Moderatsiyada">Moderatsiyada</option>
+              <option value="yangi">Yangi</option>
+            </select>
+          </div>
+          <div class="full_name">
+            <h3>Homiylik summsi</h3>
+            <input v-model="formData.sum" type="text" placeholder="Sum" />
+          </div>
+          <div class="full_name">
+            <h3>To'lov Turi</h3>
+            <select v-model="formData.comment" name="payment_method" id="payment_method">
+              <option value="Pul o'tqazmasi">Pul o'tqazmasi</option>
+              <option value="Plastik">Plastik</option>
+              <option value="Naqt">Naqt pul</option>
+            </select>
+          </div>
 
+          <button @click="logValues" class="editBtn">
+            <img :src="save" alt="save" />
+            Saqlash
+          </button>
+        </div>
+      </div>
 
       <div v-if="!isLegal">
         <div class="isNotLegal" v-if="!user?.data.is_legal">
@@ -87,7 +93,40 @@
         </div>
 
         <div v-if="user?.data.is_legal">
-          <h2>Yuridik shaxs</h2>
+          <div class="user_edit_information">
+            <div class="full_name">
+              <h3>F.I.Sh. (Familiya Ism Sharifingiz)</h3>
+              <input v-model="formData.full_name" type="text" placeholder="FullName" />
+            </div>
+            <div class="full_name">
+              <h3>Telefon raqam</h3>
+              <input v-model="formData.phone" type="text" placeholder="Phone" />
+            </div>
+            <div class="full_name">
+              <h3>Holati</h3>
+              <select v-model="formData.get_status_display" name="holati" id="holati">
+                <option value="Moderatsiyada">Moderatsiyada</option>
+                <option value="yangi">Yangi</option>
+              </select>
+            </div>
+            <div class="full_name">
+              <h3>Homiylik summsi</h3>
+              <input v-model="formData.sum" type="text" placeholder="Sum" />
+            </div>
+            <div class="full_name">
+              <h3>To'lov Turi</h3>
+              <select v-model="formData.comment" name="payment_method" id="payment_method">
+                <option value="Pul o'tqazmasi">Pul o'tqazmasi</option>
+                <option value="Plastik">Plastik</option>
+                <option value="Naqt">Naqt pul</option>
+              </select>
+            </div>
+
+            <button @click="logValues" class="editBtn">
+              <img :src="save" alt="save" />
+              Saqlash
+            </button>
+          </div>
         </div>
       </div>
     </div>
@@ -106,9 +145,6 @@ import save from '../assets/img/save.png'
 const route = useRoute()
 const user = ref()
 const UserId = route.params.id
-
-
-
 
 const FeachUser = () => {
   axios(`https://metsenatclub.xn--h28h.uz/api/v1/sponsor-detail/${UserId}`).then(
@@ -130,31 +166,27 @@ const Legal = (Boolin) => {
   isLegal.value = Boolin
 }
 
-
-
-
-
 const formData = ref({
-  full_name: "",
-  phone: "",
-  sum: "",
-  isLegal: true,
-  firm: "cddee",
-  comment: "",
-  get_status_display:"",
-});
+  full_name: '',
+  phone: '',
+  sum: '',
+  isLegal: false,
+  firm: 'Metsenatlar klubiga',
+  comment: '',
+  get_status_display: ''
+})
 
 const logValues = () => {
   axios
     .put(`https://metsenatclub.xn--h28h.uz/api/v1/sponsor-update/${UserId}/`, formData.value)
     .then((res) => {
       console.log('Ishladi', res.data)
+      window.location.reload()
     })
     .catch((err) => {
       console.log('error', err)
     })
 }
-
 </script>
 
 <style lang="scss" scoped>

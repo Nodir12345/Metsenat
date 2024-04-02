@@ -1,8 +1,8 @@
 <template>
   <div class="table_wrap">
-    <pre v-for="(item, index) in filteredSposoreList" :key="index">
+    <!-- <pre v-for="(item, index) in filteredSposoreList" :key="index">
       <div>{{ item }}</div>
-    </pre>
+    </pre> -->
     <table class="content_table">
       <thead>
         <tr>

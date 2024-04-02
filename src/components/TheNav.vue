@@ -188,6 +188,12 @@ const clearFilter = () => {
   showModal.value = false
 }
 
+
+
+////nav
+
+
+
 const isUserRoute = computed(() => {
   const regex = /^\/home\/user\/.*$/
   return regex.test(route.path)
@@ -202,29 +208,9 @@ const isUserRouteDemandsAdd = computed(() => {
   return regex.test(route.path)
 })
 
-const arizaHolatiValue = ref('all')
-const selectedHomiylikSummasi = ref('3000')
-const sanaValue = ref('')
 
-const logFilterValues = () => {
-  console.log('Ariza holati:', arizaHolatiValue.value)
-  console.log('Homiylik summasi:', selectedHomiylikSummasi.value)
-  console.log('Sana:', sanaValue.value)
 
-  localStorage.setItem('arizaHolati', arizaHolatiValue.value)
-  localStorage.setItem('homiylikSummasi', selectedHomiylikSummasi.value)
-  localStorage.setItem('sana', sanaValue.value)
-}
 
-const clearFilterValues = () => {
-  arizaHolatiValue.value = 'all'
-  selectedHomiylikSummasi.value = '3000'
-  sanaValue.value = ''
-
-  localStorage.removeItem('arizaHolati')
-  localStorage.removeItem('homiylikSummasi')
-  localStorage.removeItem('sana')
-}
 
 const user = ref()
 
@@ -262,18 +248,15 @@ onBeforeMount(() => {
   )
 })
 
-const searchValue = ref('')
 
-const getNavFilterInputValue = () => {
-  console.log('Nav filter input value:', searchValue.value)
-}
 
-// onMounted(() => {
-//   const navFilterInput = document.querySelector('.nav_filter_input')
-//   navFilterInput.addEventListener('input', getNavFilterInputValue)
-// })
+
+
+
 
 // search
+
+const searchValue = ref('')
 let searchData = ref({})
 function getSearchList() {
   axios('https://metsenatclub.xn--h28h.uz/api/v1/sponsor-list/?page=1&page_size=40', {
@@ -292,6 +275,46 @@ watch(
     getSearchList()
   }
 )
+
+// const getNavFilterInputValue = () => {
+//   console.log('Nav filter input value:', searchValue.value)
+// }
+
+// onMounted(() => {
+//   const navFilterInput = document.querySelector('.nav_filter_input')
+//   navFilterInput.addEventListener('input', getNavFilterInputValue)
+// })
+
+
+
+
+//filter
+
+const arizaHolatiValue = ref('all')
+const selectedHomiylikSummasi = ref('3000')
+const sanaValue = ref('')
+
+const logFilterValues = () => {
+  console.log('Ariza holati:', arizaHolatiValue.value)
+  console.log('Homiylik summasi:', selectedHomiylikSummasi.value)
+  console.log('Sana:', sanaValue.value)
+
+  localStorage.setItem('arizaHolati', arizaHolatiValue.value)
+  localStorage.setItem('homiylikSummasi', selectedHomiylikSummasi.value)
+  localStorage.setItem('sana', sanaValue.value)
+}
+
+const clearFilterValues = () => {
+  arizaHolatiValue.value = 'all'
+  selectedHomiylikSummasi.value = '3000'
+  sanaValue.value = ''
+
+  localStorage.removeItem('arizaHolati')
+  localStorage.removeItem('homiylikSummasi')
+  localStorage.removeItem('sana')
+}
+
+
 </script>
 
 <style scoped lang="scss">
