@@ -5,17 +5,17 @@
       <div class="student_add">
         <div class="student_add_title">
           <div>
-            <h3>F.I.Sh. (Familiya Ism Sharif)</h3>
-            <input placeholder="Full Name" type="text" v-model="fullName" />
+            <h3>{{ $t('fullNameSponsor') }}</h3>
+            <input :placeholder="$t('fullNameInput')" type="text" v-model="fullName" />
           </div>
           <div>
-            <h3>Telefon Raqam</h3>
-            <input placeholder="Phone" type="number" v-model="phoneNumber" />
+            <h3>{{ $t('telSponsor') }}</h3>
+            <input :placeholder="$t('tellInput')" type="number" v-model="phoneNumber" />
           </div>
         </div>
 
         <div class="student_OTM">
-          <h3>OTM</h3>
+          <h3>{{ $t('OTM') }}</h3>
           <select name="OTM" id="OTM" v-model="selectedOTM">
             <option v-for="(institution, index) in OTM" :key="index" :value="institution?.name">
               {{ institution?.name.slice(0, 110) }}
@@ -25,21 +25,21 @@
 
         <div class="student_add_title">
           <div>
-            <h3>Talabalik turi</h3>
+            <h3>{{ $t('typeStudent') }}</h3>
             <select name="studentType" id="studentType" v-model="studentType">
-              <option :value="1">Grand</option>
-              <option :value="2">Kantrakt</option>
+              <option :value="1">{{ $t('grand') }}</option>
+              <option :value="2">{{ $t('contarct') }}</option>
             </select>
           </div>
           <div>
-            <h3>Kontarkt summa</h3>
-            <input placeholder="Summani kiriting" type="number" v-model="summa" />
+            <h3>{{ $t('contractCost') }}</h3>
+            <input :placeholder="$t('enterCost')" type="number" v-model="summa" />
           </div>
         </div>
         <div class="line"></div>
         <Toast />
         <button class="add_student_btn" type="submit">
-          <img :src="addBtn" alt="addBtn" />Qo‘shish
+          <img :src="addBtn" alt="addBtn" />{{ $t('add') }}
         </button>
       </div>
     </form>

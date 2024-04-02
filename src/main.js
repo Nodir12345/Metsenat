@@ -11,5 +11,4 @@ import 'primevue/resources/themes/aura-light-green/theme.css'
 
 const app = createApp(App)
 
-
 app.use(router).use(VueApexCharts).use(i18n).use(PrimeVue).use(ToastService).mount('#app')

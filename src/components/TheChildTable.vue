@@ -3,9 +3,9 @@
     <pre class="space">.</pre>
     <div class="user_box">
       <div class="user_about">
-        <h2>Homiy haqida</h2>
+        <h2>{{ $t('aboutSponsor') }}</h2>
         <button @click="showSponsorEdit(true)">
-          <img :src="custumUser" alt="custumUser" /> Tahrirlash
+          <img :src="custumUser" alt="custumUser" /> {{ $t('edit') }}
         </button>
       </div>
       <div class="user_title">
@@ -14,11 +14,11 @@
       </div>
       <div class="user_end">
         <div>
-          <p>telefon raqam</p>
+          <p>{{ $t('telSponsor') }}</p>
           <h3>{{ user?.data.phone }}</h3>
         </div>
         <div>
-          <p>Homiylik summasi</p>
+          <p>{{ $t('sponsorCost') }}</p>
           <h3>{{ user?.data.sum }} <span>UZS</span></h3>
         </div>
       </div>
@@ -26,7 +26,7 @@
     <div class="userBack"></div>
     <div class="user_edit" v-if="showSponsorEditValue">
       <div class="user_edit_title">
-        <h2>Tahrirlash</h2>
+        <h2>{{ $t('edit') }}</h2>
         <img @click="showSponsorEdit(false)" :src="clear" alt="clear" />
       </div>
       <span class="line"></span>
@@ -35,96 +35,96 @@
         <button @click="Legal(true)">
           <label class="user_edit_checked">
             <input checked type="radio" name="user" />
-            <span class="user_edit_checkmark">Jismoniy shaxs</span>
+            <span class="user_edit_checkmark">{{ $t('physicalPerson') }}</span>
           </label>
         </button>
         <button @click="Legal(false)">
           <label class="user_edit_checked">
             <input type="radio" name="user" />
-            <span class="user_edit_checkmark2">Yuridik shaxs</span>
+            <span class="user_edit_checkmark2">{{ $t('legalPerson') }}</span>
           </label>
         </button>
       </div>
 
       <div v-if="isLegal" class="user_edit_information">
         <div class="isNotLegal" v-if="user?.data.is_legal">
-          <h2>Jismoniy shaxs emas</h2>
+          <h2>{{ $t('notPhysicalPerson') }}</h2>
         </div>
 
         <div v-if="!user?.data.is_legal">
           <div class="full_name">
-            <h3>F.I.Sh. (Familiya Ism Sharifingiz)</h3>
-            <input v-model="formData.full_name" type="text" placeholder="FullName" />
+            <h3>{{ $t('fullNameSponsor') }}</h3>
+            <input v-model="formData.full_name" type="text" :placeholder="$t('fullNameInput')" />
           </div>
           <div class="full_name">
-            <h3>Telefon raqam</h3>
-            <input v-model="formData.phone" type="text" placeholder="Phone" />
+            <h3>{{ $t('telSponsor') }}</h3>
+            <input v-model="formData.phone" type="text" :placeholder="$t('tellInput')" />
           </div>
           <div class="full_name">
-            <h3>Holati</h3>
+            <h3>{{ $t('condition') }}</h3>
             <select v-model="formData.get_status_display" name="holati" id="holati">
-              <option value="Moderatsiyada">Moderatsiyada</option>
-              <option value="yangi">Yangi</option>
+              <option value="Moderatsiyada">{{ $t('moderate') }}</option>
+              <option value="yangi">{{ $t('new') }}</option>
             </select>
           </div>
           <div class="full_name">
-            <h3>Homiylik summsi</h3>
+            <h3>{{ $t('sponsorCost') }}</h3>
             <input v-model="formData.sum" type="text" placeholder="Sum" />
           </div>
           <div class="full_name">
-            <h3>To'lov Turi</h3>
+            <h3>{{ $t('typeCost') }}</h3>
             <select v-model="formData.comment" name="payment_method" id="payment_method">
-              <option value="Pul o'tqazmasi">Pul o'tqazmasi</option>
-              <option value="Plastik">Plastik</option>
-              <option value="Naqt">Naqt pul</option>
+              <option value="Pul o'tqazmasi">{{ $t('moneyTransfer') }}</option>
+              <option value="Plastik">{{ $t('plastic') }}</option>
+              <option value="Naqt">{{ $t('cash') }}</option>
             </select>
           </div>
 
           <button @click="logValues" class="editBtn">
             <img :src="save" alt="save" />
-            Saqlash
+            {{ $t('save') }}
           </button>
         </div>
       </div>
 
       <div v-if="!isLegal">
         <div class="isNotLegal" v-if="!user?.data.is_legal">
-          <h2>Yuridik shaxs emas</h2>
+          <h2>{{ $t('notLegalPerson') }}</h2>
         </div>
 
         <div v-if="user?.data.is_legal">
           <div class="user_edit_information">
             <div class="full_name">
-              <h3>F.I.Sh. (Familiya Ism Sharifingiz)</h3>
-              <input v-model="formData.full_name" type="text" placeholder="FullName" />
+              <h3>{{ $t('fullNameSponsor') }}</h3>
+              <input v-model="formData.full_name" type="text" :placeholder="$t('fullNameInput')" />
             </div>
             <div class="full_name">
-              <h3>Telefon raqam</h3>
-              <input v-model="formData.phone" type="text" placeholder="Phone" />
+              <h3>{{ $t('telSponsor') }}</h3>
+              <input v-model="formData.phone" type="text" :placeholder="$t('tellInput')" />
             </div>
             <div class="full_name">
-              <h3>Holati</h3>
+              <h3>{{ $t('condition') }}</h3>
               <select v-model="formData.get_status_display" name="holati" id="holati">
-                <option value="Moderatsiyada">Moderatsiyada</option>
-                <option value="yangi">Yangi</option>
+                <option value="Moderatsiyada">{{ $t('moderate') }}</option>
+                <option value="yangi">{{ $t('new') }}</option>
               </select>
             </div>
             <div class="full_name">
-              <h3>Homiylik summsi</h3>
+              <h3>{{ $t('sponsorCost') }}</h3>
               <input v-model="formData.sum" type="text" placeholder="Sum" />
             </div>
             <div class="full_name">
-              <h3>To'lov Turi</h3>
+              <h3>{{ $t('typeCost') }}</h3>
               <select v-model="formData.comment" name="payment_method" id="payment_method">
-                <option value="Pul o'tqazmasi">Pul o'tqazmasi</option>
-                <option value="Plastik">Plastik</option>
-                <option value="Naqt">Naqt pul</option>
+                <option value="Pul o'tqazmasi">{{ $t('moneyTransfer') }}</option>
+                <option value="Plastik">{{ $t('plastic') }}</option>
+                <option value="Naqt">{{ $t('cash') }}</option>
               </select>
             </div>
 
             <button @click="logValues" class="editBtn">
               <img :src="save" alt="save" />
-              Saqlash
+              {{ $t('save') }}
             </button>
           </div>
         </div>

@@ -6,19 +6,19 @@
           <button @click="onSubmitApex()">
             <label class="Nav_checked">
               <input type="radio" checked="checked" name="radio" />
-              <span class="checkmark">Dashboard</span>
+              <span class="checkmark"> {{ $t('dashboard') }}</span>
             </label>
           </button>
           <button @click="onSubmitSponsors()" to="/home/apex">
             <label class="Nav_checked">
               <input type="radio" name="radio" :checked="isSponsorsRoute" />
-              <span class="checkmark2">Homiylar</span>
+              <span class="checkmark2">{{ $t('sponsors') }}</span>
             </label>
           </button>
           <button @click="onSubmitDemands()">
             <label class="Nav_checked">
               <input type="radio" name="radio" :checked="isDemandsRoute" />
-              <span class="checkmark3">Talabalar</span>
+              <span class="checkmark3">{{ $t('students') }}</span>
             </label>
           </button>
         </div>
@@ -28,7 +28,7 @@
             <input
               class="nav_filter_input"
               type="text"
-              placeholder="Izlash"
+              :placeholder="$t('search')"
               v-model="searchValue"
             />
 
@@ -42,14 +42,14 @@
           </form>
 
           <button @click="onSubmitFilter()" class="filter_btn">
-            <img :src="filter" alt="filter" /> Filter
+            <img :src="filter" alt="filter" /> {{ $t('filter') }}
           </button>
         </div>
       </nav>
 
       <div class="filter_modal" v-if="showModal">
         <div class="filter_title_box">
-          <h2 class="filter_title">Filter</h2>
+          <h2 class="filter_title">{{ $t('filter') }}</h2>
           <button class="clear_btn" @click="clearFilter()"><img :src="clear" alt="clear" /></button>
         </div>
         <span class="filter_line"> </span>
@@ -57,18 +57,18 @@
         <div class="all_filter_box">
           <form>
             <div class="ariza">
-              <h3>Ariza holati</h3>
+              <h3>{{ $t('formStatus') }}</h3>
               <select v-model="arizaHolatiValue" name="holati" id="holati">
-                <option value="all">Barchasi</option>
-                <option value="yangi">yangi</option>
-                <option value="Moderatsiyada">moderlangan</option>
+                <option value="all">{{ $t('all') }}</option>
+                <option value="Moderatsiyada">{{ $t('moderate') }}</option>
+                <option value="yangi">{{ $t('new') }}</option>
               </select>
               <img class="arrowDown" :src="arrowDown" alt="arrowDown" />
               <img class="arrowTop" :src="arrowTop" alt="arrowTop" />
             </div>
 
             <div class="middle_filter_box">
-              <h3>Homiylik summasi</h3>
+              <h3>{{ $t('sponsorCost') }}</h3>
 
               <div class="filter_cheked_wrap">
                 <label
@@ -91,19 +91,19 @@
               </div>
             </div>
             <div class="end_filter_box">
-              <h3 class="hhh">SANA</h3>
+              <h3 class="hhh">{{ $t('data') }}</h3>
               <div><input type="date" id="appt" name="appt" v-model="sanaValue" /></div>
             </div>
             <span class="filter_line"> </span>
             <div class="filter_btns_wrapper">
               <button @click="clearFilterValues" class="filter_btn_clear">
                 <img :src="Tozalash" alt="clearFilter" />
-                Tozalash
+                {{ $t('clear') }}
               </button>
 
               <button @click="logFilterValues" class="filter_btn_see">
                 <img :src="See" alt="eyeFilter" />
-                Natijalarni ko‘rish
+                {{ $t('seeResult') }}
               </button>
             </div>
           </form>
@@ -116,7 +116,7 @@
         <div>
           <button @click="onSubmitSponsors"><img :src="arrowLeft" alt="arrowLeft" /></button>
           <h3>{{ user?.data.full_name }}</h3>
-          <span>Tasdiqlangan</span>
+          <span>{{ $t('confirm') }}</span>
         </div>
       </div>
     </div>
@@ -126,7 +126,7 @@
         <div>
           <button @click="onSubmitDemands"><img :src="arrowLeft" alt="arrowLeft" /></button>
           <h3>{{ stutent?.data.full_name }}</h3>
-          <span>Tasdiqlangan</span>
+          <span>{{ $t('confirm') }}</span>
         </div>
       </div>
     </div>
@@ -135,7 +135,7 @@
       <div class="user_nav">
         <div>
           <button @click="onSubmitDemands"><img :src="arrowLeft" alt="arrowLeft" /></button>
-          <h3>Talaba Qo'shish</h3>
+          <h3>{{ $t('addStudent') }}</h3>
         </div>
       </div>
     </div>

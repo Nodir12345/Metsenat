@@ -3,7 +3,7 @@
     <div class="space">.</div>
     <button @click="StudentAdd" class="add_student_btn">
       <img :src="addBtn" alt="addBtn" />
-      Talaba qo‘shish
+      {{ $t('addStudent') }}
     </button>
     <div></div>
 
@@ -12,12 +12,12 @@
         <tr>
           <th>#</th>
           <th>f.i.sh.</th>
-          <th>Talabalik turi</th>
-          <th>OTM</th>
-          <th>Ajratilingan summa</th>
-          <th>Kontrakt miqdor</th>
-          <th>delete</th>
-          <th>Amallar</th>
+          <th>{{ $t('typeStudent') }}</th>
+          <th>{{ $t('OTM') }}</th>
+          <th>{{ $t('splitCost') }}</th>
+          <th>{{ $t('levelContract') }}</th>
+          <th>{{ $t('delete') }}</th>
+          <th>delete{{ $t('deeds') }}</th>
         </tr>
       </thead>
       <tbody
@@ -57,17 +57,17 @@
 
       <tbody v-else>
         <tr>
-          <td colspan="8">No data available</td>
+          <td colspan="8">{{ $t('noData') }}</td>
         </tr>
       </tbody>
     </table>
 
     <div class="demands_end">
-      <p>40 tadan 1-{{ params.limit }} ko‘rsatilmoqda</p>
+      <p>40 tadan 1-{{ params.limit }} {{ $t('seenPage') }}</p>
 
       <div class="wrap_pagination">
         <div class="pagination_select">
-          <p>Ko‘rsatish</p>
+          <p>{{ $t('seePage') }}</p>
           <select @change="updateLimit($event.target.value)">
             <option value="5">5</option>
             <option selected value="10">10</option>

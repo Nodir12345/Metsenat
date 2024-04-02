@@ -5,21 +5,21 @@
       <li class="cost_box">
         <img :src="totalPaid" alt="totalPaid" />
         <div class="cost_title_box">
-          <h3 class="cost_title">Jami to‘langan summa</h3>
+          <h3 class="cost_title">{{ $t('allCost') }}</h3>
           <p class="cost_text">{{ sum?.total_paid }} <span class="cost_uzs">UZS</span></p>
         </div>
       </li>
       <li class="cost_box">
         <img :src="resPaid" alt="resPaid" />
         <div class="cost_title_box">
-          <h3 class="cost_title">Jami so‘ralgan summa</h3>
+          <h3 class="cost_title">{{ $t('responseCost') }}</h3>
           <p class="cost_text">{{ sum?.total_need }} <span class="cost_uzs">UZS</span></p>
         </div>
       </li>
       <li class="cost_box">
         <img :src="needCost" alt="needCost" />
         <div class="cost_title_box">
-          <h3 class="cost_title">To‘lanishi kerak summa</h3>
+          <h3 class="cost_title">{{ $t('necessaryCost') }}</h3>
           <p class="cost_text">{{ sum?.total_must_pay }} <span class="cost_uzs">UZS</span></p>
         </div>
       </li>
@@ -38,17 +38,18 @@ import VueApexCharts from 'vue3-apexcharts'
 import { onBeforeMount, ref } from 'vue'
 import axios from 'axios'
 import { useRoute } from 'vue-router'
+import { useI18n } from 'vue-i18n'
 import totalPaid from '../assets/img/totalPaid.png'
 import resPaid from '../assets/img/cost.png'
 import needCost from '../assets/img/needCost.png'
-
+const { t } = useI18n()
 const series = [
   {
-    name: 'Desktops',
+    name: t('desktops'),
     data: [100, 410, 350, 510, 340, 890, 1190, 1610, 1780]
   },
   {
-    name: 'Laptops',
+    name: t('Noutbuk'),
     data: [200, 450, 550, 1150, 800, 705, 600, 1200, 1300]
   }
 ]
@@ -68,7 +69,7 @@ const chartOptions = {
     curve: 'smooth'
   },
   title: {
-    text: 'Homiylar va talabalar soni',
+    text: t('sponsorStudentCost'),
     align: 'left',
     style: {
       color: 'rgb(46, 56, 77)',

@@ -19,9 +19,9 @@ import { ref } from 'vue'
 import Eng from '../assets/img/eng.jpg'
 import Uzb from '../assets/img/uzb.jpg'
 import Rus from '../assets/img/rus.jpg'
-import {useI18n} from "vue-i18n"
+import { useI18n } from 'vue-i18n'
 
-const {locale} = useI18n()
+const { locale } = useI18n()
 
 const locales = ref([
   { value: 'uz', label: 'Uzb', flagSrc: Uzb },
@@ -41,8 +41,6 @@ const setSelectedLocale = (locales) => {
   isOpen.value = false
   locale.value = locales.value
 }
-
-
 
 const getFlagSrc = (countryCode) => {
   return /^[A-Z]{2}$/.test(countryCode)

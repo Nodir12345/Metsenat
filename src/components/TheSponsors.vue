@@ -7,13 +7,13 @@
       <thead>
         <tr>
           <th>#</th>
-          <th>f.i.sh.</th>
-          <th>Tel.Raqami</th>
-          <th>Homiylik summasi</th>
-          <th>Sarflangan summa</th>
-          <th>Sana</th>
-          <th>Holati</th>
-          <th>Amallar</th>
+          <th>{{ $t('fullName') }}</th>
+          <th>{{ $t('tel') }}</th>
+          <th>{{ $t('sponsorCost') }}</th>
+          <th>{{ $t('spendCost') }}</th>
+          <th>{{ $t('data') }}</th>
+          <th>{{ $t('condition') }}</th>
+          <th>{{ $t('deeds') }}</th>
         </tr>
       </thead>
       <tbody
@@ -46,17 +46,17 @@
       </tbody>
       <tbody v-else>
         <tr>
-          <td colspan="8">No data available</td>
+          <td colspan="8">{{ $t('noData') }}</td>
         </tr>
       </tbody>
     </table>
 
     <div class="demands_end">
-      <p>40 tadan 1-{{ params.limit }} ko‘rsatilmoqda</p>
+      <p>40 tadan 1-{{ params.limit }} {{ $t('seenPage') }}</p>
 
       <div class="wrap_pagination">
         <div class="pagination_select">
-          <p>Ko‘rsatish</p>
+          <p>{{ $t('seePage') }}</p>
           <select @change="updateLimit($event.target.value)">
             <option value="5">5</option>
             <option selected value="10">10</option>
