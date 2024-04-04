@@ -6,61 +6,62 @@
       {{ $t('addStudent') }}
     </button>
     <div></div>
-
-    <table class="content_table">
-      <thead>
-        <tr>
-          <th>#</th>
-          <th>f.i.sh.</th>
-          <th>{{ $t('typeStudent') }}</th>
-          <th>{{ $t('OTM') }}</th>
-          <th>{{ $t('splitCost') }}</th>
-          <th>{{ $t('levelContract') }}</th>
-          <th>{{ $t('delete') }}</th>
-          <th>{{ $t('deeds') }}</th>
-        </tr>
-      </thead>
-      <tbody
-        v-if="
-          filteredSponsoreList &&
-          filteredSponsoreList.results &&
-          filteredSponsoreList.results.length > 0
-        "
-      >
-        <tr
-          v-for="(item, index) in filteredSponsoreList.results"
-          :key="index"
-          @click.passive="handleTableRowClick(item.id)"
+    <div class="table_wraper">
+      <table class="content_table">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>f.i.sh.</th>
+            <th>{{ $t('typeStudent') }}</th>
+            <th>{{ $t('OTM') }}</th>
+            <th>{{ $t('splitCost') }}</th>
+            <th>{{ $t('levelContract') }}</th>
+            <th>{{ $t('delete') }}</th>
+            <th>{{ $t('deeds') }}</th>
+          </tr>
+        </thead>
+        <tbody
+          v-if="
+            filteredSponsoreList &&
+            filteredSponsoreList.results &&
+            filteredSponsoreList.results.length > 0
+          "
         >
-          <td>{{ index + 1 }}</td>
-          <td>{{ item?.full_name }}</td>
-          <td>{{ item?.phone }}</td>
-          <td>{{ item?.institute?.name.slice(0, 45) }}</td>
-          <td>{{ item?.given }}</td>
-          <td>{{ item?.contract }}</td>
-          <td>
-            <div class="tbl" @click="handleTblClick($event, item.id)">
-              <div class="cell">
-                <a href="" class="trash"></a>
+          <tr
+            v-for="(item, index) in filteredSponsoreList.results"
+            :key="index"
+            @click.passive="handleTableRowClick(item.id)"
+          >
+            <td>{{ index + 1 }}</td>
+            <td>{{ item?.full_name }}</td>
+            <td>{{ item?.phone }}</td>
+            <td>{{ item?.institute?.name.slice(0, 45) }}</td>
+            <td>{{ item?.given }}</td>
+            <td>{{ item?.contract }}</td>
+            <td>
+              <div class="tbl" @click="handleTblClick($event, item.id)">
+                <div class="cell">
+                  <a href="" class="trash"></a>
+                </div>
               </div>
-            </div>
-          </td>
-          <td>
-            <img
-              :src="item.imgshow ? eyeBlock : eye"
-              alt="eye"
-              @click="toggleSensitiveData(item)"
-            />
-          </td>
-        </tr>
-      </tbody>
+            </td>
+            <td>
+              <img
+                :src="item.imgshow ? eyeBlock : eye"
+                alt="eye"
+                @click="toggleSensitiveData(item)"
+              />
+            </td>
+          </tr>
+        </tbody>
 
-      <tbody v-else>
-        <tr>
-          <td colspan="8">{{ $t('noData') }}</td>
-        </tr>
-      </tbody>
-    </table>
+        <tbody v-else>
+          <tr>
+            <td colspan="8">{{ $t('noData') }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
 
     <div class="demands_end">
       <p>40 tadan 1-{{ params.limit }} {{ $t('seenPage') }}</p>
@@ -172,6 +173,13 @@ const handleTblClick = (event, id) => {
 </script>
 
 <style scoped>
+.table_wraper {
+  width: 100%;
+  padding: 1rem;
+  white-space: nowrap; 
+  overflow-x: scroll;
+}
+
 .pagination_select > select,
 .pagination_select > select > option {
   color: rgb(29, 29, 31);
@@ -239,6 +247,7 @@ const handleTblClick = (event, id) => {
 
 .content_table {
   width: 100%;
+  max-width: 1200px;
   border-collapse: separate;
   border-spacing: 0 1rem;
 }
@@ -418,5 +427,16 @@ const handleTblClick = (event, id) => {
   width: 286px;
   height: 268px;
   background: rgb(255, 255, 255);
+}
+
+@media screen and (max-width: 568px) {
+.demands_end{
+  flex-direction: column;
+  gap: 10px;
+}
+.wrap_pagination{
+  flex-direction: column;
+  gap: 10px;
+}
 }
 </style>

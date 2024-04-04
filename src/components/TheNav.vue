@@ -712,4 +712,34 @@ nav {
 .templete_nav {
   background-color: #f8f8f8;
 }
+
+@media screen and (max-width: 968px) {
+  nav {
+ flex-direction: column;
+ gap: 40px;
+}
+}
+
+
+@media screen and (max-width: 568px) {
+  .checkmark,
+.checkmark2,
+.checkmark3 {
+
+  padding: 10px 20px;
+
+}
+.nav_filter{
+  flex-direction: column;
+
+}
+}
+
+
+
+
+
+
+
+
 </style>

@@ -2,6 +2,29 @@
   <div class="the_header">
     <div class="container_header">
       <img :src="logoMetsenat" alt="Logo Metsenat" />
+
+      <div class="hamburger_wrapper">
+        <button class="hamburger_btn" @click="hamburgerShow = !hamburgerShow">
+  <img class="hamburgers" :src="Hamburger" alt="Hamburger" />
+</button>
+        <div v-if="hamburgerShow" class="hamburger">
+       <Language></Language>
+  
+       <button class="user_box">
+         {{ $t('msg') }}
+         <div class="user_icon_box">
+           <img :src="userIcon" alt="Logo Metsenat" />
+         </div>
+       </button>
+       <button @click="removeValue" class="logout_btn">
+         <img :src="logOut" alt="Logout" />
+       </button>
+     </div>
+      </div>
+ 
+
+      
+
       <div class="header_left">
         <Language></Language>
 
@@ -21,18 +44,22 @@
 <script setup>
 import logoMetsenat from '../assets/img/logoMetsenat.png'
 import userIcon from '../assets/img/userStaticIcon.svg'
+import Hamburger from '../assets/img/hamburger.svg'
 import logOut from '../assets/img/logOut.png'
 import Language from './TheLanguage.vue'
+import { ref } from 'vue'
 const removeValue = () => {
   localStorage.removeItem('access')
   localStorage.removeItem('refresh')
   window.location.reload()
 }
+const hamburgerShow = ref(false)
+
 </script>
 
 <style scoped>
 .container_header {
-  width: 1200px;
+  max-width: 1200px;
   margin: 0 auto;
   display: flex;
   justify-content: space-between;
@@ -92,5 +119,47 @@ const removeValue = () => {
   display: flex;
   align-items: center;
   gap: 40px;
+}
+.hamburgers{
+  width: 30px;
+  height: 30px;
+}
+.hamburger_btn{
+  cursor: pointer;
+  background-color: inherit;
+  
+}
+.hamburger{
+  position: absolute;
+  top: 30px;
+  right: 30px;
+  background-color: #fff;
+  padding: 20px 10px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 10px;
+  border-radius: 10px;
+}
+
+.hamburger_wrapper{
+  position: relative;
+  display: none;
+}
+
+
+
+
+
+@media screen and (max-width: 668px) {
+  .hamburger_wrapper{
+  display: block;
+
+}
+.header_left{
+  display: none;
+}
+
+
 }
 </style>
