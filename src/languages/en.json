@@ -44,8 +44,8 @@
   "splitCost": "Split Amount",
   "levelContract": "Contract Level",
   "delete": "Delete",
-  "grand": "Grant",
-  "contract": "Contract",
+  "grand": "Bachelor's Degree",
+  "contract": "Master's Degree",
   "contractCost": "Contract Amount",
   "enterCost": "Enter Amount",
   "add": "Add",
@@ -53,5 +53,10 @@
   "formStatus": "Form Status",
   "all": "All",
   "clear": "Clear",
-  "seeResult": "See Results"
+  "seeResult": "See Results",
+  "aboutStudent": "About Student",
+  "mainInfo": "Main Information",
+  "otmInfo": "OTM Information",
+  "typeSponsor": "Type of Sponsorship",
+  "amountContract": "Contract Amount"
 }

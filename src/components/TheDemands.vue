@@ -17,7 +17,7 @@
           <th>{{ $t('splitCost') }}</th>
           <th>{{ $t('levelContract') }}</th>
           <th>{{ $t('delete') }}</th>
-          <th>delete{{ $t('deeds') }}</th>
+          <th>{{ $t('deeds') }}</th>
         </tr>
       </thead>
       <tbody

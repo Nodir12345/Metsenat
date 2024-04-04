@@ -28,7 +28,7 @@
             <h3>{{ $t('typeStudent') }}</h3>
             <select name="studentType" id="studentType" v-model="studentType">
               <option :value="1">{{ $t('grand') }}</option>
-              <option :value="2">{{ $t('contarct') }}</option>
+              <option :value="2">{{ $t('contract') }}</option>
             </select>
           </div>
           <div>

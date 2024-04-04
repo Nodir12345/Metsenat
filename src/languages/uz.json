@@ -44,8 +44,8 @@
   "splitCost": "Ajratilingan summa",
   "levelContract": "Kontrakt miqdor",
   "delete": "Delete",
-  "grand": "Grant",
-  "contarct": "Kontrakt",
+  "grand": "Bakalavr",
+  "contract": "Magistratura",
   "contractCost": "Kontrakt Summa",
   "enterCost": "Summani kiriting",
   "add": "Qo'shish",
@@ -53,5 +53,10 @@
   "formStatus": "Ariza holati",
   "all": "Barchasi",
   "clear": "Tozalash",
-  "seeResult": "Natijalarni ko‘rish"
+  "seeResult": "Natijalarni ko‘rish",
+  "aboutStudent": "Talaba haqida",
+  "mainInfo": "Asosiy ma’lumotlar",
+  "otmInfo": "O‘qish joyi haqida ma’lumot",
+  "typeSponsor": "Talabalik turi",
+  "amountContract": "Kontrakt miqdori"
 }
