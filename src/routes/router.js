@@ -51,14 +51,4 @@ export default [
     },
     component: () => import('@/pages/TheLogin.vue')
   },
-  {
-    path: '/test',
-    name: 'test',
-    meta: {
-      layout: 'auth',
-      isAuth: false,
-      requireAuth: false
-    },
-    component: () => import('@/pages/TheTest.vue')
-  }
 ]
