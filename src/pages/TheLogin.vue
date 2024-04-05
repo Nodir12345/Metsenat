@@ -31,7 +31,7 @@
       </div>
 
       <VueRecaptcha
-        sitekey="6LdCXYYpAAAAAKvnKfVmsHspcPOfNMgtwxm7_S2j"
+        sitekey="6LcIMaYpAAAAANkcV3TejOufRic9HZV4mVdA3hK6"
         ref="recaptcha"
         @verify="verifyMethod"
         @expired="expireMethod"
@@ -73,9 +73,9 @@ function fetchData() {
       console.log('Ishladi', res.data)
       localStorage.setItem('refresh', res.data.refresh)
       localStorage.setItem('access', res.data.access)
-      // if (recaptValid.value) {
-      //   router.push('/home')
-      // }
+      if (recaptValid.value) {
+        router.push('/home')
+      }
       router.push('/home')
 
       
