@@ -31,7 +31,7 @@
       </div>
 
       <VueRecaptcha
-        sitekey="6LdCXYYpAAAAAKvnKfVmsHspcPOfNMgtwxm7_S2j"
+        sitekey="6LcIMaYpAAAAANkcV3TejOufRic9HZV4mVdA3hK6"
         ref="recaptcha"
         @verify="verifyMethod"
         @expired="expireMethod"
