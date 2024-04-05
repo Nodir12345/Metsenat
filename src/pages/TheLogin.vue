@@ -76,10 +76,8 @@ function fetchData() {
       if (recaptValid.value) {
         router.push('/home')
       }
-      if (!recaptValid.value) {
-        router.push('/home')
-      }
 
+      
     })
     .catch((err) => {
       console.log('error', err)
