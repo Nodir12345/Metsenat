@@ -3,53 +3,55 @@
     <!-- <pre v-for="(item, index) in filteredSposoreList" :key="index">
       <div>{{ item }}</div>
     </pre> -->
-    <table class="content_table">
-      <thead>
-        <tr>
-          <th>#</th>
-          <th>{{ $t('fullName') }}</th>
-          <th>{{ $t('tel') }}</th>
-          <th>{{ $t('sponsorCost') }}</th>
-          <th>{{ $t('spendCost') }}</th>
-          <th>{{ $t('data') }}</th>
-          <th>{{ $t('condition') }}</th>
-          <th>{{ $t('deeds') }}</th>
-        </tr>
-      </thead>
-      <tbody
-        v-if="
-          filteredSponsoreList &&
-          filteredSponsoreList.results &&
-          filteredSponsoreList.results.length > 0
-        "
-      >
-        <tr
-          v-for="(item, index) in filteredSponsoreList.results"
-          :key="index"
-          @click.passive="handleTableRowClick(item.id)"
+    <div class="table_wraper">
+      <table class="content_table">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>{{ $t('fullName') }}</th>
+            <th>{{ $t('tel') }}</th>
+            <th>{{ $t('sponsorCost') }}</th>
+            <th>{{ $t('spendCost') }}</th>
+            <th>{{ $t('data') }}</th>
+            <th>{{ $t('condition') }}</th>
+            <th>{{ $t('deeds') }}</th>
+          </tr>
+        </thead>
+        <tbody
+          v-if="
+            filteredSponsoreList &&
+            filteredSponsoreList.results &&
+            filteredSponsoreList.results.length > 0
+          "
         >
-          <td>{{ index + 1 }}</td>
-          <td>{{ item?.full_name.slice(0, 19) }}</td>
-          <td>{{ item?.phone }}</td>
-          <td>{{ item?.sum }}</td>
-          <td>{{ item?.spent }}</td>
-          <td>{{ item?.created_at.slice(0, 10) }}</td>
-          <td :class="getClass(item)">{{ item?.get_status_display }}</td>
-          <td>
-            <img
-              :src="item.imgshow ? eyeBlock : eye"
-              alt="eye"
-              @click="toggleSensitiveData(item)"
-            />
-          </td>
-        </tr>
-      </tbody>
-      <tbody v-else>
-        <tr>
-          <td colspan="8">{{ $t('noData') }}</td>
-        </tr>
-      </tbody>
-    </table>
+          <tr
+            v-for="(item, index) in filteredSponsoreList.results"
+            :key="index"
+            @click.passive="handleTableRowClick(item.id)"
+          >
+            <td>{{ index + 1 }}</td>
+            <td>{{ item?.full_name.slice(0, 19) }}</td>
+            <td>{{ item?.phone }}</td>
+            <td>{{ item?.sum }}</td>
+            <td>{{ item?.spent }}</td>
+            <td>{{ item?.created_at.slice(0, 10) }}</td>
+            <td :class="getClass(item)">{{ item?.get_status_display }}</td>
+            <td>
+              <img
+                :src="item.imgshow ? eyeBlock : eye"
+                alt="eye"
+                @click="toggleSensitiveData(item)"
+              />
+            </td>
+          </tr>
+        </tbody>
+        <tbody v-else>
+          <tr>
+            <td colspan="8">{{ $t('noData') }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
 
     <div class="demands_end">
       <p>40 tadan 1-{{ params.limit }} {{ $t('seenPage') }}</p>
@@ -177,6 +179,12 @@ const TableItemId = (id) => {
   gap: 12px;
 }
 
+.table_wraper {
+  width: 100%;
+  padding: 1rem;
+  white-space: nowrap;
+  overflow-x: scroll;
+}
 .wrap_pagination {
   display: flex;
   align-items: center;
@@ -191,6 +199,7 @@ const TableItemId = (id) => {
 
 .content_table {
   width: 100%;
+  max-width: 1200px;
   border-collapse: separate;
   border-spacing: 0 1rem;
 }
@@ -227,7 +236,6 @@ const TableItemId = (id) => {
 
 .content_table tbody td {
   color: rgb(29, 29, 31);
-  font-family: Rubik;
   font-size: 15px;
   font-weight: 500;
   line-height: 18px;
@@ -267,5 +275,16 @@ const TableItemId = (id) => {
 }
 .btn_pagination_num:focus {
   border: 1px solid #3366ff;
+}
+
+@media screen and (max-width: 568px) {
+  .demands_end {
+    flex-direction: column;
+    gap: 10px;
+  }
+  .wrap_pagination {
+    flex-direction: column;
+    gap: 10px;
+  }
 }
 </style>

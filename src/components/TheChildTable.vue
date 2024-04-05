@@ -211,7 +211,8 @@ const logValues = () => {
       border-radius: 6px;
       padding-left: 16px;
       background: rgba(224, 231, 255, 0.2);
-      width: 530px;
+      width: 100%;
+      max-width: 530px;
       height: 42px;
     }
     > input::placeholder {
@@ -234,7 +235,8 @@ const logValues = () => {
 .user_edit {
   border-radius: 12px;
   background: rgb(255, 255, 255);
-  width: 586px;
+  width: 100%;
+  max-width: 586px;
   height: 742px;
   position: absolute;
   top: 53%;
@@ -265,8 +267,8 @@ const logValues = () => {
   border-radius: 12px;
   box-shadow: 0px 5px 40px 0px rgba(0, 0, 0, 0.03);
   background-color: rgb(255, 255, 255);
-  width: 793px;
-  height: 259px;
+  width: 100%;
+  max-width: 793px;
   margin: 40px auto;
   padding: 32px;
   padding-top: 24px !important;
@@ -355,7 +357,11 @@ const logValues = () => {
 .user_end {
   display: flex;
   align-items: center;
-  gap: 220px;
+  width: 100%;
+  max-width: 500px;
+  gap: 10px;
+  justify-content: space-between;
+  flex-wrap: wrap;
   div {
     max-width: 170px;
     > p {
@@ -393,7 +399,7 @@ const logValues = () => {
 .userBack {
   background-image: url('../assets/img/userBack.png');
   background-repeat: no-repeat;
-  width: 820px;
+  max-width: 820px;
   height: 400px;
   margin: 0 auto;
 }
@@ -449,5 +455,47 @@ const logValues = () => {
 
   border-bottom-right-radius: 0px;
   border-top-right-radius: 0px;
+}
+.user_edit_box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@media screen and (max-width: 588px) {
+  .user_box {
+    padding: 24px 10px;
+  }
+
+  .user_about {
+    > h2 {
+      font-size: 18px;
+      font-weight: 600;
+      line-height: 20px;
+    }
+  }
+
+  .user_edit_checkmark,
+  .user_edit_checkmark2 {
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 12px;
+    letter-spacing: 1px;
+    border: 2px solid rgb(224, 231, 255);
+    border-radius: 6px;
+    background: rgb(255, 255, 255);
+    padding: 12px 35px;
+    cursor: pointer;
+    transition-duration: 500ms;
+  }
+}
+
+@media screen and (max-width: 435px) {
+  .user_edit_checkmark,
+  .user_edit_checkmark2 {
+    font-size: 10px;
+    line-height: 10px;
+    padding: 12px 12px;
+  }
 }
 </style>

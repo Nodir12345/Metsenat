@@ -73,9 +73,9 @@ const chartOptions = {
     align: 'left',
     style: {
       color: 'rgb(46, 56, 77)',
-      fontSize: '24px',
+      fontSize: '20px',
       fontWeight: '700',
-      lineHeight: '28px'
+      lineHeight: '20px'
     }
   },
   grid: {
@@ -109,29 +109,13 @@ onBeforeMount(() => {
 })
 </script>
 
-<script>
-import { defineComponent } from 'vue'
-
-export default defineComponent({
-  components: {
-    apexchart: VueApexCharts
-  },
-  setup() {
-    return {
-      series,
-      chartOptions
-    }
-  }
-})
-</script>
-
 <style scoped>
 .apex {
   box-sizing: border-box;
   border: 1px solid rgba(46, 91, 255, 0.08);
   border-radius: 8px;
   background-color: rgb(255, 255, 255);
-  padding: 24px;
+  padding: 24px 10px;
 }
 .cost_box {
   box-sizing: border-box;
@@ -140,7 +124,8 @@ export default defineComponent({
   background-color: rgb(255, 255, 255);
   padding: 24px 0;
   padding-left: 24px;
-  width: 381px;
+  width: 100%;
+  max-width: 381px;
   display: flex;
   align-items: center;
   gap: 16px;
@@ -174,6 +159,7 @@ li {
   display: flex;
   justify-content: space-between;
   margin-bottom: 28px;
+  gap: 10px;
 }
 .space {
   margin-bottom: 48px;
@@ -182,5 +168,18 @@ li {
 .spaceButtun {
   opacity: 0;
   margin-top: 58px;
+}
+
+@media screen and (max-width: 915px) {
+  .cost_wrapper {
+    flex-direction: column;
+    width: 100%;
+    max-width: 381px;
+    margin: 0 auto;
+    margin-bottom: 39px;
+  }
+  .apex {
+    padding: 24px 0;
+  }
 }
 </style>

@@ -176,7 +176,7 @@ const handleTblClick = (event, id) => {
 .table_wraper {
   width: 100%;
   padding: 1rem;
-  white-space: nowrap; 
+  white-space: nowrap;
   overflow-x: scroll;
 }
 
@@ -430,13 +430,13 @@ const handleTblClick = (event, id) => {
 }
 
 @media screen and (max-width: 568px) {
-.demands_end{
-  flex-direction: column;
-  gap: 10px;
-}
-.wrap_pagination{
-  flex-direction: column;
-  gap: 10px;
-}
+  .demands_end {
+    flex-direction: column;
+    gap: 10px;
+  }
+  .wrap_pagination {
+    flex-direction: column;
+    gap: 10px;
+  }
 }
 </style>

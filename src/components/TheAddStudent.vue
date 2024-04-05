@@ -82,11 +82,6 @@ onBeforeMount(() => {
 })
 
 const logValues = () => {
-  console.log('fullName:', fullName.value)
-  console.log('phoneNumber:', phoneNumber.value.toString())
-  console.log('selectedOTM:', selectedOTM.value)
-  console.log('studentType:', studentType.value)
-  console.log('summ:', summa.value)
   const selectedInstitute = OTM.value.find((institute) => institute.name === selectedOTM.value)
   const instituteId = selectedInstitute ? selectedInstitute.id : null
 

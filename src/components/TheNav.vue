@@ -449,8 +449,8 @@ const clearFilterValues = () => {
 
 .filter_modal {
   position: absolute;
-  width: 586px;
-  height: 568px;
+  width: 100%;
+  max-width: 586px;
   left: 50%;
   top: 50%;
   border-radius: 12px;
@@ -466,7 +466,6 @@ const clearFilterValues = () => {
 }
 .filter_uzs {
   color: rgb(46, 91, 255);
-  font-family: Rubik;
   font-size: 12px;
   font-weight: 400;
   line-height: 20px;
@@ -504,7 +503,7 @@ const clearFilterValues = () => {
   padding: 12px 0;
   border: none;
   padding-left: 38px;
-  width: 284px;
+  width: 280px;
 }
 
 .nav_filter_input::placeholder {
@@ -563,7 +562,8 @@ const clearFilterValues = () => {
   background: rgba(255, 255, 255, 0.915);
   padding: 12px 0;
   border: none;
-  width: 284px;
+  width: 100%;
+  max-width: 284px;
   height: 300px;
   overflow-y: auto;
   position: absolute;
@@ -715,31 +715,28 @@ nav {
 
 @media screen and (max-width: 968px) {
   nav {
- flex-direction: column;
- gap: 40px;
+    flex-direction: column;
+    gap: 40px;
+  }
 }
-}
-
 
 @media screen and (max-width: 568px) {
   .checkmark,
-.checkmark2,
-.checkmark3 {
-
-  padding: 10px 20px;
-
-}
-.nav_filter{
-  flex-direction: column;
-
-}
+  .checkmark2,
+  .checkmark3 {
+    padding: 10px 18px;
+  }
+  .nav_filter {
+    flex-direction: column;
+  }
 }
 
-
-
-
-
-
-
-
+@media screen and (max-width: 460px) {
+  .filter_btns_wrapper {
+    flex-direction: column;
+  }
+  .filter_cheked_wrap {
+    justify-content: space-between;
+  }
+}
 </style>

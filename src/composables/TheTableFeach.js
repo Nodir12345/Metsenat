@@ -53,7 +53,7 @@ const TheTableFetch = (url) => {
 
   const totalPagesDemands = computed(() => {
     if (list.value && list.value.count) {
-      return Math.ceil(30 / params.limit)
+      return Math.ceil(20 / params.limit)
     }
   })
 

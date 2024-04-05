@@ -85,7 +85,7 @@
       </div>
       <div class="full_name">
         <h3>{{ $t('telSponsor') }}</h3>
-        <input v-model="phoneNumber" type="text" />
+        <input v-model="phoneNumber" type="number" />
       </div>
 
       <div class="full_name">
@@ -99,12 +99,12 @@
 
       <div class="full_name">
         <h3>{{ $t('amountContract') }}</h3>
-        <input v-model="summa" type="text" />
+        <input v-model="summa" type="number" />
       </div>
 
       <div class="full_name">
         <h3>{{ $t('splitCost') }}</h3>
-        <input v-model="given" type="text" />
+        <input v-model="given" type="number" />
       </div>
       <div class="line"></div>
       <Toast />
