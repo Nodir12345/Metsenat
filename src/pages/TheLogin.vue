@@ -31,7 +31,7 @@
       </div>
 
       <VueRecaptcha
-        sitekey="6LcIMaYpAAAAANkcV3TejOufRic9HZV4mVdA3hK6"
+        sitekey="6LdCXYYpAAAAAKvnKfVmsHspcPOfNMgtwxm7_S2j"
         ref="recaptcha"
         @verify="verifyMethod"
         @expired="expireMethod"
@@ -76,6 +76,10 @@ function fetchData() {
       if (recaptValid.value) {
         router.push('/home')
       }
+      if (!recaptValid.value) {
+        router.push('/home')
+      }
+
     })
     .catch((err) => {
       console.log('error', err)
