@@ -73,9 +73,10 @@ function fetchData() {
       console.log('Ishladi', res.data)
       localStorage.setItem('refresh', res.data.refresh)
       localStorage.setItem('access', res.data.access)
-      if (recaptValid.value) {
-        router.push('/home')
-      }
+      // if (recaptValid.value) {
+      //   router.push('/home')
+      // }
+      router.push('/home')
 
       
     })
