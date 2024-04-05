@@ -211,7 +211,9 @@ const showSuccess = () => {
 .student_edit {
   border-radius: 12px;
   background: rgb(255, 255, 255);
-  width: 586px;
+  width: 100%;
+  max-width: 586px;
+
   position: absolute;
   top: 50%;
   left: 50%;
@@ -264,7 +266,8 @@ const showSuccess = () => {
   border-radius: 12px;
   box-shadow: 0px 5px 40px 0px rgba(0, 0, 0, 0.03);
   background-color: rgb(255, 255, 255);
-  width: 793px;
+  width: 100%;
+  max-width: 793px;
   margin: 40px auto;
   padding: 32px;
   padding-top: 24px !important;
@@ -349,7 +352,8 @@ const showSuccess = () => {
 .userBack {
   background-image: url('../assets/img/userBack.png');
   background-repeat: no-repeat;
-  width: 820px;
+  width: 100%;
+  max-width: 820px;
   height: 400px;
   margin: 0 auto;
 }
@@ -377,11 +381,13 @@ const showSuccess = () => {
 }
 
 .otm_end {
-  max-width: 497px;
+  width: 100%;
+  max-width: 557px;
   display: flex;
   align-items: center;
   justify-content: space-between;
   margin-bottom: 24px;
+  
 }
 .student_type {
   max-width: 350px;
@@ -406,7 +412,8 @@ const showSuccess = () => {
     border: 1px solid rgb(224, 231, 255);
     border-radius: 6px;
     background: rgba(224, 231, 255, 0.2);
-    width: 530px;
+    width: 100%;
+    max-width: 530px;
     height: 42px;
     padding-left: 16px;
   }
@@ -418,9 +425,39 @@ const showSuccess = () => {
     border: 1px solid rgb(224, 231, 255);
     border-radius: 6px;
     background: rgba(224, 231, 255, 0.2);
-    width: 530px;
+    width: 100%;
+    max-width: 530px;
     height: 42px;
     padding-left: 16px;
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .otm_end{
+    flex-direction: column;
+    text-align: left;
+    gap: 25px;
+  }
+  .student_type{
+    width: 300px;
+  }
+  .user_end{
+    width: 300px;
+  }
+}
+
+
+@media screen and (max-width: 405px) {
+  .user_about {
+  > h2 {
+    color: rgb(40, 41, 61);
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 18px;
+  }}
+
+  .user_box{
+    padding: 30px 15px;
   }
 }
 </style>

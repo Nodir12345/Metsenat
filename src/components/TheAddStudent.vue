@@ -127,8 +127,8 @@ const handleSubmit = () => {
   border-radius: 12px;
   box-shadow: 0px 5px 40px 0px rgba(0, 0, 0, 0.03);
   background: rgb(255, 255, 255);
-  width: 790px;
-  height: 402px;
+  width: 100%;
+  max-width: 790px;
   padding: 28px;
   margin: 40px auto;
   margin-bottom: 250px;
@@ -155,14 +155,14 @@ const handleSubmit = () => {
     border-radius: 6px;
     background: rgba(224, 231, 255, 0.2);
     padding-left: 16px;
-    width: 353px;
+    width: 350px;
     height: 42px;
   }
   > div > select {
     border: 1px solid rgb(224, 231, 255);
     border-radius: 6px;
     background: rgba(224, 231, 255, 0.2);
-    width: 353px;
+    width: 350px;
     height: 42px;
     padding-left: 16px;
   }
@@ -170,6 +170,7 @@ const handleSubmit = () => {
     outline: none;
   }
 }
+
 .student_OTM {
   margin: 28px 0;
   > select {
@@ -177,7 +178,8 @@ const handleSubmit = () => {
     border: 1px solid rgb(224, 231, 255);
     border-radius: 6px;
     background: rgba(224, 231, 255, 0.2);
-    width: 734px;
+    width: 100%;
+    max-width: 734px;
     height: 42px;
     padding-left: 16px;
   }
@@ -219,5 +221,42 @@ const handleSubmit = () => {
 }
 .space {
   opacity: 0;
+}
+
+@media screen and (max-width: 776px) {
+  .student_add_title {
+    > div > input {
+      width: 240px;
+      height: 42px;
+    }
+    > div > select {
+      width: 250px;
+    }
+  }
+}
+
+@media screen and (max-width: 543px) {
+  .student_add_title {
+    flex-direction: column;
+    gap: 15px;
+    > div > input {
+      width: 250px;
+      height: 42px;
+    }
+    > div > select {
+      width: 250px;
+    }
+  }
+
+  .student_OTM {
+    margin: 15px auto;
+    width: 250px;
+    > select {
+      height: 42px;
+    }
+  }
+  .student_add {
+    padding: 24px 5px;
+  }
 }
 </style>
