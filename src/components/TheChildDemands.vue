@@ -387,7 +387,6 @@ const showSuccess = () => {
   align-items: center;
   justify-content: space-between;
   margin-bottom: 24px;
-  
 }
 .student_type {
   max-width: 350px;
@@ -433,30 +432,30 @@ const showSuccess = () => {
 }
 
 @media screen and (max-width: 576px) {
-  .otm_end{
+  .otm_end {
     flex-direction: column;
     text-align: left;
     gap: 25px;
   }
-  .student_type{
+  .student_type {
     width: 300px;
   }
-  .user_end{
+  .user_end {
     width: 300px;
   }
 }
 
-
 @media screen and (max-width: 405px) {
   .user_about {
-  > h2 {
-    color: rgb(40, 41, 61);
-    font-size: 18px;
-    font-weight: 600;
-    line-height: 18px;
-  }}
+    > h2 {
+      color: rgb(40, 41, 61);
+      font-size: 18px;
+      font-weight: 600;
+      line-height: 18px;
+    }
+  }
 
-  .user_box{
+  .user_box {
     padding: 30px 15px;
   }
 }

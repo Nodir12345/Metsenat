@@ -50,5 +50,5 @@ export default [
       isAuth: true
     },
     component: () => import('@/pages/TheLogin.vue')
-  },
+  }
 ]

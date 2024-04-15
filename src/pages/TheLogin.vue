@@ -76,11 +76,10 @@ function fetchData() {
       if (recaptValid.value) {
         router.push('/home')
       }
-
     })
     .catch((err) => {
       console.log('error', err)
-      isError.value = true // Set isError to true when error occurs
+      isError.value = true
     })
 }
 </script>
