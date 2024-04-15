@@ -11,7 +11,7 @@
           <Language></Language>
 
           <button class="user_box">
-            {{ $t('msg') }}
+           Metsenat
             <div class="user_icon_box">
               <img :src="userIcon" alt="Logo Metsenat" />
             </div>
@@ -26,7 +26,7 @@
         <Language></Language>
 
         <button class="user_box">
-          {{ $t('msg') }}
+          Metsenat
           <div class="user_icon_box">
             <img :src="userIcon" alt="Logo Metsenat" />
           </div>
@@ -135,6 +135,7 @@ const hamburgerShow = ref(false)
   flex-direction: column;
   gap: 10px;
   border-radius: 10px;
+  z-index: 1;
 }
 
 .hamburger_wrapper {

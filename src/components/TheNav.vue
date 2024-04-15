@@ -154,7 +154,6 @@ import Tozalash from '../assets/img/clearFilter.png'
 import See from '../assets/img/eyeFilter.png'
 import CheckedIcon from '../assets/img/CheckedIcon.png'
 import { useRouter } from 'vue-router'
-import TheTableFetch from '@/composables/TheTableFeach'
 import { useRoute } from 'vue-router'
 import axios from 'axios'
 
