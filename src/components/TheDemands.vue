@@ -1,10 +1,16 @@
 <template>
   <div class="table_wrap">
     <div class="space">.</div>
-    <button @click="StudentAdd" class="add_student_btn">
-      <img :src="addBtn" alt="addBtn" />
-      {{ $t('addStudent') }}
-    </button>
+   
+<div class="add_student_btn">
+  <TheBaseButtun @click="StudentAdd" :text="$t('addStudent')" variant="primary" >
+          <template #icon>
+            <img :src="addBtn" alt="addBtn" />
+          </template>
+        </TheBaseButtun>
+</div>
+ 
+
     <div></div>
     <div class="table_wraper">
       <table class="content_table">
@@ -41,7 +47,7 @@
             <td>
               <div class="tbl" @click="handleTblClick($event, item.id)">
                 <div class="cell">
-                  <a href="" class="trash"></a>
+                  <a class="trash"></a>
                 </div>
               </div>
             </td>
@@ -105,6 +111,7 @@ import prev from '../assets/img/prev.png'
 import { useRouter } from 'vue-router'
 import { useRoute } from 'vue-router'
 import axios from 'axios'
+import TheBaseButtun from './TheBaseButtun.vue'
 
 const route = useRoute()
 const router = useRouter()
@@ -175,7 +182,6 @@ const handleTblClick = (event, id) => {
 <style scoped>
 .table_wraper {
   width: 100%;
-  padding: 1rem;
   white-space: nowrap;
   overflow-x: scroll;
 }
@@ -228,21 +234,8 @@ const handleTblClick = (event, id) => {
 }
 
 .add_student_btn {
-  border-radius: 5px;
-  background: rgb(51, 102, 255);
-  padding: 9px 32px;
-  display: flex;
-  align-items: center;
-  color: rgb(255, 255, 255);
-  font-size: 14px;
-  font-weight: 500;
-  line-height: 24px;
-  letter-spacing: -0.35px;
-  gap: 10px;
-  margin-left: auto;
-  margin-bottom: 20px;
-  margin-top: 20px;
-  cursor: pointer;
+display: flex;
+justify-content: end;
 }
 
 .content_table {
@@ -282,6 +275,8 @@ const handleTblClick = (event, id) => {
   width: 24px;
   height: 24px;
   cursor: pointer;
+  margin-left: 40%;
+
 }
 
 .content_table tbody td {
@@ -293,6 +288,9 @@ const handleTblClick = (event, id) => {
   letter-spacing: 0px;
   text-align: center;
   padding: 20px 0;
+}
+.content_table tbody td:nth-child(1) {
+  padding: 20px;
 }
 
 .change_table {

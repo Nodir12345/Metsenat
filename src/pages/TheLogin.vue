@@ -1,6 +1,6 @@
 <template>
   <div class="login_container">
-    <img :src="loginLogo" alt="filter" />
+    <img class="loginlogo" :src="loginLogo" alt="filter" />
     <form @submit.prevent="fetchData" class="login_box">
       <h2 class="login_start">Kirish</h2>
       <div class="login_form">
@@ -29,6 +29,21 @@
           :class="{ error: isError }"
         />
       </div>
+    <BaseFormGroup label="wwww">
+      <BaseInput v-model="password">
+        <template #suffix>
+          <img
+                :src=" eye"
+                alt="eye"
+              
+              />
+        </template>
+       
+      </BaseInput>
+
+    </BaseFormGroup>
+    
+    <pre>{{ password }}</pre>
 
       <VueRecaptcha
         sitekey="6LcIMaYpAAAAANkcV3TejOufRic9HZV4mVdA3hK6"
@@ -44,13 +59,19 @@
 
 <script setup>
 import loginLogo from '../assets/img/loginMainLogo.png'
+import eye from '../assets/img/eye.png'
 import { useRouter } from 'vue-router'
-import { ref } from 'vue'
+import { ref, watch } from 'vue'
 import axios from 'axios'
 import { VueRecaptcha } from 'vue-recaptcha'
-
+import BaseFormGroup from '../components/Form/BaseFormGroup.vue'
+import BaseInput from '../components/Form/BasePasswordInput.vue'
+const password = ref()
 const recaptValid = ref(false)
-const isError = ref(false) // Add isError ref to track error state
+const isError = ref(false) 
+watch(()=> password.value, (newValue)=>{
+  console.log(newValue);
+})
 
 const verifyMethod = (token) => {
   console.log(token)
@@ -164,7 +185,7 @@ function fetchData() {
   margin-top: 150px;
 }
 
-.login_container img {
+.loginlogo{
   margin: 0 30px;
 }
 </style>

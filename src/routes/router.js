@@ -50,5 +50,10 @@ export default [
       isAuth: true
     },
     component: () => import('@/pages/TheLogin.vue')
+  },
+  {
+    path: '/test',
+    name: 'test',
+    component: () => import('@/pages/TheTest.vue')
   }
 ]

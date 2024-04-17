@@ -1,43 +1,59 @@
 <template>
   <div class="the_header">
-    <div class="container_header">
+    <div class="container_header max-w-[1200px] mx-auto py-3 flex items-center justify-between">
       <img :src="logoMetsenat" alt="Logo Metsenat" />
 
-      <div class="hamburger_wrapper">
-        <button class="hamburger_btn" @click="hamburgerShow = !hamburgerShow">
-          <img class="hamburgers" :src="Hamburger" alt="Hamburger" />
+      <div class="hamburger_wrapper relative hidden">
+        <button class="cursor-pointer bg-inherit" @click="hamburgerShow = !hamburgerShow">
+          <img class="w-[30px] h-[30px]" :src="Hamburger" alt="Hamburger" />
         </button>
-        <div v-if="hamburgerShow" class="hamburger">
+        <div
+          v-if="hamburgerShow"
+          class="hamburger bg-white p-5 rounded-lg absolute top-[30px] right-[30px] z-10 flex flex-col items-center"
+        >
           <Language></Language>
 
-          <button class="user_box">
+          <button
+            class="user_box flex items-center gap-2 text-primary font-semibold px-4 py-2 rounded cursor-pointer hover:text-blue-500 hover:bg-gray-100"
+          >
             Metsenat
-            <div class="user_icon_box">
+            <div
+              class="user_icon_box bg-green-500 w-8 h-8 flex items-center justify-center rounded"
+            >
               <img :src="userIcon" alt="Logo Metsenat" />
             </div>
           </button>
-          <button @click="removeValue" class="logout_btn">
+          <button
+            @click="removeValue"
+            class="logout_btn w-8 h-8 rounded cursor-pointer flex items-center justify-center bg-transparent hover:bg-blue-500"
+          >
             <img :src="logOut" alt="Logout" />
           </button>
         </div>
       </div>
 
-      <div class="header_left">
+      <div class="header_left hidden md:flex items-center gap-10">
         <Language></Language>
 
-        <button class="user_box">
+        <button
+          class="user_box flex items-center gap-2 text-primary font-semibold px-4 py-2 rounded cursor-pointer hover:text-blue-500 hover:bg-gray-100"
+        >
           Metsenat
-          <div class="user_icon_box">
+          <div class="user_icon_box bg-green-500 w-8 h-8 flex items-center justify-center rounded">
             <img :src="userIcon" alt="Logo Metsenat" />
           </div>
         </button>
-        <button @click="removeValue" class="logout_btn">
+        <button
+          @click="removeValue"
+          class="logout_btn w-8 h-8 rounded cursor-pointer flex items-center justify-center bg-transparent hover:bg-blue-500"
+        >
           <img :src="logOut" alt="Logout" />
         </button>
       </div>
     </div>
   </div>
 </template>
+
 <script setup>
 import logoMetsenat from '../assets/img/logoMetsenat.png'
 import userIcon from '../assets/img/userStaticIcon.svg'
@@ -52,98 +68,8 @@ const removeValue = () => {
 }
 const hamburgerShow = ref(false)
 </script>
-
 <style scoped>
-.container_header {
-  max-width: 1200px;
-  margin: 0 auto;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 12px 0;
-}
-
-.user_box {
-  display: flex;
-  align-items: center;
-  gap: 28px;
-  color: rgb(40, 41, 61);
-  font-size: 13px;
-  font-weight: 700;
-  line-height: 150%;
-  letter-spacing: -0.35px;
-  border: none;
-  padding: 4px 0;
-  padding-left: 20px;
-  padding-right: 4px;
-  border-radius: 6px;
-  cursor: pointer;
-}
-
-.user_box:hover {
-  transition-duration: 200ms;
-  color: rgb(51, 101, 252);
-  background: rgb(237, 241, 253);
-}
-
-.user_icon_box {
-  background-color: #00ae69;
-  width: 32px;
-  height: 32px;
-  display: flex;
-  align-items: flex-end;
-  justify-content: center;
-  border-radius: 4px;
-}
-.logout_btn {
-  width: 32px;
-  height: 32px;
-  border-radius: 4px;
-  cursor: pointer;
-  padding: 4px;
-  display: flex;
-  align-items: center;
-  background-color: inherit;
-}
-
-.logout_btn:hover {
-  background-color: var(--third-color);
-  transition-duration: 500ms;
-}
-
-.header_left {
-  display: flex;
-  align-items: center;
-  gap: 40px;
-}
-.hamburgers {
-  width: 30px;
-  height: 30px;
-}
-.hamburger_btn {
-  cursor: pointer;
-  background-color: inherit;
-}
-.hamburger {
-  position: absolute;
-  top: 30px;
-  right: 30px;
-  background-color: #fff;
-  padding: 20px 10px;
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  gap: 10px;
-  border-radius: 10px;
-  z-index: 1;
-}
-
-.hamburger_wrapper {
-  position: relative;
-  display: none;
-}
-
-@media screen and (max-width: 668px) {
+@media screen and (max-width: 768px) {
   .hamburger_wrapper {
     display: block;
   }

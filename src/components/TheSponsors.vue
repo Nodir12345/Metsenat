@@ -181,7 +181,6 @@ const TableItemId = (id) => {
 
 .table_wraper {
   width: 100%;
-  padding: 1rem;
   white-space: nowrap;
   overflow-x: scroll;
 }
@@ -232,7 +231,12 @@ const TableItemId = (id) => {
   width: 24px;
   height: 24px;
   cursor: pointer;
+  margin-left: 40%;
 }
+.content_table tbody td:nth-child(1) {
+  padding: 20px;
+}
+
 
 .content_table tbody td {
   color: rgb(29, 29, 31);

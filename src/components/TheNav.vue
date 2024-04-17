@@ -2,6 +2,8 @@
   <div>
     <div v-if="!isUserRoute && !isUserRouteDemands && !isUserRouteDemandsAdd" class="templete_nav">
       <nav>
+      
+
         <div class="Nav_box">
           <button @click="onSubmitApex()">
             <label class="Nav_checked">
@@ -41,9 +43,14 @@
             </div>
           </form>
 
-          <button @click="onSubmitFilter()" class="filter_btn">
-            <img :src="filter" alt="filter" /> {{ $t('filter') }}
-          </button>
+         
+
+          <TheBaseButtun @click="onSubmitFilter()" :text="$t('filter')" variant="secondary">
+          <template #icon>
+            <img :src="filter" alt="filter" />
+          </template>
+        </TheBaseButtun>
+        
         </div>
       </nav>
 
@@ -156,6 +163,7 @@ import CheckedIcon from '../assets/img/CheckedIcon.png'
 import { useRouter } from 'vue-router'
 import { useRoute } from 'vue-router'
 import axios from 'axios'
+import TheBaseButtun from './TheBaseButtun.vue'
 
 const route = useRoute()
 const router = useRouter()
@@ -478,24 +486,7 @@ const clearFilterValues = () => {
   align-items: center;
   gap: 20px;
 }
-.filter_btn {
-  border-radius: 5px;
-  background-color: rgb(237, 241, 253);
-  color: rgb(51, 101, 252);
-  font-size: 14px;
-  font-weight: 500;
-  line-height: 24px;
-  letter-spacing: -0.35px;
-  padding: 8px 32px;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  cursor: pointer;
-}
-.filter_btn:hover {
-  background-color: var(--third-color);
-  transition-duration: 500ms;
-}
+
 .nav_filter_input {
   border-radius: 5px;
   background: rgb(232, 232, 232);
@@ -583,7 +574,7 @@ const clearFilterValues = () => {
 
 .nav_filter_img {
   position: absolute;
-  top: 8px;
+  top: 13px;
   left: 10px;
 }
 
