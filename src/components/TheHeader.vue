@@ -1,5 +1,5 @@
 <template>
-  <div class="the_header">
+  <header class="the_header">
     <div class="container_header max-w-[1200px] mx-auto py-3 flex items-center justify-between">
       <img :src="logoMetsenat" alt="Logo Metsenat" />
 
@@ -51,7 +51,7 @@
         </button>
       </div>
     </div>
-  </div>
+  </header>
 </template>
 
 <script setup>

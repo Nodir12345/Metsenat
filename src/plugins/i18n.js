@@ -4,7 +4,7 @@ import * as en from '@/languages/en.json'
 import * as ru from '@/languages/ru.json'
 const messages = {
   uz,
-  en: en,
+  en,
   ru
 }
 const i18n = createI18n({

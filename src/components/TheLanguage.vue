@@ -24,13 +24,13 @@ import { useI18n } from 'vue-i18n'
 const { locale } = useI18n()
 
 const locales = ref([
-  { value: 'uz', label: 'Uzb', flagSrc: Uzb },
+  { value: 'uz', label: 'Uz', flagSrc: Uzb },
   { value: 'en', label: 'Eng', flagSrc: Eng },
-  { value: 'ru', label: 'Rus', flagSrc: Rus }
+  { value: 'ru', label: 'Ru', flagSrc: Rus }
 ])
 
 const isOpen = ref(false)
-const selectedLocale = ref({ value: 'uz', label: 'Uzb', flagSrc: Uzb })
+const selectedLocale = ref({ value: 'uz', label: 'Uz', flagSrc: Uzb })
 
 const toggleDropdown = () => {
   isOpen.value = !isOpen.value

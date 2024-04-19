@@ -2,8 +2,6 @@
   <div>
     <div v-if="!isUserRoute && !isUserRouteDemands && !isUserRouteDemandsAdd" class="templete_nav">
       <nav>
-      
-
         <div class="Nav_box">
           <button @click="onSubmitApex()">
             <label class="Nav_checked">
@@ -43,14 +41,11 @@
             </div>
           </form>
 
-         
-
           <TheBaseButtun @click="onSubmitFilter()" :text="$t('filter')" variant="secondary">
-          <template #icon>
-            <img :src="filter" alt="filter" />
-          </template>
-        </TheBaseButtun>
-        
+            <template #icon>
+              <img :src="filter" alt="filter" />
+            </template>
+          </TheBaseButtun>
         </div>
       </nav>
 

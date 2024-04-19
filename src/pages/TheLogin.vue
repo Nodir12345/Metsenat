@@ -4,7 +4,9 @@
     <form @submit.prevent="fetchData" class="login_box">
       <h2 class="login_start">Kirish</h2>
       <div class="login_form">
-        <label class="login_text" for="login">login</label>
+        <label class="text-xs font-semibold leading-[14px] uppercase mb-2 mt-[22px]" for="login"
+          >login</label
+        >
         <input
           required
           minlength="6"
@@ -29,8 +31,9 @@
           :class="{ error: isError }"
         />
       </div>
-    <BaseFormGroup label="wwww">
-      <BaseInput v-model="password">
+
+      <!-- <BaseFormGroup label="parol">
+      <BaseInput v-model="formData.password">
         <template #suffix>
           <img
                 :src=" eye"
@@ -41,9 +44,7 @@
        
       </BaseInput>
 
-    </BaseFormGroup>
-    
-    <pre>{{ password }}</pre>
+    </BaseFormGroup> -->
 
       <VueRecaptcha
         sitekey="6LcIMaYpAAAAANkcV3TejOufRic9HZV4mVdA3hK6"
@@ -68,10 +69,13 @@ import BaseFormGroup from '../components/Form/BaseFormGroup.vue'
 import BaseInput from '../components/Form/BasePasswordInput.vue'
 const password = ref()
 const recaptValid = ref(false)
-const isError = ref(false) 
-watch(()=> password.value, (newValue)=>{
-  console.log(newValue);
-})
+const isError = ref(false)
+watch(
+  () => password.value,
+  (newValue) => {
+    console.log(newValue)
+  }
+)
 
 const verifyMethod = (token) => {
   console.log(token)
@@ -88,10 +92,13 @@ const formData = ref({
 })
 
 function fetchData() {
+  if (!recaptValid.value) {
+    return
+  }
+
   axios
     .post('https://club.metsenat.uz/api/v1/auth/login/', formData.value)
     .then((res) => {
-      console.log('Ishladi', res.data)
       localStorage.setItem('refresh', res.data.refresh)
       localStorage.setItem('access', res.data.access)
       if (recaptValid.value) {
@@ -185,7 +192,7 @@ function fetchData() {
   margin-top: 150px;
 }
 
-.loginlogo{
+.loginlogo {
   margin: 0 30px;
 }
 </style>

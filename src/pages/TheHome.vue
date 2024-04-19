@@ -11,8 +11,6 @@
 </template>
 <script setup>
 import TheNav from '@/components/TheNav.vue'
-import TheHeader from '@/components/TheHeader.vue'
-import TheApex from '@/components/TheApex.vue'
 </script>
 
 <style scoped>

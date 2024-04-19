@@ -1,4 +1,5 @@
 @import './base.css';
+@import './trash.css';
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -11,4 +12,12 @@ a,
 }
 button {
   border: none;
+}
+
+.change_table_red {
+  color: #5babf2 !important;
+}
+
+.change_table_green {
+  color: #ffa445 !important;
 }

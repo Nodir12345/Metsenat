@@ -1,23 +1,22 @@
 <template>
   <div class="table_wrap">
     <div class="space">.</div>
-   
-<div class="add_student_btn">
-  <TheBaseButtun @click="StudentAdd" :text="$t('addStudent')" variant="primary" >
-          <template #icon>
-            <img :src="addBtn" alt="addBtn" />
-          </template>
-        </TheBaseButtun>
-</div>
- 
+
+    <div class="flex justify-end mb-[28px]">
+      <TheBaseButtun @click="StudentAdd" :text="$t('addStudent')" variant="primary">
+        <template #icon>
+          <img :src="addBtn" alt="addBtn" />
+        </template>
+      </TheBaseButtun>
+    </div>
 
     <div></div>
-    <div class="table_wraper">
-      <table class="content_table">
+    <div class="table_wraper w-full whitespace-nowrap overflow-x-auto">
+      <table class="content_table w-full max-w-[1200px] border-separate border-spacing-y-4">
         <thead>
-          <tr>
-            <th>#</th>
-            <th>f.i.sh.</th>
+          <tr class="text-xs text-gray-500 uppercase border-b">
+            <th class="text-start pl-3.5">#</th>
+            <th class="flex ml-5">f.i.sh.</th>
             <th>{{ $t('typeStudent') }}</th>
             <th>{{ $t('OTM') }}</th>
             <th>{{ $t('splitCost') }}</th>
@@ -37,13 +36,24 @@
             v-for="(item, index) in filteredSponsoreList.results"
             :key="index"
             @click.passive="handleTableRowClick(item.id)"
+            class="cursor-pointer hover:bg-gray-100 border border-gray-200 rounded-lg bg-white"
           >
-            <td>{{ index + 1 }}</td>
-            <td>{{ item?.full_name }}</td>
-            <td>{{ item?.phone }}</td>
-            <td>{{ item?.institute?.name.slice(0, 45) }}</td>
-            <td>{{ item?.given }}</td>
-            <td>{{ item?.contract }}</td>
+            <td class="rounded-l pl-3.5">{{ index + 1 }}</td>
+            <td class="py-6 flex ml-5 text-base font-medium leading-6 text-gray-700">
+              {{ item?.full_name }}
+            </td>
+            <td class="text-base font-medium leading-5 text-gray-600 py-6 text-center">
+              {{ item?.phone }}
+            </td>
+            <td class="text-base font-medium leading-5 text-gray-600 py-6 text-center">
+              {{ item?.institute?.name.slice(0, 45) }}
+            </td>
+            <td class="text-base font-medium leading-5 text-gray-600 py-6 text-center">
+              {{ item?.given }}
+            </td>
+            <td class="text-base font-medium leading-5 text-gray-600 py-6 text-center">
+              {{ item?.contract }}
+            </td>
             <td>
               <div class="tbl" @click="handleTblClick($event, item.id)">
                 <div class="cell">
@@ -51,11 +61,12 @@
                 </div>
               </div>
             </td>
-            <td>
+            <td class="rounded-r">
               <img
                 :src="item.imgshow ? eyeBlock : eye"
                 alt="eye"
                 @click="toggleSensitiveData(item)"
+                class="w-6 h-6 cursor-pointer mx-auto"
               />
             </td>
           </tr>
@@ -69,35 +80,165 @@
       </table>
     </div>
 
-    <div class="demands_end">
-      <p>40 tadan 1-{{ params.limit }} {{ $t('seenPage') }}</p>
+    <div class="demands_end flex items-center justify-between max-sm:flex-col max-sm:gap-10">
+      <p class="text-gray-700 text-base font-normal leading-6">
+        40 tadan 1-{{ params.limit }} {{ $t('seenPage') }}
+      </p>
 
-      <div class="wrap_pagination">
-        <div class="pagination_select">
-          <p>{{ $t('seePage') }}</p>
-          <select @change="updateLimit($event.target.value)">
+      <div class="wrap_pagination flex items-center gap-4 max-sm:flex-col max-sm:gap-10">
+        <div class="pagination_select flex items-center gap-2">
+          <p class="text-gray-700 text-base font-normal leading-6">{{ $t('seePage') }}</p>
+          <select
+            @change="updateLimit($event.target.value)"
+            class="text-base text-gray-800 border border-gray-300 rounded px-2 py-1 cursor-pointer focus:out"
+          >
             <option value="5">5</option>
             <option selected value="10">10</option>
             <option value="15">15</option>
           </select>
         </div>
 
-        <div class="pagination">
-          <button @click="featchPrev"><img :src="prev" alt="prevent" /></button>
+        <div class="pagination flex items-center gap-2">
+          <button
+            @click="featchPrev"
+            class="w-8 h-8 flex items-center justify-center border border-gray-300 rounded-sm focus:outline-none bg-white"
+          >
+            <img :src="prev" alt="prevent" />
+          </button>
           <button
             v-for="pageNumber in totalPagesDemands"
             :key="pageNumber"
             @click="goToPage(pageNumber)"
-            class="btn_pagination_num"
+            class="btn_pagination_num w-8 h-8 flex items-center justify-center border border-gray-300 rounded-sm focus:outline-none bg-white cursor-pointer focus:border-blue-500"
           >
             {{ pageNumber }}
           </button>
-          <button @click="featchNext"><img :src="next" alt="next" /></button>
+          <button
+            @click="featchNext"
+            class="w-8 h-8 flex items-center justify-center border border-gray-300 rounded-sm focus:outline-none bg-white cursor-pointer"
+          >
+            <img :src="next" alt="next" />
+          </button>
         </div>
       </div>
     </div>
+    <div class="mt-10 opacity-0">.</div>
   </div>
 </template>
+
+<!-- <template>
+  <div class="table_wrap">
+    <div class="table_wraper w-full whitespace-nowrap overflow-x-auto">
+      <table class="content_table w-full max-w-[1200px] border-separate border-spacing-y-4">
+        <thead>
+          <tr class="text-xs text-gray-500 uppercase border-b">
+            <th class="text-start pl-3.5">#</th>
+            <th class="flex ml-5">{{ $t('fullName') }}</th>
+            <th>{{ $t('tel') }}</th>
+            <th>{{ $t('sponsorCost') }}</th>
+            <th>{{ $t('spendCost') }}</th>
+            <th>{{ $t('data') }}</th>
+            <th>{{ $t('condition') }}</th>
+            <th>{{ $t('deeds') }}</th>
+          </tr>
+        </thead>
+        <tbody
+          v-if="
+            filteredSponsoreList &&
+            filteredSponsoreList.results &&
+            filteredSponsoreList.results.length > 0
+          "
+          class="divide-y"
+        >
+          <tr
+            v-for="(item, index) in filteredSponsoreList.results"
+            :key="index"
+            @click.passive="handleTableRowClick(item.id)"
+            class="cursor-pointer hover:bg-gray-100 border border-gray-200 rounded-lg bg-white"
+          >
+            <td class="rounded-l pl-3.5">{{ index + 1 }}</td>
+            <td class="py-6 flex ml-5 text-base font-medium leading-6 text-gray-700">
+              {{ item?.full_name.slice(0, 19) }}
+            </td>
+            <td class="text-base font-medium leading-5 text-gray-600 py-6 text-center">
+              {{ item?.phone }}
+            </td>
+            <td class="text-base font-medium leading-6 text-gray-700 py-6 text-center">
+              {{ item?.sum }}
+            </td>
+            <td class="text-base font-medium leading-6 text-gray-700 py-6 text-center">
+              {{ item?.spent }}
+            </td>
+            <td class="text-base font-medium leading-5 text-gray-700 py-6 text-center pr-4">
+              {{ item?.created_at.slice(0, 10) }}
+            </td>
+            <td :class="getClass(item)" class="text-base font-medium leading-6 py-6 text-center">
+              {{ item?.get_status_display }}
+            </td>
+            <td class="rounded-r">
+              <img
+                :src="item.imgshow ? eyeBlock : eye"
+                alt="eye"
+                @click="toggleSensitiveData(item)"
+                class="w-6 h-6 cursor-pointer mx-auto"
+              />
+            </td>
+          </tr>
+        </tbody>
+        <tbody v-else>
+          <tr>
+            <td colspan="8" class="p-4">{{ $t('noData') }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="demands_end flex items-center justify-between max-sm:flex-col max-sm:gap-10">
+      <p class="text-gray-700 text-base font-normal leading-6">
+        {{ `40 tadan 1-${params.limit} ${$t('seenPage')}` }}
+      </p>
+
+      <div class="wrap_pagination flex items-center gap-4 max-sm:flex-col max-sm:gap-10">
+        <div class="pagination_select flex items-center gap-2">
+          <p class="text-gray-700 text-base font-normal leading-6">{{ $t('seePage') }}</p>
+          <select
+            @change="updateLimit($event.target.value)"
+            class="text-base text-gray-800 border border-gray-300 rounded px-2 py-1 cursor-pointer focus:out"
+          >
+            <option value="5">5</option>
+            <option selected value="10">10</option>
+            <option value="20">20</option>
+          </select>
+        </div>
+
+        <div class="pagination flex items-center gap-2">
+          <button
+            @click="featchPrev"
+            class="w-8 h-8 flex items-center justify-center border border-gray-300 rounded-sm focus:outline-none bg-white cursor-pointer"
+          >
+            <img :src="prev" alt="prevent" />
+          </button>
+          <template v-for="pageNumber in totalPages" :key="pageNumber">
+            <button
+              @click="goToPage(pageNumber)"
+              class="w-8 h-8 flex items-center justify-center border border-gray-300 rounded-sm focus:outline-none bg-white cursor-pointer focus:border-blue-500"
+            >
+              {{ pageNumber }}
+            </button>
+          </template>
+
+          <button
+            @click="featchNext"
+            class="w-8 h-8 flex items-center justify-center border border-gray-300 rounded-sm focus:outline-none bg-white cursor-pointer"
+          >
+            <img :src="next" alt="next" />
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="mt-10 opacity-0">.</div>
+  </div>
+</template> -->
 
 <script setup>
 import TheTableFetch from '@/composables/TheTableFeach'
@@ -179,262 +320,4 @@ const handleTblClick = (event, id) => {
 }
 </script>
 
-<style scoped>
-.table_wraper {
-  width: 100%;
-  white-space: nowrap;
-  overflow-x: scroll;
-}
-
-.pagination_select > select,
-.pagination_select > select > option {
-  color: rgb(29, 29, 31);
-  font-size: 15px;
-  font-weight: 400;
-  line-height: 22px;
-  letter-spacing: 0px;
-  border: 1px solid rgb(223, 227, 232);
-  border-radius: 4px;
-  padding: 8px 2px;
-  background: rgb(255, 255, 255);
-  cursor: pointer;
-}
-.pagination_select > p {
-  color: rgb(29, 29, 31);
-  font-size: 15px;
-  font-weight: 400;
-  line-height: 22px;
-  letter-spacing: 0px;
-  width: 68px;
-}
-.demands_end > p {
-  color: rgb(29, 29, 31);
-  font-size: 15px;
-  font-weight: 400;
-  line-height: 22px;
-  letter-spacing: 0px;
-}
-
-.pagination_select {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-
-.wrap_pagination {
-  display: flex;
-  align-items: center;
-  gap: 20px;
-}
-
-.demands_end {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.add_student_btn {
-display: flex;
-justify-content: end;
-}
-
-.content_table {
-  width: 100%;
-  max-width: 1200px;
-  border-collapse: separate;
-  border-spacing: 0 1rem;
-}
-.space {
-  opacity: 0;
-}
-.content_table thead tr {
-  color: rgb(177, 177, 184);
-  font-size: 12px;
-  font-weight: 500;
-  line-height: 14px;
-  letter-spacing: 1.13px;
-  text-align: center;
-  text-transform: uppercase;
-  margin-bottom: 12px;
-  border-radius: 8px;
-}
-
-.content_table tbody tr {
-  box-sizing: border-box;
-  border: 1px solid rgba(46, 91, 255, 0.08);
-  border-radius: 8px;
-  background: rgb(255, 255, 255);
-  cursor: pointer;
-}
-.content_table tbody tr:hover {
-  background: rgb(239, 235, 235);
-  transition-duration: 500ms;
-}
-
-.content_table tbody td img {
-  width: 24px;
-  height: 24px;
-  cursor: pointer;
-  margin-left: 40%;
-
-}
-
-.content_table tbody td {
-  color: rgb(29, 29, 31);
-  font-family: Rubik;
-  font-size: 15px;
-  font-weight: 500;
-  line-height: 18px;
-  letter-spacing: 0px;
-  text-align: center;
-  padding: 20px 0;
-}
-.content_table tbody td:nth-child(1) {
-  padding: 20px;
-}
-
-.change_table {
-  color: #5babf2;
-}
-.change_table_red {
-  color: #5babf2 !important;
-}
-
-.change_table_green {
-  color: #ffa445 !important;
-}
-.pagination > button {
-  width: 32px;
-  height: 32px;
-  padding: 10px;
-  border: 1px solid rgb(223, 227, 232);
-  border-radius: 4px;
-  background: rgb(255, 255, 255);
-  cursor: pointer;
-}
-.pagination {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  margin: 0 auto;
-}
-.spaceDemend {
-  margin-top: 50px;
-  opacity: 0;
-}
-.btn_pagination_num:focus {
-  border: 1px solid #3366ff;
-}
-
-.trash {
-  position: relative;
-  display: inline-block;
-  width: 12px;
-  height: 15px;
-  border: 2px solid #000;
-  border-top: 0;
-  border-radius: 0 0 2px 2px;
-  background: none;
-  box-shadow: none;
-  transition: all 0.3s ease;
-}
-.trash:before {
-  content: '';
-  position: absolute;
-  top: -3px;
-  left: -3px;
-  height: 3px;
-  width: 15px;
-  background: #000;
-  border-radius: 2px;
-  transform: rotate(0);
-}
-.trash:after {
-  content: '';
-  position: absolute;
-  top: -4px;
-  left: 1px;
-  width: 7px;
-  height: 2px;
-  background: #000;
-  transform: rotate(0);
-}
-.trash:hover {
-  box-shadow: inset 0 -7px 0 #000;
-}
-.trash:hover:before,
-.trash:hover:after {
-  animation: shake 0.2s linear infinite;
-}
-.trash:active {
-  box-shadow: none;
-  transform: scale(0.75);
-}
-.trash:active:before,
-.trash:active:after {
-  animation: none;
-}
-.tbl {
-  display: table;
-  width: 100%;
-  height: 100%;
-}
-.cell {
-  display: table-cell;
-  vertical-align: middle;
-  text-align: center;
-}
-@-moz-keyframes shake {
-  from {
-    transform: rotate(5deg);
-  }
-  to {
-    transform: rotate(-5deg);
-  }
-}
-@-webkit-keyframes shake {
-  from {
-    transform: rotate(5deg);
-  }
-  to {
-    transform: rotate(-5deg);
-  }
-}
-@-o-keyframes shake {
-  from {
-    transform: rotate(5deg);
-  }
-  to {
-    transform: rotate(-5deg);
-  }
-}
-@keyframes shake {
-  from {
-    transform: rotate(5deg);
-  }
-  to {
-    transform: rotate(-5deg);
-  }
-}
-.bage {
-  position: absolute;
-  top: 30%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  border-radius: 12px;
-  width: 286px;
-  height: 268px;
-  background: rgb(255, 255, 255);
-}
-
-@media screen and (max-width: 568px) {
-  .demands_end {
-    flex-direction: column;
-    gap: 10px;
-  }
-  .wrap_pagination {
-    flex-direction: column;
-    gap: 10px;
-  }
-}
-</style>
+<style scoped></style>
