@@ -1,47 +1,79 @@
 <template>
   <div>
-    <div class="space">space</div>
-    <ul class="cost_wrapper">
-      <li class="cost_box">
+    <div class="mb-[48px] opacity-0">space</div>
+    <ul class="flex justify-between mb-[28px] gap-[10px]">
+      <li
+        class="box-border border-[1px] border-solid border-[rgba(46,91,255,0.08)] rounded-[8px] bg-[rgb(255,_255,_255)] px-[0] py-[24px] pl-[24px] w-full max-w-[381px] flex items-center gap-[16px] [list-style:none]"
+      >
         <img :src="totalPaid" alt="totalPaid" />
         <div class="cost_title_box">
-          <h3 class="cost_title">{{ $t('allCost') }}</h3>
-          <p class="cost_text">{{ sum?.total_paid }} <span class="cost_uzs">UZS</span></p>
+          <h3 class="text-[rgb(122,_122,_157)] text-[12px] font-normal leading-[12px] mb-[6px]">
+            {{ $t('allCost') }}
+          </h3>
+          <p class="cost_text text-[rgb(46,_56,_77)] text-[20px] font-bold leading-[20px]">
+            {{ formattedValues?.totalPaid }}
+            <span
+              class="cost_uzs text-[rgb(178,_183,_193)] text-[20px] font-semibold leading-[20px]"
+              >UZS</span
+            >
+          </p>
         </div>
       </li>
-      <li class="cost_box">
+      <li
+        class="box-border border-[1px] border-solid border-[rgba(46,91,255,0.08)] rounded-[8px] bg-[rgb(255,_255,_255)] px-[0] py-[24px] pl-[24px] w-full max-w-[381px] flex items-center gap-[16px] [list-style:none]"
+      >
         <img :src="resPaid" alt="resPaid" />
         <div class="cost_title_box">
-          <h3 class="cost_title">{{ $t('responseCost') }}</h3>
-          <p class="cost_text">{{ sum?.total_need }} <span class="cost_uzs">UZS</span></p>
+          <h3 class="text-[rgb(122,_122,_157)] text-[12px] font-normal leading-[12px] mb-[6px]">
+            {{ $t('responseCost') }}
+          </h3>
+          <p class="cost_text text-[rgb(46,_56,_77)] text-[20px] font-bold leading-[20px]">
+            {{ formattedValues?.totalNeed }}
+            <span
+              class="cost_uzs text-[rgb(178,_183,_193)] text-[20px] font-semibold leading-[20px]"
+              >UZS</span
+            >
+          </p>
         </div>
       </li>
-      <li class="cost_box">
+      <li
+        class="box-border border-[1px] border-solid border-[rgba(46,91,255,0.08)] rounded-[8px] bg-[rgb(255,_255,_255)] px-[0] py-[24px] pl-[24px] w-full max-w-[381px] flex items-center gap-[16px] [list-style:none]"
+      >
         <img :src="needCost" alt="needCost" />
         <div class="cost_title_box">
-          <h3 class="cost_title">{{ $t('necessaryCost') }}</h3>
-          <p class="cost_text">{{ sum?.total_must_pay }} <span class="cost_uzs">UZS</span></p>
+          <h3 class="text-[rgb(122,_122,_157)] text-[12px] font-normal leading-[12px] mb-[6px]">
+            {{ $t('necessaryCost') }}
+          </h3>
+          <p class="cost_text text-[rgb(46,_56,_77)] text-[20px] font-bold leading-[20px]">
+            {{ formattedValues?.totalMustPay }}
+            <span
+              class="cost_uzs text-[rgb(178,_183,_193)] text-[20px] font-semibold leading-[20px]"
+              >UZS</span
+            >
+          </p>
         </div>
       </li>
     </ul>
-    <div class="apex">
+    <div
+      class="box-border border-[1px] border-solid border-[rgba(46,91,255,0.08)] rounded-[8px] bg-[rgb(255,_255,_255)] px-[10px] py-[24px]"
+    >
       <div id="chart">
         <apexchart type="line" height="350" :options="chartOptions" :series="series"></apexchart>
       </div>
     </div>
-    <div class="spaceButtun">spaceButtun</div>
+    <div class="opacity-0 mt-[106px]">spaceButtun</div>
   </div>
 </template>
 
 <script setup>
 import VueApexCharts from 'vue3-apexcharts'
-import { onBeforeMount, ref } from 'vue'
+import { computed, onBeforeMount, ref } from 'vue'
 import axios from 'axios'
 import { useRoute } from 'vue-router'
 import { useI18n } from 'vue-i18n'
-import totalPaid from '../assets/img/totalPaid.png'
-import resPaid from '../assets/img/cost.png'
-import needCost from '../assets/img/needCost.png'
+import totalPaid from '../assets/img/icons/allRequestCost.svg'
+import resPaid from '../assets/img/icons/requireCost.svg'
+import needCost from '../assets/img/icons/nessasaryCost.svg'
 const { t } = useI18n()
 const series = [
   {
@@ -90,9 +122,7 @@ const chartOptions = {
   colors: ['#FF92AE', '#4C6FFF']
 }
 
-const route = useRoute() // This line should be moved inside the setup() function
-
-const sum = ref()
+const sum = ref(null) // Define a reactive variable to hold the response data
 
 const fetchData = () => {
   axios
@@ -104,82 +134,23 @@ const fetchData = () => {
       console.error('Error fetching data:', error)
     })
 }
+
 onBeforeMount(() => {
   fetchData()
 })
+
+const formattedValues = computed(() => {
+  if (!sum.value) return {} // Return an empty object if sum.value is null or undefined
+
+  // Format each value using toLocaleString()
+  const totalPaid = sum.value.total_paid ? sum.value.total_paid.toLocaleString() : ''
+  const totalNeed = sum.value.total_need ? sum.value.total_need.toLocaleString() : ''
+  const totalMustPay = sum.value.total_must_pay ? sum.value.total_must_pay.toLocaleString() : ''
+
+  return {
+    totalPaid,
+    totalNeed,
+    totalMustPay
+  }
+})
 </script>
-
-<style scoped>
-.apex {
-  box-sizing: border-box;
-  border: 1px solid rgba(46, 91, 255, 0.08);
-  border-radius: 8px;
-  background-color: rgb(255, 255, 255);
-  padding: 24px 10px;
-}
-.cost_box {
-  box-sizing: border-box;
-  border: 1px solid rgba(46, 91, 255, 0.08);
-  border-radius: 8px;
-  background-color: rgb(255, 255, 255);
-  padding: 24px 0;
-  padding-left: 24px;
-  width: 100%;
-  max-width: 381px;
-  display: flex;
-  align-items: center;
-  gap: 16px;
-}
-
-ul,
-li {
-  list-style: none;
-}
-
-.cost_title {
-  color: rgb(122, 122, 157);
-  font-size: 12px;
-  font-weight: 400;
-  line-height: 12px;
-  margin-bottom: 6px;
-}
-.cost_text {
-  color: rgb(46, 56, 77);
-  font-size: 20px;
-  font-weight: 700;
-  line-height: 20px;
-}
-.cost_uzs {
-  color: rgb(178, 183, 193);
-  font-size: 20px;
-  font-weight: 600;
-  line-height: 20px;
-}
-.cost_wrapper {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 28px;
-  gap: 10px;
-}
-.space {
-  margin-bottom: 48px;
-  opacity: 0;
-}
-.spaceButtun {
-  opacity: 0;
-  margin-top: 58px;
-}
-
-@media screen and (max-width: 915px) {
-  .cost_wrapper {
-    flex-direction: column;
-    width: 100%;
-    max-width: 381px;
-    margin: 0 auto;
-    margin-bottom: 39px;
-  }
-  .apex {
-    padding: 24px 0;
-  }
-}
-</style>

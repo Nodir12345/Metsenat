@@ -1,0 +1,22 @@
+.nav_filter_input:focus .search_data {
+  display: block;
+}
+
+.Nav_checked:hover input ~ .checkmark,
+.Nav_checked:hover input ~ .checkmark2,
+.Nav_checked:hover input ~ .checkmark3 {
+  background-color: #ecf0fc;
+}
+.Nav_checked input:checked ~ .checkmark,
+.Nav_checked input:checked ~ .checkmark2,
+.Nav_checked input:checked ~ .checkmark3 {
+  color: white;
+  background-color: var(--main-color);
+  transition-duration: 500ms;
+}
+.filter_checked input:checked ~ .filter {
+  border: 2px solid #2e5bff;
+}
+.filter_checked input:checked ~ .filter > img {
+  display: block;
+}

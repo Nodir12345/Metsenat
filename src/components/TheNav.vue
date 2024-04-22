@@ -1,44 +1,62 @@
 <template>
   <div>
-    <div v-if="!isUserRoute && !isUserRouteDemands && !isUserRouteDemandsAdd" class="templete_nav">
-      <nav>
-        <div class="Nav_box">
+    <div v-if="!isUserRoute && !isUserRouteDemands && !isUserRouteDemandsAdd" class="bg-[#f8f8f8]">
+      <nav
+        class="px-[0] py-[24px] flex items-center justify-between max-w-[1200px] mx-[auto] my-[0]"
+      >
+        <div class="Nav_box flex items-center">
           <button @click="onSubmitApex()">
-            <label class="Nav_checked">
-              <input type="radio" checked="checked" name="radio" />
-              <span class="checkmark"> {{ $t('dashboard') }}</span>
+            <label class="Nav_checked block cursor-pointer">
+              <input class="hidden cursor-pointer" type="radio" checked="checked" name="radio" />
+              <span
+                class="checkmark text-[rgba(51,_102,_255,_0.6)] text-[12px] font-medium leading-[12px] tracking-[1.13px] text-center uppercase border-[2px] border-solid border-[#e0e7ff] rounded-[6px] bg-[white] px-[54px] py-[12px] cursor-pointer rounded-tr-[0%] rounded-br-[0%]"
+              >
+                {{ $t('dashboard') }}</span
+              >
             </label>
           </button>
           <button @click="onSubmitSponsors()" to="/home/apex">
-            <label class="Nav_checked">
-              <input type="radio" name="radio" :checked="isSponsorsRoute" />
-              <span class="checkmark2">{{ $t('sponsors') }}</span>
+            <label class="Nav_checked block cursor-pointer">
+              <input
+                class="hidden cursor-pointer"
+                type="radio"
+                name="radio"
+                :checked="isSponsorsRoute"
+              />
+              <span
+                class="checkmark2 text-[rgba(51,_102,_255,_0.6)] text-[12px] font-medium leading-[12px] tracking-[1.13px] text-center uppercase border-[2px] border-solid border-[#e0e7ff] rounded-[6px] bg-[white] px-[54px] py-[12px] cursor-pointer [border-left:none] [border-right:none] rounded-tr-[0%] rounded-tl-[0%] rounded-bl-[0%] rounded-br-[0%]"
+                >{{ $t('sponsors') }}</span
+              >
             </label>
           </button>
           <button @click="onSubmitDemands()">
-            <label class="Nav_checked">
-              <input type="radio" name="radio" :checked="isDemandsRoute" />
-              <span class="checkmark3">{{ $t('students') }}</span>
+            <label class="Nav_checked block cursor-pointer">
+              <input
+                class="hidden cursor-pointer"
+                type="radio"
+                name="radio"
+                :checked="isDemandsRoute"
+              />
+              <span
+                class="checkmark3 text-[rgba(51,_102,_255,_0.6)] text-[12px] font-medium leading-[12px] tracking-[1.13px] text-center uppercase border-[2px] border-solid border-[#e0e7ff] rounded-[6px] bg-[white] px-[54px] py-[12px] cursor-pointer rounded-tl-[0%] rounded-bl-[0%]"
+                >{{ $t('students') }}</span
+              >
             </label>
           </button>
         </div>
-        <div class="nav_filter">
-          <form class="nav_filter_form">
-            <img class="nav_filter_img" :src="seachIcon" alt="search icon" />
+        <div class="nav_filter flex items-center gap-[20px]">
+          <form class="nav_filter_form relative">
+            <img
+              class="nav_filter_img absolute top-[13px] left-[10px]"
+              :src="seachIcon"
+              alt="search icon"
+            />
             <input
-              class="nav_filter_input"
+              class="nav_filter_input rounded-[5px] bg-[#e8e8e8] px-[0] py-[12px] border-none pl-[38px] w-[280px] text-[#b1b1b8] text-[15px] font-normal leading-[18px] tracking-[0px]"
               type="text"
               :placeholder="$t('search')"
               v-model="searchValue"
             />
-
-            <div class="search_data">
-              <ul>
-                <li v-for="(item, index) of 20" :key="index">
-                  {{ item }}
-                </li>
-              </ul>
-            </div>
           </form>
 
           <TheBaseButtun @click="onSubmitFilter()" :text="$t('filter')" variant="secondary">
@@ -49,61 +67,126 @@
         </div>
       </nav>
 
-      <div class="filter_modal" v-if="showModal">
-        <div class="filter_title_box">
-          <h2 class="filter_title">{{ $t('filter') }}</h2>
-          <button class="clear_btn" @click="clearFilter()"><img :src="clear" alt="clear" /></button>
+      <div
+        class="filter_modal absolute w-full max-w-[586px] left-2/4 top-2/4 rounded-[12px] bg-[white] z-10 -translate-x-1/2 -translate-y-1/2 p-[28px]"
+        v-if="showModal"
+      >
+        <div class="filter_title_box flex items-center justify-between">
+          <h2 class="filter_title text-[#28293d] text-[24px] font-bold leading-[28px]">
+            {{ $t('filter') }}
+          </h2>
+          <button class="clear_btn bg-[#fff] cursor-pointer" @click="clearFilter()">
+            <img :src="clear" alt="clear" />
+          </button>
         </div>
-        <span class="filter_line"> </span>
+        <span class="filter_line border-[2px] border-solid border-[#f5f5f7] block mx-[0] my-[20px]">
+        </span>
 
         <div class="all_filter_box">
           <form>
-            <div class="ariza">
-              <h3>{{ $t('formStatus') }}</h3>
-              <select v-model="arizaHolatiValue" name="holati" id="holati">
-                <option value="all">{{ $t('all') }}</option>
-                <option value="Moderatsiyada">{{ $t('moderate') }}</option>
-                <option value="yangi">{{ $t('new') }}</option>
+            <div class="ariza relative">
+              <h3
+                class="text-[#1d1d1f] text-[12px] font-medium leading-[14px] tracking-[1.13px] uppercase mb-[16px]"
+              >
+                {{ $t('formStatus') }}
+              </h3>
+              <select
+                class="appearance-none border-[1px] border-solid border-[#e0e7ff] rounded-[6px] bg-[rgba(224,_231,_255,_0.2)] w-full p-[12px]"
+                v-model="arizaHolatiValue"
+                name="holati"
+                id="holati"
+              >
+                <option
+                  class="text-[#2e384d] font-[Rubik] text-[14px] font-normal leading-[17px] tracking-[0px] px-[20px] py-[10px]"
+                  value="all"
+                >
+                  {{ $t('all') }}
+                </option>
+                <option
+                  class="text-[#2e384d] font-[Rubik] text-[14px] font-normal leading-[17px] tracking-[0px] px-[20px] py-[10px]"
+                  value="Moderatsiyada"
+                >
+                  {{ $t('moderate') }}
+                </option>
+                <option
+                  class="text-[#2e384d] font-[Rubik] text-[14px] font-normal leading-[17px] tracking-[0px] px-[20px] py-[10px]"
+                  value="yangi"
+                >
+                  {{ $t('new') }}
+                </option>
               </select>
-              <img class="arrowDown" :src="arrowDown" alt="arrowDown" />
-              <img class="arrowTop" :src="arrowTop" alt="arrowTop" />
             </div>
 
-            <div class="middle_filter_box">
-              <h3>{{ $t('sponsorCost') }}</h3>
+            <div class="middle_filter_box mx-[0] my-[28px]">
+              <h3
+                class="text-[#1d1d1f] text-[12px] font-medium leading-[14px] tracking-[1.13px] uppercase mb-[16px]"
+              >
+                {{ $t('sponsorCost') }}
+              </h3>
 
-              <div class="filter_cheked_wrap">
+              <div class="filter_cheked_wrap flex items-center flex-wrap gap-[12px]">
                 <label
                   v-for="(value, index) in homiylikSummasiValues"
                   :key="index"
-                  class="filter_checked"
+                  class="filter_checked block cursor-pointer"
                 >
                   <input
+                    class="hidden cursor-pointer"
                     type="radio"
                     v-model="selectedHomiylikSummasi"
                     :value="value"
                     name="filter"
                   />
-                  <div class="filter">
+                  <div
+                    class="filter border-[2px] border-solid border-[#f5f5f7] block rounded-[5px] bg-[white] text-[#2e384d] text-[14px] font-medium leading-[20px] tracking-[0px] text-left p-[15px] relative w-[123px]"
+                  >
                     {{ value }}
-                    <span class="filter_uzs">Uzs</span>
-                    <img :src="CheckedIcon" alt="CheckedIcon" />
+                    <span
+                      class="filter_uzs text-[#2e5bff] text-[12px] font-normal leading-[20px] tracking-[0px] text-left uppercase"
+                      >Uzs</span
+                    >
+                    <img
+                      class="absolute !-top-[8px] !-right-[5px] hidden"
+                      :src="CheckedIcon"
+                      alt="CheckedIcon"
+                    />
                   </div>
                 </label>
               </div>
             </div>
             <div class="end_filter_box">
-              <h3 class="hhh">{{ $t('data') }}</h3>
-              <div><input type="date" id="appt" name="appt" v-model="sanaValue" /></div>
+              <h3
+                class="hhh text-[#1d1d1f] text-[12px] font-medium leading-[14px] tracking-[1.13px] uppercase mb-[16px]"
+              >
+                {{ $t('data') }}
+              </h3>
+              <div>
+                <input
+                  class="box-border border-[1px] border-solid border-[#e0e7ff] rounded-[6px] bg-[rgba(224,_231,_255,_0.2)] w-[253px] h-[42px] px-[16px] py-[0]"
+                  type="date"
+                  id="appt"
+                  name="appt"
+                  v-model="sanaValue"
+                />
+              </div>
             </div>
-            <span class="filter_line"> </span>
-            <div class="filter_btns_wrapper">
-              <button @click="clearFilterValues" class="filter_btn_clear">
+            <span
+              class="filter_line border-[2px] border-solid border-[#f5f5f7] block mx-[0] my-[20px]"
+            >
+            </span>
+            <div class="filter_btns_wrapper flex items-center gap-[16px]">
+              <button
+                @click="clearFilterValues"
+                class="filter_btn_clear border-[1px] border-solid border-[#b2b7c1] rounded-[5px] text-[#b2b7c1] text-[14px] font-medium leading-[24px] tracking-[-0.35px] px-[32px] py-[9px] flex items-center gap-[5px] cursor-pointer"
+              >
                 <img :src="Tozalash" alt="clearFilter" />
                 {{ $t('clear') }}
               </button>
 
-              <button @click="logFilterValues" class="filter_btn_see">
+              <button
+                @click="logFilterValues"
+                class="filter_btn_see rounded-[5px] [box-shadow:0px_2px_4px_0px_rgba(96,_97,_112,_0.16),_0px_0px_1px_0px_rgba(40,_41,_61,_0.04)] bg-[#36f] text-[white] text-[14px] font-medium leading-[24px] tracking-[-0.35px] flex items-center px-[32px] py-[9px] gap-[8px] cursor-pointer"
+              >
                 <img :src="See" alt="eyeFilter" />
                 {{ $t('seeResult') }}
               </button>
@@ -114,30 +197,57 @@
     </div>
 
     <div v-if="isUserRoute" class="user">
-      <div class="user_nav">
-        <div>
-          <button @click="onSubmitSponsors"><img :src="arrowLeft" alt="arrowLeft" /></button>
-          <h3>{{ user?.data.full_name }}</h3>
-          <span>{{ $t('confirm') }}</span>
+      <div class="user_nav bg-[#f8f8f8]">
+        <div class="max-w-[1200px] mx-[auto] my-[0] flex items-center gap-[15px] px-[0] py-[30px]">
+          <button
+            class="[background-color:inherit] cursor-pointer w-[28px] h-[28px] hover:bg-[#e3e3e3] hover:duration-300 hover:rounded-[3px]"
+            @click="onSubmitSponsors"
+          >
+            <img :src="arrowLeft" alt="arrowLeft" />
+          </button>
+          <h3 class="text-[#28293d] text-[24px] font-bold leading-[28px] tracking-[0%]">
+            {{ user?.data.full_name }}
+          </h3>
+          <span
+            class="rounded-[5px] bg-[#ddfff2] text-[#00cf83] text-[12px] font-normal leading-[14px] tracking-[0px] text-center p-[8px]"
+            >{{ $t('confirm') }}</span
+          >
         </div>
       </div>
     </div>
 
     <div v-if="isUserRouteDemands" class="user">
-      <div class="user_nav">
-        <div>
-          <button @click="onSubmitDemands"><img :src="arrowLeft" alt="arrowLeft" /></button>
-          <h3>{{ stutent?.data.full_name }}</h3>
-          <span>{{ $t('confirm') }}</span>
+      <div class="user_nav bg-[#f8f8f8]">
+        <div class="max-w-[1200px] mx-[auto] my-[0] flex items-center gap-[15px] px-[0] py-[30px]">
+          <button
+            class="[background-color:inherit] cursor-pointer w-[28px] h-[28px] hover:bg-[#e3e3e3] hover:duration-300 hover:rounded-[3px]"
+            @click="onSubmitDemands"
+          >
+            <img :src="arrowLeft" alt="arrowLeft" />
+          </button>
+          <h3 class="text-[#28293d] text-[24px] font-bold leading-[28px] tracking-[0%]">
+            {{ stutent?.data.full_name }}
+          </h3>
+          <span
+            class="rounded-[5px] bg-[#ddfff2] text-[#00cf83] text-[12px] font-normal leading-[14px] tracking-[0px] text-center p-[8px]"
+            >{{ $t('confirm') }}</span
+          >
         </div>
       </div>
     </div>
 
     <div v-if="isUserRouteDemandsAdd" class="user">
-      <div class="user_nav">
-        <div>
-          <button @click="onSubmitDemands"><img :src="arrowLeft" alt="arrowLeft" /></button>
-          <h3>{{ $t('addStudent') }}</h3>
+      <div class="user_nav bg-[#f8f8f8]">
+        <div class="max-w-[1200px] mx-[auto] my-[0] flex items-center gap-[15px] px-[0] py-[30px]">
+          <button
+            class="[background-color:inherit] cursor-pointer w-[28px] h-[28px] hover:bg-[#e3e3e3] hover:duration-300 hover:rounded-[3px]"
+            @click="onSubmitDemands"
+          >
+            <img :src="arrowLeft" alt="arrowLeft" />
+          </button>
+          <h3 class="text-[#28293d] text-[24px] font-bold leading-[28px] tracking-[0%]">
+            {{ $t('addStudent') }}
+          </h3>
         </div>
       </div>
     </div>
@@ -146,14 +256,14 @@
 
 <script setup>
 import { computed, onBeforeMount, onMounted, ref, watch } from 'vue'
-import seachIcon from '../assets/img/searchIcon.png'
-import filter from '../assets/img/filter.png'
+import seachIcon from '../assets/img/icons/search.svg'
+import filter from '../assets/img/icons/filter.svg'
 import arrowLeft from '../assets/img/arrowLeft.png'
 import arrowDown from '../assets/img/arrowDown.png'
 import arrowTop from '../assets/img/arrowTop.png'
-import clear from '../assets/img/clear.png'
-import Tozalash from '../assets/img/clearFilter.png'
-import See from '../assets/img/eyeFilter.png'
+import clear from '../assets/img/icons/clear.svg'
+import Tozalash from '../assets/img/icons/clearFilter.svg'
+import See from '../assets/img/icons/eyeSee.svg'
 import CheckedIcon from '../assets/img/CheckedIcon.png'
 import { useRouter } from 'vue-router'
 import { useRoute } from 'vue-router'
@@ -300,428 +410,4 @@ const clearFilterValues = () => {
 }
 </script>
 
-<style scoped lang="scss">
-.user_nav {
-  background-color: #f8f8f8;
-
-  > div {
-    max-width: 1200px;
-    margin: 0 auto;
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    padding: 30px 0;
-  }
-
-  > div > button {
-    background-color: inherit;
-    cursor: pointer;
-    width: 28px;
-    height: 28px;
-  }
-
-  > div > button:hover {
-    background-color: #e3e3e3;
-    transition-duration: 300ms;
-    border-radius: 3px;
-  }
-
-  > div > span {
-    border-radius: 5px;
-    background-color: rgb(221, 255, 242);
-    color: rgb(0, 207, 131);
-    font-size: 12px;
-    font-weight: 400;
-    line-height: 14px;
-    letter-spacing: 0px;
-    text-align: center;
-    padding: 8px;
-  }
-  > div > h3 {
-    color: rgb(40, 41, 61);
-    font-size: 24px;
-    font-weight: 700;
-    line-height: 28px;
-    letter-spacing: 0%;
-  }
-}
-
-.end_filter_box {
-  > h3 {
-    color: rgb(29, 29, 31);
-    font-size: 12px;
-    font-weight: 500;
-    line-height: 14px;
-    letter-spacing: 1.13px;
-    text-transform: uppercase;
-    margin-bottom: 16px;
-  }
-  > div > input {
-    box-sizing: border-box;
-    border: 1px solid rgb(224, 231, 255);
-    border-radius: 6px;
-    background: rgba(224, 231, 255, 0.2);
-    width: 253px;
-    height: 42px;
-    padding: 0 16px;
-  }
-}
-
-.filter_line {
-  border: 2px solid rgb(245, 245, 247);
-  display: block;
-  margin: 20px 0;
-}
-
-.ariza {
-  position: relative;
-  h3 {
-    color: rgb(29, 29, 31);
-    font-size: 12px;
-    font-weight: 500;
-    line-height: 14px;
-    letter-spacing: 1.13px;
-    text-transform: uppercase;
-    margin-bottom: 16px;
-  }
-
-  img {
-    position: absolute;
-    top: 5px;
-    right: 5px;
-  }
-
-  select {
-    appearance: none;
-    border: 1px solid rgb(224, 231, 255);
-    border-radius: 6px;
-    background: rgba(224, 231, 255, 0.2);
-    width: 100%;
-    padding: 12px;
-  }
-
-  select option {
-    color: rgb(46, 56, 77);
-    font-family: Rubik;
-    font-size: 14px;
-    font-weight: 400;
-    line-height: 17px;
-    letter-spacing: 0px;
-    padding: 10px 20px;
-  }
-
-  .arrowDown {
-    position: absolute;
-    top: 38px;
-    right: 10px;
-    display: block;
-  }
-
-  .ariza:focus-within .arrowDown {
-    display: none;
-  }
-  .arrowTop {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    display: none;
-  }
-
-  .ariza:focus-within .arrowTop {
-    display: block;
-  }
-}
-.filter_title_box {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-
-  .filter_title {
-    color: rgb(40, 41, 61);
-    font-size: 24px;
-    font-weight: 700;
-    line-height: 28px;
-  }
-
-  button {
-    background-color: #fff;
-    cursor: pointer;
-  }
-}
-
-.filter_modal {
-  position: absolute;
-  width: 100%;
-  max-width: 586px;
-  left: 50%;
-  top: 50%;
-  border-radius: 12px;
-  background: rgb(255, 255, 255);
-  z-index: 10;
-  transform: translate(-50%, -50%);
-  padding: 28px;
-
-  .filter {
-    border: 2px solid rgb(245, 245, 247);
-    display: block;
-  }
-}
-.filter_uzs {
-  color: rgb(46, 91, 255);
-  font-size: 12px;
-  font-weight: 400;
-  line-height: 20px;
-  letter-spacing: 0px;
-  text-align: left;
-  text-transform: uppercase;
-}
-
-.nav_filter {
-  display: flex;
-  align-items: center;
-  gap: 20px;
-}
-
-.nav_filter_input {
-  border-radius: 5px;
-  background: rgb(232, 232, 232);
-  padding: 12px 0;
-  border: none;
-  padding-left: 38px;
-  width: 280px;
-}
-
-.nav_filter_input::placeholder {
-  color: rgb(177, 177, 184);
-  font-size: 15px;
-  font-weight: 400;
-  line-height: 18px;
-  letter-spacing: 0px;
-}
-.nav_filter_form {
-  position: relative;
-}
-
-.filter_btn_see {
-  border-radius: 5px;
-  box-shadow:
-    0px 2px 4px 0px rgba(96, 97, 112, 0.16),
-    0px 0px 1px 0px rgba(40, 41, 61, 0.04);
-  background: rgb(51, 102, 255);
-  color: rgb(255, 255, 255);
-  font-size: 14px;
-  font-weight: 500;
-  line-height: 24px;
-  letter-spacing: -0.35px;
-  display: flex;
-  align-items: center;
-  padding: 9px 32px;
-  gap: 8px;
-  cursor: pointer;
-}
-
-.filter_btn_clear {
-  border: 1px solid rgb(178, 183, 193);
-  border-radius: 5px;
-  color: rgb(178, 183, 193);
-  font-size: 14px;
-  font-weight: 500;
-  line-height: 24px;
-  letter-spacing: -0.35px;
-  padding: 9px 32px;
-  display: flex;
-  align-items: center;
-  gap: 5px;
-  cursor: pointer;
-}
-
-.filter_btns_wrapper {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  justify-content: end;
-}
-
-.search_data {
-  border-radius: 5px;
-  background: rgba(255, 255, 255, 0.915);
-  padding: 12px 0;
-  border: none;
-  width: 100%;
-  max-width: 284px;
-  height: 300px;
-  overflow-y: auto;
-  position: absolute;
-  display: none;
-  > ul > li {
-    padding: 20px 8px;
-    list-style: none;
-    cursor: pointer;
-  }
-  > ul > li:hover {
-    background: rgb(239, 233, 233);
-  }
-}
-
-.nav_filter_input:focus + .search_data {
-  display: block;
-}
-
-.nav_filter_img {
-  position: absolute;
-  top: 13px;
-  left: 10px;
-}
-
-.filter_cheked_wrap {
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 12px;
-}
-
-.Nav_checked,
-.filter_checked {
-  display: block;
-  cursor: pointer;
-}
-
-.Nav_checked input,
-.filter_checked input {
-  display: none;
-  cursor: pointer;
-}
-
-.middle_filter_box {
-  margin: 28px 0;
-  > h3 {
-    color: rgb(29, 29, 31);
-    font-size: 12px;
-    font-weight: 500;
-    line-height: 14px;
-    letter-spacing: 1.13px;
-    text-transform: uppercase;
-    margin-bottom: 16px;
-  }
-}
-.filter {
-  border: 1px solid rgb(224, 231, 255);
-  border-radius: 5px;
-  background: rgb(255, 255, 255);
-  color: rgb(46, 56, 77);
-  font-size: 14px;
-  font-weight: 500;
-  line-height: 20px;
-  letter-spacing: 0px;
-  text-align: left;
-  padding: 15px;
-  position: relative;
-  width: 123px;
-  > img {
-    position: absolute;
-    top: -8px !important;
-    right: -5px !important;
-    display: none;
-  }
-}
-
-.checkmark,
-.checkmark2,
-.checkmark3 {
-  color: rgba(51, 102, 255, 0.6);
-  font-size: 12px;
-  font-weight: 500;
-  line-height: 12px;
-  letter-spacing: 1.13px;
-  text-align: center;
-  text-transform: uppercase;
-  border: 2px solid rgb(224, 231, 255);
-  border-radius: 6px;
-  background: rgb(255, 255, 255);
-  padding: 12px 54px;
-  cursor: pointer;
-}
-
-.checkmark {
-  border-top-right-radius: 0%;
-  border-bottom-right-radius: 0%;
-}
-.checkmark2 {
-  border-left: none;
-  border-right: none;
-  border-top-right-radius: 0%;
-  border-top-left-radius: 0%;
-  border-bottom-left-radius: 0%;
-  border-bottom-right-radius: 0%;
-}
-.checkmark3 {
-  border-top-left-radius: 0%;
-  border-bottom-left-radius: 0%;
-}
-
-.Nav_checked:hover input ~ .checkmark,
-.Nav_checked:hover input ~ .checkmark2,
-.Nav_checked:hover input ~ .checkmark3 {
-  background-color: #ecf0fc;
-}
-
-.Nav_checked input:checked ~ .checkmark,
-.Nav_checked input:checked ~ .checkmark2,
-.Nav_checked input:checked ~ .checkmark3 {
-  color: rgb(255, 255, 255);
-  background-color: var(--main-color);
-  transition-duration: 500ms;
-}
-
-.filter_checked input:checked ~ .filter {
-  border: 2px solid rgb(46, 91, 255);
-}
-.filter_checked input:checked ~ .filter > img {
-  display: block;
-}
-
-.Nav_box {
-  display: flex;
-  align-items: center;
-}
-
-nav {
-  padding: 24px 0;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  max-width: 1200px;
-  margin: 0 auto;
-}
-
-.templete_nav {
-  background-color: #f8f8f8;
-}
-
-@media screen and (max-width: 968px) {
-  nav {
-    flex-direction: column;
-    gap: 40px;
-  }
-}
-
-@media screen and (max-width: 568px) {
-  .checkmark,
-  .checkmark2,
-  .checkmark3 {
-    padding: 10px 18px;
-  }
-  .nav_filter {
-    flex-direction: column;
-  }
-}
-
-@media screen and (max-width: 460px) {
-  .filter_btns_wrapper {
-    flex-direction: column;
-  }
-  .filter_cheked_wrap {
-    justify-content: space-between;
-  }
-}
-</style>
+<style scoped lang="scss"></style>

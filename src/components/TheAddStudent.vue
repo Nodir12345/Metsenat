@@ -2,55 +2,105 @@
   <div>
     <form @submit.prevent="handleSubmit">
       <div class="space">.</div>
-      <div class="student_add">
-        <div class="student_add_title">
+      <div
+        class="student_add border-[1px] border-solid border-[#ebeefc] rounded-[12px] [box-shadow:0px_5px_40px_0px_rgba(0,_0,_0,_0.03)] bg-[white] w-full max-w-[790px] p-[28px] mx-[auto] my-[40px] mb-[250px]"
+      >
+        <div class="student_add_title flex items-center justify-between">
           <div>
-            <h3>{{ $t('fullNameSponsor') }}</h3>
-            <input :placeholder="$t('fullNameInput')" type="text" v-model="fullName" />
+            <h3
+              class="text-[#1d1d1f] text-[12px] font-medium leading-[14px] tracking-[1.13px] uppercase mb-[8px]"
+            >
+              {{ $t('fullNameSponsor') }}
+            </h3>
+            <input
+              class="box-border border-[1px] border-solid border-[#e0e7ff] rounded-[6px] bg-[rgba(224,_231,_255,_0.2)] pl-[16px] w-[350px] h-[42px]"
+              :placeholder="$t('fullNameInput')"
+              type="text"
+              v-model="fullName"
+            />
           </div>
           <div>
-            <h3>{{ $t('telSponsor') }}</h3>
-            <input :placeholder="$t('tellInput')" type="number" v-model="phoneNumber" />
+            <h3
+              class="text-[#1d1d1f] text-[12px] font-medium leading-[14px] tracking-[1.13px] uppercase mb-[8px]"
+            >
+              {{ $t('telSponsor') }}
+            </h3>
+            <input
+              class="box-border border-[1px] border-solid border-[#e0e7ff] rounded-[6px] bg-[rgba(224,_231,_255,_0.2)] pl-[16px] w-[350px] h-[42px]"
+              :placeholder="$t('tellInput')"
+              type="number"
+              v-model="phoneNumber"
+            />
           </div>
         </div>
 
-        <div class="student_OTM">
-          <h3>{{ $t('OTM') }}</h3>
-          <select name="OTM" id="OTM" v-model="selectedOTM">
+        <div class="student_OTM mx-[0] my-[28px]">
+          <h3
+            class="text-[#1d1d1f] text-[12px] font-medium leading-[14px] tracking-[1.13px] uppercase mb-[8px]"
+          >
+            {{ $t('OTM') }}
+          </h3>
+          <select
+            class="box-border border-[1px] border-solid border-[#e0e7ff] rounded-[6px] bg-[rgba(224,_231,_255,_0.2)] w-full max-w-[734px] h-[42px] pl-[16px] focus:outline-[none]"
+            name="OTM"
+            id="OTM"
+            v-model="selectedOTM"
+          >
             <option v-for="(institution, index) in OTM" :key="index" :value="institution?.name">
               {{ institution?.name.slice(0, 110) }}
             </option>
           </select>
         </div>
 
-        <div class="student_add_title">
+        <div class="student_add_title flex items-center justify-between">
           <div>
-            <h3>{{ $t('typeStudent') }}</h3>
-            <select name="studentType" id="studentType" v-model="studentType">
+            <h3
+              class="text-[#1d1d1f] text-[12px] font-medium leading-[14px] tracking-[1.13px] uppercase mb-[8px]"
+            >
+              {{ $t('typeStudent') }}
+            </h3>
+            <select
+              class="border-[1px] border-solid border-[#e0e7ff] rounded-[6px] bg-[rgba(224,_231,_255,_0.2)] w-[350px] h-[42px] pl-[16px] focus:outline-[none]"
+              name="studentType"
+              id="studentType"
+              v-model="studentType"
+            >
               <option :value="1">{{ $t('grand') }}</option>
               <option :value="2">{{ $t('contract') }}</option>
             </select>
           </div>
           <div>
-            <h3>{{ $t('contractCost') }}</h3>
-            <input :placeholder="$t('enterCost')" type="number" v-model="summa" />
+            <h3
+              class="text-[#1d1d1f] text-[12px] font-medium leading-[14px] tracking-[1.13px] uppercase mb-[8px]"
+            >
+              {{ $t('contractCost') }}
+            </h3>
+            <input
+              class="box-border border-[1px] border-solid border-[#e0e7ff] rounded-[6px] bg-[rgba(224,_231,_255,_0.2)] pl-[16px] w-[350px] h-[42px]"
+              :placeholder="$t('enterCost')"
+              type="number"
+              v-model="summa"
+            />
           </div>
         </div>
-        <div class="line"></div>
+        <div class="border-[1.5px] border-solid border-[#f5f5f7] block mt-[27px] mb-[29px]"></div>
         <Toast />
-        <button class="add_student_btn" type="submit">
+        <button
+          class="add_student_btn rounded-[5px] bg-[#36f] px-[32px] py-[9px] flex items-center text-[white] text-[14px] font-medium leading-[24px] tracking-[-0.35px] gap-[10px] ml-auto mb-[20px] mt-[20px] cursor-pointer"
+          type="submit"
+        >
           <img :src="addBtn" alt="addBtn" />{{ $t('add') }}
         </button>
       </div>
     </form>
-    <div class="space">.</div>
+    <div class="opacity-0">.</div>
   </div>
 </template>
 
 <script setup>
 import axios from 'axios'
 import { onBeforeMount, ref, watch } from 'vue'
-import addBtn from '../assets/img/addBtn.png'
+import addBtn from '../assets/img/icons/add.svg'
 import Toast from 'primevue/toast'
 import { useToast } from 'primevue/usetoast'
 const toast = useToast()
@@ -120,143 +170,3 @@ const handleSubmit = () => {
   summa.value = ''
 }
 </script>
-
-<style lang="scss" scoped>
-.student_add {
-  border: 1px solid rgb(235, 238, 252);
-  border-radius: 12px;
-  box-shadow: 0px 5px 40px 0px rgba(0, 0, 0, 0.03);
-  background: rgb(255, 255, 255);
-  width: 100%;
-  max-width: 790px;
-  padding: 28px;
-  margin: 40px auto;
-  margin-bottom: 250px;
-}
-
-.student_add_title {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-
-  > div > h3 {
-    color: rgb(29, 29, 31);
-    font-size: 12px;
-    font-weight: 500;
-    line-height: 14px;
-    letter-spacing: 1.13px;
-    text-transform: uppercase;
-    margin-bottom: 8px;
-  }
-
-  > div > input {
-    box-sizing: border-box;
-    border: 1px solid rgb(224, 231, 255);
-    border-radius: 6px;
-    background: rgba(224, 231, 255, 0.2);
-    padding-left: 16px;
-    width: 350px;
-    height: 42px;
-  }
-  > div > select {
-    border: 1px solid rgb(224, 231, 255);
-    border-radius: 6px;
-    background: rgba(224, 231, 255, 0.2);
-    width: 350px;
-    height: 42px;
-    padding-left: 16px;
-  }
-  > div > select:focus {
-    outline: none;
-  }
-}
-
-.student_OTM {
-  margin: 28px 0;
-  > select {
-    box-sizing: border-box;
-    border: 1px solid rgb(224, 231, 255);
-    border-radius: 6px;
-    background: rgba(224, 231, 255, 0.2);
-    width: 100%;
-    max-width: 734px;
-    height: 42px;
-    padding-left: 16px;
-  }
-  > select:focus {
-    outline: none;
-  }
-  > h3 {
-    color: rgb(29, 29, 31);
-    font-size: 12px;
-    font-weight: 500;
-    line-height: 14px;
-    letter-spacing: 1.13px;
-    text-transform: uppercase;
-    margin-bottom: 8px;
-  }
-}
-.line {
-  border: 1.5px solid rgb(245, 245, 247);
-  display: block;
-  margin-top: 27px;
-  margin-bottom: 29px;
-}
-.add_student_btn {
-  border-radius: 5px;
-  background: rgb(51, 102, 255);
-  padding: 9px 32px;
-  display: flex;
-  align-items: center;
-  color: rgb(255, 255, 255);
-  font-size: 14px;
-  font-weight: 500;
-  line-height: 24px;
-  letter-spacing: -0.35px;
-  gap: 4px;
-  margin-left: auto;
-  margin-bottom: 20px;
-  margin-top: 20px;
-  cursor: pointer;
-}
-.space {
-  opacity: 0;
-}
-
-@media screen and (max-width: 776px) {
-  .student_add_title {
-    > div > input {
-      width: 240px;
-      height: 42px;
-    }
-    > div > select {
-      width: 250px;
-    }
-  }
-}
-
-@media screen and (max-width: 543px) {
-  .student_add_title {
-    flex-direction: column;
-    gap: 15px;
-    > div > input {
-      width: 250px;
-      height: 42px;
-    }
-    > div > select {
-      width: 250px;
-    }
-  }
-
-  .student_OTM {
-    margin: 15px auto;
-    width: 250px;
-    > select {
-      height: 42px;
-    }
-  }
-  .student_add {
-    padding: 24px 5px;
-  }
-}
-</style>

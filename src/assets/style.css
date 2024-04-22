@@ -1,5 +1,7 @@
 @import './base.css';
 @import './trash.css';
+@import './media.css';
+@import './radio.css';
 @tailwind base;
 @tailwind components;
 @tailwind utilities;

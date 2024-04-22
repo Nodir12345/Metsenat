@@ -55,10 +55,10 @@
 </template>
 
 <script setup>
-import logoMetsenat from '../assets/img/logoMetsenat.png'
+import logoMetsenat from '../assets/img/icons/metsenat.svg'
 import userIcon from '../assets/img/userStaticIcon.svg'
 import Hamburger from '../assets/img/hamburger.svg'
-import logOut from '../assets/img/logOut.png'
+import logOut from '../assets/img/icons/logOut.svg'
 import Language from './TheLanguage.vue'
 import { ref } from 'vue'
 const removeValue = () => {
@@ -68,13 +68,3 @@ const removeValue = () => {
 }
 const hamburgerShow = ref(false)
 </script>
-<style scoped>
-@media screen and (max-width: 768px) {
-  .hamburger_wrapper {
-    display: block;
-  }
-  .header_left {
-    display: none;
-  }
-}
-</style>

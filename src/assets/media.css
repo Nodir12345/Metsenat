@@ -1,0 +1,81 @@
+/* ////Header */
+
+@media screen and (max-width: 768px) {
+  .hamburger_wrapper {
+    display: block;
+  }
+  .header_left {
+    display: none;
+  }
+}
+
+/* ///Nav */
+
+@media screen and (max-width: 968px) {
+  nav {
+    flex-direction: column;
+    gap: 40px;
+  }
+}
+@media screen and (max-width: 568px) {
+  .checkmark,
+  .checkmark2,
+  .checkmark3 {
+    padding: 10px 18px;
+  }
+  .nav_filter {
+    flex-direction: column;
+  }
+}
+@media screen and (max-width: 460px) {
+  .filter_btns_wrapper {
+    flex-direction: column;
+  }
+  .filter_cheked_wrap {
+    justify-content: space-between;
+  }
+}
+
+/* ///apex */
+
+@media screen and (max-width: 915px) {
+  .cost_wrapper {
+    flex-direction: column;
+    width: 100%;
+    max-width: 381px;
+    margin: 0 auto;
+    margin-bottom: 39px;
+  }
+  .apex {
+    padding: 24px 0;
+  }
+}
+
+/* ///childDemands */
+
+@media screen and (max-width: 576px) {
+  .otm_end {
+    flex-direction: column;
+    text-align: left;
+    gap: 25px;
+  }
+  .student_type {
+    width: 300px;
+  }
+  .user_end {
+    width: 300px;
+  }
+}
+
+@media screen and (max-width: 405px) {
+  .user_about > h2 {
+    color: rgb(40, 41, 61);
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 18px;
+  }
+
+  .user_box {
+    padding: 30px 15px;
+  }
+}
